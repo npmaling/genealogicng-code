@@ -1,6 +1,6 @@
 /*
 -- Copyright 2023 N. P. Maling
--- 
+--
 -- Licensed under the Apache License, Version 2.0 (the "License");
 -- you may not use this file except in compliance with the License.
 -- You may obtain a copy of the License at
@@ -17,9 +17,9 @@
 use crate::structs::dbtables::{
     Activity, AssertAssert, CharPart, CharPartType, Characteristic, CitationPart, CitationPartType,
     Event, EventType, EventTypeRole, GlAssertion, GlGroup, GlGroupType, GlGroupTypeRole, Persona,
-    Place, PlacePart, PlacePartType, Project, Repository, ReprMediaType, RepresentType,
+    Place, PlacePart, PlacePartType, Project, RepoSource, Repository, ReprMediaType, RepresentType,
     Representation, ResObjActivity, ResObjective, ResProj, Researcher, Search, Source, SourceGroup,
-    SrcGrpSrc, SuretyPart, SuretyScheme, RepoSource
+    SrcGrpSrc, SuretyPart, SuretyScheme,
 };
 use rusqlite::{params, Connection, Result};
 
@@ -1500,7 +1500,7 @@ fn main() -> Result<()> {
         rsactivityid: 1,
         callnumber: "Repository Source Call Number".to_string(),
         description: "Repository Source Description One".to_string(),
-};
+    };
 
     let pp_b = RepoSource {
         reposourceid: 2,
@@ -1509,7 +1509,7 @@ fn main() -> Result<()> {
         rsactivityid: 2,
         callnumber: "Repository Source Call Number".to_string(),
         description: "Repository Source Description Two".to_string(),
-};
+    };
 
     let pp_c = RepoSource {
         reposourceid: 3,
@@ -1518,7 +1518,7 @@ fn main() -> Result<()> {
         rsactivityid: 3,
         callnumber: "Repository Source Call Number".to_string(),
         description: "Repository Source Description Three".to_string(),
-};
+    };
 
     let pp_d = RepoSource {
         reposourceid: 4,
@@ -1527,7 +1527,7 @@ fn main() -> Result<()> {
         rsactivityid: 4,
         callnumber: "Repository Source Call Number".to_string(),
         description: "Repository Source Description Four".to_string(),
-};
+    };
 
     let app = structs::dbtables::RepoSource::create_reposource(pp_a);
 
