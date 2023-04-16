@@ -2015,7 +2015,7 @@ pub mod dbtables {
             }: ReprMediaType,
         ) -> String {
             let parameters = format!(
-                "UPDATE reprmediatype SET reprmediatypeid={}, reprmedianame=\"{}\" WHERE reprmediaid={}",
+                "UPDATE reprmediatype SET reprmediaid={}, reprmedianame=\"{}\" WHERE reprmediaid={}",
                 reprmediaid.to_string(),
                 reprmedianame,
                 reprmediaid.to_string(),
@@ -2215,7 +2215,7 @@ pub mod dbtables {
                 repositoryid.to_string(),
                 searchedfor,
             );
-            println!("This is create_search: {}", parameters);
+            // println!("This is create_search: {}", parameters);
             parameters
         }
 
@@ -2232,7 +2232,7 @@ pub mod dbtables {
                 "SELECT * FROM search WHERE searchid={}",
                 searchid.to_string(),
             );
-            println!("This is read_search: {}", parameters);
+            // println!("This is read_search: {}", parameters);
             parameters
         }
 
@@ -2254,7 +2254,7 @@ pub mod dbtables {
                 searchedfor,
                 searchid.to_string(),
             );
-            println!("This is update_search: {}", parameters);
+            // println!("This is update_search: {}", parameters);
             parameters
         }
 
@@ -2268,7 +2268,7 @@ pub mod dbtables {
             }: Search,
         ) -> String {
             let parameters = format!("DELETE FROM search WHERE searchid={}", searchid.to_string(),);
-            println!("This is delete_search: {}", parameters);
+            // println!("This is delete_search: {}", parameters);
             parameters
         }
     }
@@ -2450,7 +2450,7 @@ pub mod dbtables {
                 eventtypeid.to_string(),
                 eventtyperolename,
             );
-            println!("This is create_eventtyperole: {}", parameters);
+            // println!("This is create_eventtyperole: {}", parameters);
             parameters
         }
 
@@ -2465,7 +2465,7 @@ pub mod dbtables {
                 "SELECT * FROM eventtyperole WHERE eventtyperoleid={}",
                 eventtyperoleid.to_string(),
             );
-            println!("This is read_eventtyperole: {}", parameters);
+            // println!("This is read_eventtyperole: {}", parameters);
             parameters
         }
 
@@ -2483,7 +2483,7 @@ pub mod dbtables {
                 eventtyperolename,
                 eventtyperoleid.to_string(),
             );
-            println!("This is update_eventtyperole: {}", parameters);
+            // println!("This is update_eventtyperole: {}", parameters);
             parameters
         }
 
@@ -2498,7 +2498,7 @@ pub mod dbtables {
                 "DELETE FROM eventtyperole WHERE eventtyperoleid={}",
                 eventtyperoleid.to_string(),
             );
-            println!("This is delete_eventtyperole: {}", parameters);
+            // println!("This is delete_eventtyperole: {}", parameters);
             parameters
         }
     }
@@ -2524,7 +2524,7 @@ pub mod dbtables {
             glgroupname,
             ascdescnone,
         );
-            println!("This is create_glgrouptype: {}", parameters);
+            // println!("This is create_glgrouptype: {}", parameters);
             parameters
         }
 
@@ -2539,7 +2539,7 @@ pub mod dbtables {
                 "SELECT * FROM glgrouptype WHERE glgrouptypeid={}",
                 glgrouptypeid.to_string(),
             );
-            println!("This is read_glgrouptype: {}", parameters);
+            // println!("This is read_glgrouptype: {}", parameters);
             parameters
         }
 
@@ -2557,7 +2557,7 @@ pub mod dbtables {
             ascdescnone,
             glgrouptypeid.to_string(),
         );
-            println!("This is update_glgrouptype: {}", parameters);
+            // println!("This is update_glgrouptype: {}", parameters);
             parameters
         }
 
@@ -2572,7 +2572,7 @@ pub mod dbtables {
                 "DELETE FROM glgrouptype WHERE glgrouptypeid={}",
                 glgrouptypeid.to_string(),
             );
-            println!("This is delete_glgrouptype: {}", parameters);
+            // println!("This is delete_glgrouptype: {}", parameters);
             parameters
         }
     }
@@ -2607,7 +2607,7 @@ pub mod dbtables {
             glgroupname,
             glgroupcriteria,
         );
-            println!("This is create_glgroup: {}", parameters);
+            // println!("This is create_glgroup: {}", parameters);
             parameters
         }
 
@@ -2625,7 +2625,7 @@ pub mod dbtables {
                 "SELECT * FROM glgroup WHERE glgroupid={}",
                 glgroupid.to_string(),
             );
-            println!("This is read_glgroup: {}", parameters);
+            // println!("This is read_glgroup: {}", parameters);
             parameters
         }
 
@@ -2649,7 +2649,7 @@ pub mod dbtables {
             glgroupcriteria,
             glgroupid.to_string(),
         );
-            println!("This is update_glgroup: {}", parameters);
+            // println!("This is update_glgroup: {}", parameters);
             parameters
         }
 
@@ -2667,7 +2667,7 @@ pub mod dbtables {
                 "DELETE FROM glgroup WHERE glgroupid={}",
                 glgroupid.to_string(),
             );
-            println!("This is delete_glgroup: {}", parameters);
+            // println!("This is delete_glgroup: {}", parameters);
             parameters
         }
     }
@@ -2697,7 +2697,7 @@ pub mod dbtables {
             glgrouptypename,
             sequencenumber.to_string(),
         );
-            println!("This is create_glgrouptyperole: {}", parameters);
+            // println!("This is create_glgrouptyperole: {}", parameters);
             parameters
         }
 
@@ -2713,7 +2713,7 @@ pub mod dbtables {
                 "SELECT * FROM glgrouptyperole WHERE glgrouptyperoleid={}",
                 glgrouptyperoleid.to_string(),
             );
-            println!("This is read_glgrouptyperole: {}", parameters);
+            // println!("This is read_glgrouptyperole: {}", parameters);
             parameters
         }
 
@@ -2733,7 +2733,7 @@ pub mod dbtables {
             sequencenumber.to_string(),
             glgrouptyperoleid.to_string(),
         );
-            println!("This is update_glgrouptyperole: {}", parameters);
+            // println!("This is update_glgrouptyperole: {}", parameters);
             parameters
         }
 
@@ -2749,7 +2749,7 @@ pub mod dbtables {
                 "DELETE FROM glgrouptyperole WHERE glgrouptyperoleid={}",
                 glgrouptyperoleid.to_string(),
             );
-            println!("This is delete_glgrouptyperole: {}", parameters);
+            // println!("This is delete_glgrouptyperole: {}", parameters);
             parameters
         }
     }
@@ -2784,7 +2784,7 @@ pub mod dbtables {
             callnumber,
             description,
         );
-            println!("This is create_reposource: {}", parameters);
+            // println!("This is create_reposource: {}", parameters);
             parameters
         }
 
@@ -2802,7 +2802,7 @@ pub mod dbtables {
                 "SELECT * FROM reposource WHERE reposourceid={}",
                 reposourceid.to_string(),
             );
-            println!("This is read_reposource: {}", parameters);
+            // println!("This is read_reposource: {}", parameters);
             parameters
         }
 
@@ -2826,7 +2826,7 @@ pub mod dbtables {
             description,
             reposourceid.to_string(),
         );
-            println!("This is update_reposource: {}", parameters);
+            // println!("This is update_reposource: {}", parameters);
             parameters
         }
 
@@ -2844,7 +2844,7 @@ pub mod dbtables {
                 "DELETE FROM reposource WHERE reposourceid={}",
                 reposourceid.to_string(),
             );
-            println!("This is delete_reposource: {}", parameters);
+            // println!("This is delete_reposource: {}", parameters);
             parameters
         }
     }
