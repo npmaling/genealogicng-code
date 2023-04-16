@@ -131,7 +131,7 @@ pub mod dbtables {
             }: Activity,
         ) -> String {
             let parameters = format!(
-                "DELETE FROM activity WHERE personaid={}",
+                "DELETE FROM activity WHERE activityid={}",
                 &activityid.to_string(),
             );
             parameters
@@ -2726,7 +2726,7 @@ pub mod dbtables {
             }: GlGroupTypeRole,
         ) -> String {
             let parameters = format!(
-            "UPDATE glgrouptyperole SET glgrouptyperoleid={}, glgrouptypeid={}, glgroupname=\"{}\", sequencenumber={} WHERE glgrouptyperoleid={}",
+            "UPDATE glgrouptyperole SET glgrouptyperoleid={}, glgrouptypeid={}, glgrouptypename=\"{}\", sequencenumber={} WHERE glgrouptyperoleid={}",
             glgrouptyperoleid.to_string(),
             glgrouptypeid.to_string(),
             glgrouptypename,
