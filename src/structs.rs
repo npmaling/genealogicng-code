@@ -231,7 +231,7 @@ pub mod dbtables {
             }: Place,
         ) -> String {
             let parameters = format!(
-                "INSERT INTO Place (placeid, startdate, enddate, ascdescnone, placecomment) VALUES ({}, \"{}\", \"{}\", \"{}\", \"{}\")",
+                "INSERT INTO place (placeid, startdate, enddate, ascdescnone, placecomment) VALUES ({}, \"{}\", \"{}\", \"{}\", \"{}\")",
                 &placeid.to_string(),
                 &startdate,
                 &enddate,
@@ -251,7 +251,7 @@ pub mod dbtables {
                 placecomment,
             }: Place,
         ) -> String {
-            let parameters = format!("SELECT * FROM Place WHERE placeid={}", &placeid.to_string());
+            let parameters = format!("SELECT * FROM place WHERE placeid={}", &placeid.to_string());
             // println!("This is read_place: {}", parameters);
             parameters
         }
@@ -2850,3 +2850,4 @@ pub mod dbtables {
     }
 
 }
+
