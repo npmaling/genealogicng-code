@@ -1,10 +1,8 @@
 use crate::structs::dbtables::Place;
 use super::*;
 
-
 #[cfg(test)]
 mod tests {
-
     #[test]
     fn test_create_place() {
         let place = Place {
