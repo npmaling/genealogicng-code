@@ -14,10 +14,13 @@
 -- limitations under the License.
 */
 
+use crate::place::Place;
+mod place;
+
 use crate::structs::dbtables::{
     Activity, AssertAssert, CharPart, CharPartType, Characteristic, CitationPart, CitationPartType,
     Event, EventType, EventTypeRole, GlAssertion, GlGroup, GlGroupType, GlGroupTypeRole, Persona,
-    Place, PlacePart, PlacePartType, Project, RepoSource, Repository, ReprMediaType, RepresentType,
+    PlacePart, PlacePartType, Project, RepoSource, Repository, ReprMediaType, RepresentType,
     Representation, ResObjActivity, ResObjective, ResProj, Researcher, Search, Source, SourceGroup,
     SrcGrpSrc, SuretyPart, SuretyScheme,
 };
@@ -39,7 +42,7 @@ fn main() -> Result<()> {
         placecomment: "First Place".to_string(),
     };
 
-    let aplace = structs::dbtables::Place::create_place(place_a);
+    let aplace = Place::create_place(place_a);
 
     dbstring(&conn, aplace);
 
@@ -51,7 +54,7 @@ fn main() -> Result<()> {
         placecomment: "First Place".to_string(),
     };
 
-    let bplace = structs::dbtables::Place::read_place(place_b);
+    let bplace = Place::read_place(place_b);
 
     dbstring(&conn, bplace);
 
@@ -63,7 +66,7 @@ fn main() -> Result<()> {
         placecomment: "Second Place".to_string(),
     };
 
-    let cplace = structs::dbtables::Place::update_place(place_c);
+    let cplace = Place::update_place(place_c);
 
     dbstring(&conn, cplace);
 
@@ -75,7 +78,7 @@ fn main() -> Result<()> {
         placecomment: "Second Place".to_string(),
     };
 
-    let dplace = structs::dbtables::Place::delete_place(place_d);
+    let dplace = Place::delete_place(place_d);
 
     dbstring(&conn, dplace);
 

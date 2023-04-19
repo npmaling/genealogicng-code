@@ -1,2 +1,6 @@
-# genealogicng-code
-A genealogy program based on the GenTech data model. Initial development on the database started April 2023. Planning docs and SQL info are in another repository here.
+# genealogicng
+A genealogy program based on the GenTech Genealogical Data Model. Initial development on the database started April 2023. Planning docs and SQL info are in another repository here on GitHub.
+
+## Contributions
+
+Contributions are welcome.

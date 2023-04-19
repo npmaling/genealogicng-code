@@ -211,6 +211,7 @@ pub mod dbtables {
         }
     }
 
+/* 
     #[derive(Debug)]
     pub(crate) struct Place {
         pub placeid: i64,
@@ -277,7 +278,6 @@ pub mod dbtables {
             // println!("This is update_place: {}", parameters);
             parameters
         }
-
         pub fn delete_place(
             Place {
                 placeid,
@@ -292,6 +292,7 @@ pub mod dbtables {
             parameters
         }
     }
+ */
 
     #[derive(Debug)]
     pub(crate) struct PlacePartType {
