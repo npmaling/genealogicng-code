@@ -99,7 +99,7 @@ impl Place {
 #[cfg(test)]
 mod tests {
 
-    use super::Place;
+    use super::*;
 
     #[test]
     fn test_create_place() {
