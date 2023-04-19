@@ -14,19 +14,109 @@
 -- limitations under the License.
 */
 
+use crate::activity::Activity;
+mod activity;
+
+use crate::assertassert::AssertAssert;
+mod assertassert;
+
+use crate::characteristic::Characteristic;
+mod characteristic;
+
+use crate::charpart::CharPart;
+mod charpart;
+
+use crate::charparttype::CharPartType;
+mod charparttype;
+
+use crate::citationpart::CitationPart;
+mod citationpart;
+
+use crate::citationparttype::CitationPartType;
+mod citationparttype;
+
+use crate::event::Event;
+mod event;
+
+use crate::eventtype::EventType;
+mod eventtype;
+
+use crate::eventtyperole::EventTypeRole;
+mod eventtyperole;
+
+use crate::glassertion::GlAssertion;
+mod glassertion;
+
+use crate::glgroup::GlGroup;
+mod glgroup;
+
+use crate::glgrouptype::GlGroupType;
+mod glgrouptype;
+
+use crate::glgrouptyperole::GlGroupTypeRole;
+mod glgrouptyperole;
+
+use crate::persona::Persona;
+mod persona;
+
 use crate::place::Place;
 mod place;
 
-use crate::structs::dbtables::{
-    Activity, AssertAssert, CharPart, CharPartType, Characteristic, CitationPart, CitationPartType,
-    Event, EventType, EventTypeRole, GlAssertion, GlGroup, GlGroupType, GlGroupTypeRole, Persona,
-    PlacePart, PlacePartType, Project, RepoSource, Repository, ReprMediaType, RepresentType,
-    Representation, ResObjActivity, ResObjective, ResProj, Researcher, Search, Source, SourceGroup,
-    SrcGrpSrc, SuretyPart, SuretyScheme,
-};
-use rusqlite::{params, Connection, Result};
+use crate::placepart::PlacePart;
+mod placepart;
 
-mod structs;
+use crate::placeparttype::PlacePartType;
+mod placeparttype;
+
+use crate::project::Project;
+mod project;
+
+use crate::researcher::Researcher;
+mod researcher;
+
+use crate::repository::Repository;
+mod repository;
+
+use crate::reposource::RepoSource;
+mod reposource;
+
+use crate::representation::Representation;
+mod representation;
+
+use crate::representtype::RepresentType;
+mod representtype;
+
+use crate::reprmediatype::ReprMediaType;
+mod reprmediatype;
+
+use crate::resobjactivity::ResObjActivity;
+mod resobjactivity;
+
+use crate::resobjective::ResObjective;
+mod resobjective;
+
+use crate::resproj::ResProj;
+mod resproj;
+
+use crate::search::Search;
+mod search;
+
+use crate::source::Source;
+mod source;
+
+use crate::sourcegroup::SourceGroup;
+mod sourcegroup;
+
+use crate::srcgrpsrc::SrcGrpSrc;
+mod srcgrpsrc;
+
+use crate::suretyscheme::SuretyScheme;
+mod suretyscheme;
+
+use crate::suretypart::SuretyPart;
+mod suretypart;
+
+use rusqlite::{params, Connection, Result};
 
 fn main() -> Result<()> {
     let path = "C:/Users/npmal/projects/genealogicng-code/glNG.db";
@@ -89,7 +179,7 @@ fn main() -> Result<()> {
         pptname: "Second Part".to_string(),
     };
 
-    let appt = structs::dbtables::PlacePartType::create_placeparttype(ppt_a);
+    let appt = PlacePartType::create_placeparttype(ppt_a);
 
     dbstring(&conn, appt);
 
@@ -98,7 +188,7 @@ fn main() -> Result<()> {
         pptname: "Second Part".to_string(),
     };
 
-    let bppt = structs::dbtables::PlacePartType::read_placeparttype(ppt_b);
+    let bppt = PlacePartType::read_placeparttype(ppt_b);
 
     dbstring(&conn, bppt);
 
@@ -107,7 +197,7 @@ fn main() -> Result<()> {
         pptname: "Third Part".to_string(),
     };
 
-    let cppt = structs::dbtables::PlacePartType::update_placeparttype(ppt_c);
+    let cppt = PlacePartType::update_placeparttype(ppt_c);
 
     dbstring(&conn, cppt);
 
@@ -116,7 +206,7 @@ fn main() -> Result<()> {
         pptname: "Third Part".to_string(),
     };
 
-    let dppt = structs::dbtables::PlacePartType::delete_placeparttype(ppt_d);
+    let dppt = PlacePartType::delete_placeparttype(ppt_d);
 
     dbstring(&conn, dppt);
 
@@ -130,7 +220,7 @@ fn main() -> Result<()> {
         sequencenumber: 16,
     };
 
-    let appt = structs::dbtables::PlacePart::create_placepart(pp_a);
+    let appt = PlacePart::create_placepart(pp_a);
 
     dbstring(&conn, appt);
 
@@ -142,7 +232,7 @@ fn main() -> Result<()> {
         sequencenumber: 16,
     };
 
-    let bpp = structs::dbtables::PlacePart::read_placepart(pp_b);
+    let bpp = PlacePart::read_placepart(pp_b);
 
     dbstring(&conn, bpp);
 
@@ -154,7 +244,7 @@ fn main() -> Result<()> {
         sequencenumber: 16,
     };
 
-    let cpp = structs::dbtables::PlacePart::update_placepart(pp_c);
+    let cpp = PlacePart::update_placepart(pp_c);
 
     dbstring(&conn, cpp);
 
@@ -166,7 +256,7 @@ fn main() -> Result<()> {
         sequencenumber: 16,
     };
 
-    let dpp = structs::dbtables::PlacePart::delete_placepart(pp_d);
+    let dpp = PlacePart::delete_placepart(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -200,19 +290,19 @@ fn main() -> Result<()> {
         ascdescnone: "Place Part Four".to_string(),
     };
 
-    let app = structs::dbtables::Characteristic::create_characteristic(pp_a);
+    let app = Characteristic::create_characteristic(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::Characteristic::read_characteristic(pp_b);
+    let bpp = Characteristic::read_characteristic(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::Characteristic::update_characteristic(pp_c);
+    let cpp = Characteristic::update_characteristic(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::Characteristic::delete_characteristic(pp_d);
+    let dpp = Characteristic::delete_characteristic(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -242,19 +332,19 @@ fn main() -> Result<()> {
         gedcomtag: "Place Part Four".to_string(),
     };
 
-    let app = structs::dbtables::CharPartType::create_charparttype(pp_a);
+    let app = CharPartType::create_charparttype(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::CharPartType::read_charparttype(pp_b);
+    let bpp = CharPartType::read_charparttype(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::CharPartType::update_charparttype(pp_c);
+    let cpp = CharPartType::update_charparttype(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::CharPartType::delete_charparttype(pp_d);
+    let dpp = CharPartType::delete_charparttype(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -292,19 +382,19 @@ fn main() -> Result<()> {
         charpartseq: 16,
     };
 
-    let app = structs::dbtables::CharPart::create_charpart(pp_a);
+    let app = CharPart::create_charpart(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::CharPart::read_charpart(pp_b);
+    let bpp = CharPart::read_charpart(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::CharPart::update_charpart(pp_c);
+    let cpp = CharPart::update_charpart(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::CharPart::delete_charpart(pp_d);
+    let dpp = CharPart::delete_charpart(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -338,19 +428,19 @@ fn main() -> Result<()> {
         clientdata: "Client Data".to_string(),
     };
 
-    let app = structs::dbtables::Project::create_project(pp_a);
+    let app = Project::create_project(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::Project::read_project(pp_b);
+    let bpp = Project::read_project(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::Project::update_project(pp_c);
+    let cpp = Project::update_project(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::Project::delete_project(pp_d);
+    let dpp = Project::delete_project(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -384,19 +474,19 @@ fn main() -> Result<()> {
         comments: "Repository Comment Data".to_string(),
     };
 
-    let app = structs::dbtables::Repository::create_repository(pp_a);
+    let app = Repository::create_repository(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::Repository::read_repository(pp_b);
+    let bpp = Repository::read_repository(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::Repository::update_repository(pp_c);
+    let cpp = Repository::update_repository(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::Repository::delete_repository(pp_d);
+    let dpp = Repository::delete_repository(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -450,19 +540,19 @@ fn main() -> Result<()> {
         status: "Status 4".to_string(),
     };
 
-    let app = structs::dbtables::ResObjective::create_resobjective(pp_a);
+    let app = ResObjective::create_resobjective(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::ResObjective::read_resobjective(pp_b);
+    let bpp = ResObjective::read_resobjective(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::ResObjective::update_resobjective(pp_c);
+    let cpp = ResObjective::update_resobjective(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::ResObjective::delete_resobjective(pp_d);
+    let dpp = ResObjective::delete_resobjective(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -492,19 +582,19 @@ fn main() -> Result<()> {
         activityid: 12,
     };
 
-    let app = structs::dbtables::ResObjActivity::create_resobjactivity(pp_a);
+    let app = ResObjActivity::create_resobjactivity(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::ResObjActivity::read_resobjactivity(pp_b);
+    let bpp = ResObjActivity::read_resobjactivity(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::ResObjActivity::update_resobjactivity(pp_c);
+    let cpp = ResObjActivity::update_resobjactivity(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::ResObjActivity::delete_resobjactivity(pp_d);
+    let dpp = ResObjActivity::delete_resobjactivity(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -538,19 +628,19 @@ fn main() -> Result<()> {
         comments: "Researcher Comment Four".to_string(),
     };
 
-    let app = structs::dbtables::Researcher::create_researcher(pp_a);
+    let app = Researcher::create_researcher(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::Researcher::read_researcher(pp_b);
+    let bpp = Researcher::read_researcher(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::Researcher::update_researcher(pp_c);
+    let cpp = Researcher::update_researcher(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::Researcher::delete_researcher(pp_d);
+    let dpp = Researcher::delete_researcher(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -584,19 +674,19 @@ fn main() -> Result<()> {
         researcherrole: "Researcher Role Note Four".to_string(),
     };
 
-    let app = structs::dbtables::ResProj::create_resproj(pp_a);
+    let app = ResProj::create_resproj(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::ResProj::read_resproj(pp_b);
+    let bpp = ResProj::read_resproj(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::ResProj::update_resproj(pp_c);
+    let cpp = ResProj::update_resproj(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::ResProj::delete_resproj(pp_d);
+    let dpp = ResProj::delete_resproj(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -642,19 +732,19 @@ fn main() -> Result<()> {
         comments: "Source Comments Four".to_string(),
     };
 
-    let app = structs::dbtables::Source::create_source(pp_a);
+    let app = Source::create_source(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::Source::read_source(pp_b);
+    let bpp = Source::read_source(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::Source::update_source(pp_c);
+    let cpp = Source::update_source(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::Source::delete_source(pp_d);
+    let dpp = Source::delete_source(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -680,19 +770,19 @@ fn main() -> Result<()> {
         sourcegroupname: "Source Group Name One".to_string(),
     };
 
-    let app = structs::dbtables::SourceGroup::create_sourcegroup(pp_a);
+    let app = SourceGroup::create_sourcegroup(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::SourceGroup::read_sourcegroup(pp_b);
+    let bpp = SourceGroup::read_sourcegroup(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::SourceGroup::update_sourcegroup(pp_c);
+    let cpp = SourceGroup::update_sourcegroup(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::SourceGroup::delete_sourcegroup(pp_d);
+    let dpp = SourceGroup::delete_sourcegroup(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -722,19 +812,19 @@ fn main() -> Result<()> {
         sourcegroupid: 4,
     };
 
-    let app = structs::dbtables::SrcGrpSrc::create_srcgrpsrc(pp_a);
+    let app = SrcGrpSrc::create_srcgrpsrc(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::SrcGrpSrc::read_srcgrpsrc(pp_b);
+    let bpp = SrcGrpSrc::read_srcgrpsrc(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::SrcGrpSrc::update_srcgrpsrc(pp_c);
+    let cpp = SrcGrpSrc::update_srcgrpsrc(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::SrcGrpSrc::delete_srcgrpsrc(pp_d);
+    let dpp = SrcGrpSrc::delete_srcgrpsrc(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -760,19 +850,19 @@ fn main() -> Result<()> {
         citationparttypename: "Source Group Name Four".to_string(),
     };
 
-    let app = structs::dbtables::CitationPartType::create_citationparttype(pp_a);
+    let app = CitationPartType::create_citationparttype(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::CitationPartType::read_citationparttype(pp_b);
+    let bpp = CitationPartType::read_citationparttype(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::CitationPartType::update_citationparttype(pp_c);
+    let cpp = CitationPartType::update_citationparttype(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::CitationPartType::delete_citationparttype(pp_d);
+    let dpp = CitationPartType::delete_citationparttype(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -806,19 +896,19 @@ fn main() -> Result<()> {
         citepartvalue: "Citation Part Four".to_string(),
     };
 
-    let app = structs::dbtables::CitationPart::create_citationpart(pp_a);
+    let app = CitationPart::create_citationpart(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::CitationPart::read_citationpart(pp_b);
+    let bpp = CitationPart::read_citationpart(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::CitationPart::update_citationpart(pp_c);
+    let cpp = CitationPart::update_citationpart(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::CitationPart::delete_citationpart(pp_d);
+    let dpp = CitationPart::delete_citationpart(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -848,19 +938,19 @@ fn main() -> Result<()> {
         description: "Description of Surety Scheme Four".to_string(),
     };
 
-    let app = structs::dbtables::SuretyScheme::create_suretyscheme(pp_a);
+    let app = SuretyScheme::create_suretyscheme(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::SuretyScheme::read_suretyscheme(pp_b);
+    let bpp = SuretyScheme::read_suretyscheme(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::SuretyScheme::update_suretyscheme(pp_c);
+    let cpp = SuretyScheme::update_suretyscheme(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::SuretyScheme::delete_suretyscheme(pp_d);
+    let dpp = SuretyScheme::delete_suretyscheme(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -898,19 +988,19 @@ fn main() -> Result<()> {
         sequencenumber: 4,
     };
 
-    let app = structs::dbtables::SuretyPart::create_suretypart(pp_a);
+    let app = SuretyPart::create_suretypart(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::SuretyPart::read_suretypart(pp_b);
+    let bpp = SuretyPart::read_suretypart(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::SuretyPart::update_suretypart(pp_c);
+    let cpp = SuretyPart::update_suretypart(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::SuretyPart::delete_suretypart(pp_d);
+    let dpp = SuretyPart::delete_suretypart(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -972,19 +1062,19 @@ fn main() -> Result<()> {
         rationale: "GlAssertion Four".to_string(),
     };
 
-    let app = structs::dbtables::GlAssertion::create_glassertion(pp_a);
+    let app = GlAssertion::create_glassertion(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::GlAssertion::read_glassertion(pp_b);
+    let bpp = GlAssertion::read_glassertion(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::GlAssertion::update_glassertion(pp_c);
+    let cpp = GlAssertion::update_glassertion(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::GlAssertion::delete_glassertion(pp_d);
+    let dpp = GlAssertion::delete_glassertion(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -1018,19 +1108,19 @@ fn main() -> Result<()> {
         seq: 4,
     };
 
-    let app = structs::dbtables::AssertAssert::create_assertassert(pp_a);
+    let app = AssertAssert::create_assertassert(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::AssertAssert::read_assertassert(pp_b);
+    let bpp = AssertAssert::read_assertassert(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::AssertAssert::update_assertassert(pp_c);
+    let cpp = AssertAssert::update_assertassert(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::AssertAssert::delete_assertassert(pp_d);
+    let dpp = AssertAssert::delete_assertassert(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -1056,19 +1146,19 @@ fn main() -> Result<()> {
         reprmedianame: "Representative Media Type Name Four".to_string(),
     };
 
-    let app = structs::dbtables::ReprMediaType::create_reprmediatype(pp_a);
+    let app = ReprMediaType::create_reprmediatype(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::ReprMediaType::read_reprmediatype(pp_b);
+    let bpp = ReprMediaType::read_reprmediatype(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::ReprMediaType::update_reprmediatype(pp_c);
+    let cpp = ReprMediaType::update_reprmediatype(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::ReprMediaType::delete_reprmediatype(pp_d);
+    let dpp = ReprMediaType::delete_reprmediatype(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -1094,19 +1184,19 @@ fn main() -> Result<()> {
         name: "Represent Name Four".to_string(),
     };
 
-    let app = structs::dbtables::RepresentType::create_representtype(pp_a);
+    let app = RepresentType::create_representtype(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::RepresentType::read_representtype(pp_b);
+    let bpp = RepresentType::read_representtype(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::RepresentType::update_representtype(pp_c);
+    let cpp = RepresentType::update_representtype(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::RepresentType::delete_representtype(pp_d);
+    let dpp = RepresentType::delete_representtype(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -1152,19 +1242,19 @@ fn main() -> Result<()> {
         externallink: "External Link Four".to_string(),
     };
 
-    let app = structs::dbtables::Representation::create_representation(pp_a);
+    let app = Representation::create_representation(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::Representation::read_representation(pp_b);
+    let bpp = Representation::read_representation(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::Representation::update_representation(pp_c);
+    let cpp = Representation::update_representation(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::Representation::delete_representation(pp_d);
+    let dpp = Representation::delete_representation(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -1202,19 +1292,19 @@ fn main() -> Result<()> {
         searchedfor: "Searched For Four".to_string(),
     };
 
-    let app = structs::dbtables::Search::create_search(pp_a);
+    let app = Search::create_search(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::Search::read_search(pp_b);
+    let bpp = Search::read_search(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::Search::update_search(pp_c);
+    let cpp = Search::update_search(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::Search::delete_search(pp_d);
+    let dpp = Search::delete_search(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -1244,19 +1334,19 @@ fn main() -> Result<()> {
         gedcomtag: "GEDCOM Tag Four".to_string(),
     };
 
-    let app = structs::dbtables::EventType::create_eventtype(pp_a);
+    let app = EventType::create_eventtype(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::EventType::read_eventtype(pp_b);
+    let bpp = EventType::read_eventtype(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::EventType::update_eventtype(pp_c);
+    let cpp = EventType::update_eventtype(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::EventType::delete_eventtype(pp_d);
+    let dpp = EventType::delete_eventtype(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -1294,19 +1384,19 @@ fn main() -> Result<()> {
         eventname: "Event Name Four".to_string(),
     };
 
-    let app = structs::dbtables::Event::create_event(pp_a);
+    let app = Event::create_event(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::Event::read_event(pp_b);
+    let bpp = Event::read_event(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::Event::update_event(pp_c);
+    let cpp = Event::update_event(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::Event::delete_event(pp_d);
+    let dpp = Event::delete_event(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -1336,19 +1426,19 @@ fn main() -> Result<()> {
         eventtyperolename: "Event Type Role Name Four".to_string(),
     };
 
-    let app = structs::dbtables::EventTypeRole::create_eventtyperole(pp_a);
+    let app = EventTypeRole::create_eventtyperole(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::EventTypeRole::read_eventtyperole(pp_b);
+    let bpp = EventTypeRole::read_eventtyperole(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::EventTypeRole::update_eventtyperole(pp_c);
+    let cpp = EventTypeRole::update_eventtyperole(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::EventTypeRole::delete_eventtyperole(pp_d);
+    let dpp = EventTypeRole::delete_eventtyperole(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -1378,19 +1468,19 @@ fn main() -> Result<()> {
         ascdescnone: "Asc".to_string(),
     };
 
-    let app = structs::dbtables::GlGroupType::create_glgrouptype(pp_a);
+    let app = GlGroupType::create_glgrouptype(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::GlGroupType::read_glgrouptype(pp_b);
+    let bpp = GlGroupType::read_glgrouptype(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::GlGroupType::update_glgrouptype(pp_c);
+    let cpp = GlGroupType::update_glgrouptype(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::GlGroupType::delete_glgrouptype(pp_d);
+    let dpp = GlGroupType::delete_glgrouptype(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -1432,19 +1522,19 @@ fn main() -> Result<()> {
         glgroupcriteria: "Gl Group Criteria One".to_string(),
     };
 
-    let app = structs::dbtables::GlGroup::create_glgroup(pp_a);
+    let app = GlGroup::create_glgroup(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::GlGroup::read_glgroup(pp_b);
+    let bpp = GlGroup::read_glgroup(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::GlGroup::update_glgroup(pp_c);
+    let cpp = GlGroup::update_glgroup(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::GlGroup::delete_glgroup(pp_d);
+    let dpp = GlGroup::delete_glgroup(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -1478,19 +1568,19 @@ fn main() -> Result<()> {
         sequencenumber: 4,
     };
 
-    let app = structs::dbtables::GlGroupTypeRole::create_glgrouptyperole(pp_a);
+    let app = GlGroupTypeRole::create_glgrouptyperole(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::GlGroupTypeRole::read_glgrouptyperole(pp_b);
+    let bpp = GlGroupTypeRole::read_glgrouptyperole(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::GlGroupTypeRole::update_glgrouptyperole(pp_c);
+    let cpp = GlGroupTypeRole::update_glgrouptyperole(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::GlGroupTypeRole::delete_glgrouptyperole(pp_d);
+    let dpp = GlGroupTypeRole::delete_glgrouptyperole(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -1532,19 +1622,19 @@ fn main() -> Result<()> {
         description: "Repository Source Description Four".to_string(),
     };
 
-    let app = structs::dbtables::RepoSource::create_reposource(pp_a);
+    let app = RepoSource::create_reposource(pp_a);
 
     dbstring(&conn, app);
 
-    let bpp = structs::dbtables::RepoSource::read_reposource(pp_b);
+    let bpp = RepoSource::read_reposource(pp_b);
 
     dbstring(&conn, bpp);
 
-    let cpp = structs::dbtables::RepoSource::update_reposource(pp_c);
+    let cpp = RepoSource::update_reposource(pp_c);
 
     dbstring(&conn, cpp);
 
-    let dpp = structs::dbtables::RepoSource::delete_reposource(pp_d);
+    let dpp = RepoSource::delete_reposource(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -1556,7 +1646,7 @@ fn main() -> Result<()> {
         description_comments: "A Sixteenth persona has been created.".to_string(),
     };
 
-    let aname = structs::dbtables::Persona::create_persona(person_a);
+    let aname = Persona::create_persona(person_a);
 
     let person_b = Persona {
         personaid: 17,
@@ -1564,7 +1654,7 @@ fn main() -> Result<()> {
         description_comments: "A Seventeenth persona has been created.".to_string(),
     };
 
-    let bname: String = structs::dbtables::Persona::update_persona(person_b);
+    let bname: String = Persona::update_persona(person_b);
 
     let person_c = Persona {
         personaid: 18,
@@ -1572,7 +1662,7 @@ fn main() -> Result<()> {
         description_comments: "A Eighteenth persona has been created.".to_string(),
     };
 
-    let cname: String = structs::dbtables::Persona::delete_persona(person_c);
+    let cname: String = Persona::delete_persona(person_c);
 
     let person_d = Persona {
         personaid: 19,
@@ -1580,7 +1670,7 @@ fn main() -> Result<()> {
         description_comments: "A Nineteenth persona has been created.".to_string(),
     };
 
-    let dname: String = structs::dbtables::Persona::read_persona(person_d);
+    let dname: String = Persona::read_persona(person_d);
 
     dbstring(&conn, aname);
 
@@ -1623,7 +1713,7 @@ fn main() -> Result<()> {
         comments: "These are comments".to_string(),
     };
 
-    let aactivity: String = structs::dbtables::Activity::create_activity(activity_a);
+    let aactivity: String = Activity::create_activity(activity_a);
 
     let activity_b = Activity {
         activityid: 2,
@@ -1638,7 +1728,7 @@ fn main() -> Result<()> {
         comments: "These are more comments".to_string(),
     };
 
-    let bactivity: String = structs::dbtables::Activity::read_activity(activity_b);
+    let bactivity: String = Activity::read_activity(activity_b);
 
     let activity_c = Activity {
         activityid: 1,
@@ -1653,7 +1743,7 @@ fn main() -> Result<()> {
         comments: "These are another set of comments".to_string(),
     };
 
-    let cactivity: String = structs::dbtables::Activity::update_activity(activity_c);
+    let cactivity: String = Activity::update_activity(activity_c);
 
     dbstring(&conn, aactivity);
 
