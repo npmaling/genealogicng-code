@@ -17,24 +17,6 @@
 use crate::activity::Activity;
 mod activity;
 
-use crate::assertassert::AssertAssert;
-mod assertassert;
-
-use crate::characteristic::Characteristic;
-mod characteristic;
-
-use crate::charpart::CharPart;
-mod charpart;
-
-use crate::charparttype::CharPartType;
-mod charparttype;
-
-use crate::citationpart::CitationPart;
-mod citationpart;
-
-use crate::citationparttype::CitationPartType;
-mod citationparttype;
-
 use crate::event::Event;
 mod event;
 
@@ -257,144 +239,6 @@ fn main() -> Result<()> {
     };
 
     let dpp = PlacePart::delete_placepart(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = Characteristic {
-        characteristicid: 1,
-        placeid: 2,
-        characteristicdate: "20230402".to_string(),
-        ascdescnone: "Place Part One".to_string(),
-    };
-
-    let pp_b = Characteristic {
-        characteristicid: 3,
-        placeid: 4,
-        characteristicdate: "20230403".to_string(),
-        ascdescnone: "Place Part Two".to_string(),
-    };
-
-    let pp_c = Characteristic {
-        characteristicid: 5,
-        placeid: 6,
-        characteristicdate: "20230404".to_string(),
-        ascdescnone: "Place Part Three".to_string(),
-    };
-
-    let pp_d = Characteristic {
-        characteristicid: 7,
-        placeid: 8,
-        characteristicdate: "20230405".to_string(),
-        ascdescnone: "Place Part Four".to_string(),
-    };
-
-    let app = Characteristic::create_characteristic(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = Characteristic::read_characteristic(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = Characteristic::update_characteristic(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = Characteristic::delete_characteristic(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = CharPartType {
-        charparttypeid: 1,
-        charparttypename: "20230403".to_string(),
-        gedcomtag: "Place Part One".to_string(),
-    };
-
-    let pp_b = CharPartType {
-        charparttypeid: 3,
-        charparttypename: "20230405".to_string(),
-        gedcomtag: "Place Part Two".to_string(),
-    };
-
-    let pp_c = CharPartType {
-        charparttypeid: 3,
-        charparttypename: "20230407".to_string(),
-        gedcomtag: "Place Part Three".to_string(),
-    };
-
-    let pp_d = CharPartType {
-        charparttypeid: 7,
-        charparttypename: "20230409".to_string(),
-        gedcomtag: "Place Part Four".to_string(),
-    };
-
-    let app = CharPartType::create_charparttype(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = CharPartType::read_charparttype(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = CharPartType::update_charparttype(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = CharPartType::delete_charparttype(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = CharPart {
-        characteristicpartid: 1,
-        characteristicid: 2,
-        charparttypeid: 3,
-        charpartname: "Characteristic Part Name".to_string(),
-        charpartseq: 4,
-    };
-
-    let pp_b = CharPart {
-        characteristicpartid: 5,
-        characteristicid: 6,
-        charparttypeid: 7,
-        charpartname: "Characteristic Part Name".to_string(),
-        charpartseq: 8,
-    };
-
-    let pp_c = CharPart {
-        characteristicpartid: 9,
-        characteristicid: 10,
-        charparttypeid: 11,
-        charpartname: "Characteristic Part Name".to_string(),
-        charpartseq: 12,
-    };
-
-    let pp_d = CharPart {
-        characteristicpartid: 13,
-        characteristicid: 14,
-        charparttypeid: 15,
-        charpartname: "Characteristic Part Name".to_string(),
-        charpartseq: 16,
-    };
-
-    let app = CharPart::create_charpart(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = CharPart::read_charpart(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = CharPart::update_charpart(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = CharPart::delete_charpart(pp_d);
 
     dbstring(&conn, dpp);
 
@@ -830,87 +674,7 @@ fn main() -> Result<()> {
 
     /* ------------------------------------------------------------------------- */
 
-    let pp_a = CitationPartType {
-        citationparttypeid: 1,
-        citationparttypename: "Source Group Name One".to_string(),
-    };
-
-    let pp_b = CitationPartType {
-        citationparttypeid: 2,
-        citationparttypename: "Source Group Name Two".to_string(),
-    };
-
-    let pp_c = CitationPartType {
-        citationparttypeid: 3,
-        citationparttypename: "Source Group Name Three".to_string(),
-    };
-
-    let pp_d = CitationPartType {
-        citationparttypeid: 4,
-        citationparttypename: "Source Group Name Four".to_string(),
-    };
-
-    let app = CitationPartType::create_citationparttype(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = CitationPartType::read_citationparttype(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = CitationPartType::update_citationparttype(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = CitationPartType::delete_citationparttype(pp_d);
-
-    dbstring(&conn, dpp);
-
     /* ------------------------------------------------------------------------- */
-
-    let pp_a = CitationPart {
-        citationpartid: 1,
-        sourceid: 1,
-        citeparttypeid: 1,
-        citepartvalue: "Citation Part One".to_string(),
-    };
-
-    let pp_b = CitationPart {
-        citationpartid: 2,
-        sourceid: 2,
-        citeparttypeid: 2,
-        citepartvalue: "Citation Part Two".to_string(),
-    };
-
-    let pp_c = CitationPart {
-        citationpartid: 3,
-        sourceid: 3,
-        citeparttypeid: 3,
-        citepartvalue: "Citation Part Three".to_string(),
-    };
-
-    let pp_d = CitationPart {
-        citationpartid: 4,
-        sourceid: 4,
-        citeparttypeid: 4,
-        citepartvalue: "Citation Part Four".to_string(),
-    };
-
-    let app = CitationPart::create_citationpart(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = CitationPart::read_citationpart(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = CitationPart::update_citationpart(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = CitationPart::delete_citationpart(pp_d);
-
-    dbstring(&conn, dpp);
 
     /* ------------------------------------------------------------------------- */
 
@@ -1079,50 +843,6 @@ fn main() -> Result<()> {
     dbstring(&conn, dpp);
 
     /* ------------------------------------------------------------------------- */
-
-    let pp_a = AssertAssert {
-        assertassertid: 1,
-        idlo: 1,
-        idhi: 1,
-        seq: 1,
-    };
-
-    let pp_b = AssertAssert {
-        assertassertid: 2,
-        idlo: 2,
-        idhi: 2,
-        seq: 2,
-    };
-
-    let pp_c = AssertAssert {
-        assertassertid: 3,
-        idlo: 3,
-        idhi: 3,
-        seq: 3,
-    };
-
-    let pp_d = AssertAssert {
-        assertassertid: 4,
-        idlo: 4,
-        idhi: 4,
-        seq: 4,
-    };
-
-    let app = AssertAssert::create_assertassert(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = AssertAssert::read_assertassert(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = AssertAssert::update_assertassert(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = AssertAssert::delete_assertassert(pp_d);
-
-    dbstring(&conn, dpp);
 
     /* ------------------------------------------------------------------------- */
 
@@ -1773,4 +1493,3 @@ fn main() -> Result<()> {
 
     Ok(())
 }
-

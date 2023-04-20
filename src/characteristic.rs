@@ -79,3 +79,57 @@ impl Characteristic {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_characteristic() {
+        let characteristic = Characteristic {
+            characteristicid: 1,
+            placeid: 2,
+            characteristicdate: String::from("2021-01-01"),
+            ascdescnone: String::from("asc"),
+        };
+        let expected_query = "INSERT INTO characteristic (characteristicid, placeid, characteristicdate, ascdescnone) VALUES (1, 2, \"2021-01-01\", \"asc\")";
+        assert_eq!(Characteristic::create_characteristic(characteristic), expected_query);
+    }
+
+    #[test]
+    fn test_read_characteristic() {
+        let characteristic = Characteristic {
+            characteristicid: 1,
+            placeid: 1,
+            characteristicdate: String::from("2021-01-01"),
+            ascdescnone: String::from("none"),
+        };
+        let expected_query = "SELECT * FROM characteristic WHERE characteristicid=1";
+        assert_eq!(Characteristic::read_characteristic(characteristic), expected_query);
+    }
+
+    #[test]
+    fn test_update_characteristic() {
+        let characteristic = Characteristic {
+            characteristicid: 1,
+            placeid: 1,
+            characteristicdate: String::from("2021-01-01"),
+            ascdescnone: String::from("none"),
+        };
+        let expected_query = "UPDATE characteristic SET characteristicid=1, placeid=1, characteristicdate=2021-01-01, ascdescnone=\"none\" WHERE characteristicid=1";
+        assert_eq!(Characteristic::update_characteristic(characteristic), expected_query);
+    }
+
+    #[test]
+    fn test_delete_characteristic() {
+        let characteristic = Characteristic {
+            characteristicid: 1,
+            placeid: 1,
+            characteristicdate: String::from("2021-01-01"),
+            ascdescnone: String::from("none"),
+        };
+        let expected_query = "DELETE FROM characteristic WHERE characteristicid=1";
+        assert_eq!(Characteristic::delete_characteristic(characteristic), expected_query);
+    }
+
+}
+

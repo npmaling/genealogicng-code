@@ -71,3 +71,53 @@ impl CharPartType {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_charparttype() {
+        let charparttype = CharPartType {
+            charparttypeid: 1,
+            charparttypename: String::from("Test name"),
+            gedcomtag: String::from("Test tag"),
+        };
+        let expected_query = "INSERT INTO charparttype (charparttypeid, charparttypename, gedcomtag) VALUES (1, \"Test name\", \"Test tag\")";
+        assert_eq!(CharPartType::create_charparttype(charparttype), expected_query);
+    }
+
+    #[test]
+    fn test_read_charparttype() {
+        let charparttype = CharPartType {
+            charparttypeid: 1,
+            charparttypename: String::from("Test charparttype"),
+            gedcomtag: String::from("TAG"),
+        };
+        let expected_query = "SELECT * FROM charparttype WHERE charparttypeid=1";
+        assert_eq!(CharPartType::read_charparttype(charparttype), expected_query);
+    }
+
+    #[test]
+    fn test_update_charparttype() {
+        let charparttype = CharPartType {
+            charparttypeid: 1,
+            charparttypename: String::from("Test charparttypename"),
+            gedcomtag: String::from("Test gedcomtag"),
+        };
+        let expected_query = "UPDATE charparttype SET charparttypeid=1, charparttypename=\"Test charparttypename\", gedcomtag=\"Test gedcomtag\" WHERE charparttypeid=1";
+        assert_eq!(CharPartType::update_charparttype(charparttype), expected_query);
+    }
+
+    #[test]
+    fn test_delete_charparttype() {
+        let charparttype = CharPartType {
+            charparttypeid: 1,
+            charparttypename: String::from("Test"),
+            gedcomtag: String::from("TST"),
+        };
+        let expected_query = "DELETE FROM charparttype WHERE charparttypeid=1";
+        assert_eq!(CharPartType::delete_charparttype(charparttype), expected_query);
+    }
+
+}

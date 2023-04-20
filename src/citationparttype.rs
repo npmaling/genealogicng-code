@@ -65,3 +65,49 @@ impl CitationPartType {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_citationparttype() {
+        let citation_part_type = CitationPartType {
+            citationparttypeid: 1,
+            citationparttypename: String::from("Test citation part type"),
+        };
+        let expected_query = "INSERT INTO citationparttype (citationparttypeid, citationparttypename) VALUES (1, \"Test citation part type\")";
+        assert_eq!(CitationPartType::create_citationparttype(citation_part_type), expected_query);
+    }
+
+    #[test]
+    fn test_read_citationparttype() {
+        let citation_part_type = CitationPartType {
+            citationparttypeid: 1,
+            citationparttypename: String::from("Test type"),
+        };
+        let expected_query = "SELECT * FROM citationparttype WHERE citationparttypeid=1";
+        assert_eq!(CitationPartType::read_citationparttype(citation_part_type), expected_query);
+    }
+
+    #[test]
+    fn test_update_citationparttype() {
+        let input = CitationPartType {
+            citationparttypeid: 1,
+            citationparttypename: String::from("Test type"),
+        };
+        let expected_query = "UPDATE citationparttype SET citationparttypeid=1, citationparttypename=\"Test type\" WHERE citationparttypeid=1";
+        assert_eq!(CitationPartType::update_citationparttype(input), expected_query);
+    }
+
+    #[test]
+    fn test_delete_citationparttype() {
+        let citation_part_type = CitationPartType {
+            citationparttypeid: 1,
+            citationparttypename: String::from("Test type"),
+        };
+        let expected_query = "DELETE FROM citationparttype WHERE citationparttypeid=1";
+        assert_eq!(CitationPartType::delete_citationparttype(citation_part_type), expected_query);
+    }
+
+
+}

@@ -18,7 +18,7 @@ impl CharPart {
         }: CharPart,
     ) -> String {
         let parameters = format!(
-            "INSERT INTO charpart (characteristicpartid, characteristicid, charparttypeid, charpartname, charpartseq) VALUES ({}, {}, {}, \"{}\", \"{}\")",
+            "INSERT INTO charpart (characteristicpartid, characteristicid, charparttypeid, charpartname, charpartseq) VALUES ({}, {}, {}, \"{}\", {})",
             &characteristicpartid.to_string(),
             &characteristicid.to_string(),
             &charparttypeid.to_string(),
@@ -85,3 +85,62 @@ impl CharPart {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_charpart() {
+        let charpart = CharPart {
+            characteristicpartid: 1,
+            characteristicid: 2,
+            charparttypeid: 3,
+            charpartname: String::from("Test charpart"),
+            charpartseq: 4,
+        };
+        let expected_query = "INSERT INTO charpart (characteristicpartid, characteristicid, charparttypeid, charpartname, charpartseq) VALUES (1, 2, 3, \"Test charpart\", 4)";
+        assert_eq!(CharPart::create_charpart(charpart), expected_query);
+    }
+
+    #[test]
+    fn test_read_charpart() {
+        let charpart = CharPart {
+            characteristicpartid: 1,
+            characteristicid: 1,
+            charparttypeid: 1,
+            charpartname: String::from("Test charpart"),
+            charpartseq: 1,
+        };
+        let expected_query = "SELECT * FROM charpart WHERE characteristicpartid=1";
+        assert_eq!(CharPart::read_charpart(charpart), expected_query);
+    }
+
+    #[test]
+    fn test_update_charpart() {
+        let charpart = CharPart {
+            characteristicpartid: 1,
+            characteristicid: 2,
+            charparttypeid: 3,
+            charpartname: String::from("Test charpart"),
+            charpartseq: 4,
+        };
+        let expected_query = "UPDATE charpart SET characteristicpartid=1, characteristicid=2, charparttypeid=3, charpartname=\"Test charpart\", charpartseq=4 WHERE characteristicpartid=1";
+        assert_eq!(CharPart::update_charpart(charpart), expected_query);
+    }
+
+    #[test]
+    fn test_delete_charpart() {
+        let charpart = CharPart {
+            characteristicpartid: 1,
+            characteristicid: 2,
+            charparttypeid: 3,
+            charpartname: String::from("Test charpart"),
+            charpartseq: 4,
+        };
+        let expected_query = "DELETE FROM charpart WHERE characteristicpartid=1";
+        assert_eq!(CharPart::delete_charpart(charpart), expected_query);
+    }
+
+}
+

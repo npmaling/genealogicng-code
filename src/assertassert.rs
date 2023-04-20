@@ -81,3 +81,59 @@ impl AssertAssert {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_assertassert() {
+        let assertassert = AssertAssert {
+            assertassertid: 1,
+            idlo: 100,
+            idhi: 200,
+            seq: 1,
+        };
+        let expected_query = "INSERT INTO assertassert (assertassertid, idlo, idhi, seq) VALUES (1, 100, 200, 1)";
+        assert_eq!(AssertAssert::create_assertassert(assertassert), expected_query);
+    }
+
+    #[test]
+    fn test_read_assertassert() {
+        let assertassert = AssertAssert {
+            assertassertid: 1,
+            idlo: 0,
+            idhi: 0,
+            seq: 0,
+        };
+        let expected_query = "SELECT * FROM assertassert WHERE assertassertid=1";
+        assert_eq!(AssertAssert::read_assertassert(assertassert), expected_query);
+    }
+
+    #[test]
+    fn test_update_assertassert() {
+        let assert_assert = AssertAssert {
+            assertassertid: 1,
+            idlo: 1,
+            idhi: 10,
+            seq: 1,
+        };
+        let expected_query =
+            "UPDATE assertassert SET assertassertid=1, idlo=1, idhi=10, seq=1 WHERE assertassertid=1";
+        assert_eq!(AssertAssert::update_assertassert(assert_assert), expected_query);
+    }
+
+    #[test]
+    fn test_delete_assertassert() {
+        let assertassert = AssertAssert {
+            assertassertid: 1,
+            idlo: 2,
+            idhi: 3,
+            seq: 4,
+        };
+        let expected_query = "DELETE FROM assertassert WHERE assertassertid=1";
+        assert_eq!(AssertAssert::delete_assertassert(assertassert), expected_query);
+    }
+
+
+}
