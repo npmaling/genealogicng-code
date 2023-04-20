@@ -71,3 +71,55 @@ impl EventType {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_eventtype() {
+        let eventtype = EventType {
+            eventtypeid: 1,
+            eventtypename: String::from("Test event type"),
+            gedcomtag: String::from("TEST"),
+        };
+        let expected_query = "INSERT INTO eventtype (eventtypeid, eventtypename, gedcomtag) VALUES (1, \"Test event type\", \"TEST\")";
+        assert_eq!(EventType::create_eventtype(eventtype), expected_query);
+    }
+
+    #[test]
+    fn test_read_eventtype() {
+        let event_type = EventType {
+            eventtypeid: 1,
+            eventtypename: String::from("Test event type"),
+            gedcomtag: String::from("TEST"),
+        };
+        let expected_query = "SELECT * FROM eventtype WHERE eventtypeid=1";
+        assert_eq!(EventType::read_eventtype(event_type), expected_query);
+    }
+
+    #[test]
+    fn test_update_eventtype() {
+        let event_type = EventType {
+            eventtypeid: 1,
+            eventtypename: String::from("Test event"),
+            gedcomtag: String::from("TEST"),
+        };
+        let expected_query = "UPDATE eventtype SET eventtypeid=1, eventtypename=\"Test event\", gedcomtag=\"TEST\" WHERE eventtypeid=1";
+        assert_eq!(EventType::update_eventtype(event_type), expected_query);
+    }
+
+    #[test]
+    fn test_delete_eventtype() {
+        let eventtype = EventType {
+            eventtypeid: 1,
+            eventtypename: String::from("Test event type"),
+            gedcomtag: String::from("TEST"),
+        };
+        let expected_query = "DELETE FROM eventtype WHERE eventtypeid=1";
+        assert_eq!(EventType::delete_eventtype(eventtype), expected_query);
+    }
+
+
+}
+

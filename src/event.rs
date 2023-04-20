@@ -79,3 +79,61 @@ impl Event {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_event() {
+        let event = Event {
+            eventid: 1,
+            eventtypeid: 2,
+            placeid: 3,
+            eventdate: String::from("2021-01-01"),
+            eventname: String::from("Test event"),
+        };
+        let expected_query = "INSERT INTO event (eventid, eventtypeid, placeid, eventdate, eventname) VALUES (1, 2, 3, \"2021-01-01\", \"Test event\")";
+        assert_eq!(Event::create_event(event), expected_query);
+    }
+
+    #[test]
+    fn test_read_event() {
+        let event = Event {
+            eventid: 1,
+            eventtypeid: 1,
+            placeid: 1,
+            eventdate: String::from("2021-01-01"),
+            eventname: String::from("Test event"),
+        };
+        let expected_query = "SELECT * FROM event WHERE eventid=1";
+        assert_eq!(Event::read_event(event), expected_query);
+    }
+
+    #[test]
+    fn test_update_event() {
+        let event = Event {
+            eventid: 1,
+            eventtypeid: 2,
+            placeid: 3,
+            eventdate: String::from("2021-01-01"),
+            eventname: String::from("Test event"),
+        };
+        let expected_query = "UPDATE event SET eventid=1, eventtypeid=2, placeid=3, eventdate=\"2021-01-01\", eventname=\"Test event\" WHERE eventid=1";
+        assert_eq!(Event::update_event(event), expected_query);
+    }
+
+    #[test]
+    fn test_delete_event() {
+        let event = Event {
+            eventid: 1,
+            eventtypeid: 2,
+            placeid: 3,
+            eventdate: String::from("2021-01-01"),
+            eventname: String::from("Test event"),
+        };
+        let expected_query = "DELETE FROM event WHERE eventid=1";
+        assert_eq!(Event::delete_event(event), expected_query);
+    }
+
+}

@@ -127,3 +127,86 @@ impl GlAssertion {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_glassertion() {
+        let assertion = GlAssertion {
+            glassertionid: 1,
+            suretypartid: 2,
+            researcherid: 3,
+            sourceid: 4,
+            subject1id: 5,
+            subject1type: String::from("type1"),
+            subject2id: 6,
+            subject2type: String::from("type2"),
+            value_role: 7,
+            disproved: String::from("no"),
+            rationale: String::from("Test rationale"),
+        };
+        let expected_query = "INSERT INTO glassertion (glassertionid, suretypartid, researcherid, sourceid, subject1id, subject1type, subject2id, subject2type, value_role, disproved, rationale) VALUES (1, 2, 3, 4, 5, \"type1\", 6, \"type2\", 7, \"no\", \"Test rationale\")";
+        assert_eq!(GlAssertion::create_glassertion(assertion), expected_query);
+    }
+
+    #[test]
+    fn test_read_glassertion() {
+        let gl_assertion = GlAssertion {
+            glassertionid: 1,
+            suretypartid: 2,
+            researcherid: 3,
+            sourceid: 4,
+            subject1id: 5,
+            subject1type: String::from("type1"),
+            subject2id: 6,
+            subject2type: String::from("type2"),
+            value_role: 7,
+            disproved: String::from("no"),
+            rationale: String::from("rationale"),
+        };
+        let expected_query = "SELECT * FROM glassertion WHERE glassertionid=1";
+        assert_eq!(GlAssertion::read_glassertion(gl_assertion), expected_query);
+    }
+
+    #[test]
+    fn test_update_glassertion() {
+        let gl_assertion = GlAssertion {
+            glassertionid: 1,
+            suretypartid: 2,
+            researcherid: 3,
+            sourceid: 4,
+            subject1id: 5,
+            subject1type: String::from("type1"),
+            subject2id: 6,
+            subject2type: String::from("type2"),
+            value_role: 7,
+            disproved: String::from("false"),
+            rationale: String::from("Test rationale"),
+        };
+        let expected_query = "UPDATE glassertion SET glassertionid=1, suretypartid=2, researcherid=3, sourceid=4, subject1id=5, subject1type=\"type1\", subject2id=6, subject2type=\"type2\", value_role=7, disproved=\"false\", rationale=\"Test rationale\" WHERE glassertionid=1";
+        assert_eq!(GlAssertion::update_glassertion(gl_assertion), expected_query);
+    }
+
+    #[test]
+    fn test_delete_glassertion() {
+        let assertion = GlAssertion {
+            glassertionid: 1,
+            suretypartid: 2,
+            researcherid: 3,
+            sourceid: 4,
+            subject1id: 5,
+            subject1type: String::from("test"),
+            subject2id: 6,
+            subject2type: String::from("test"),
+            value_role: 7,
+            disproved: String::from("no"),
+            rationale: String::from("test"),
+        };
+        let expected_query = "DELETE FROM glassertion WHERE glassertionid=1";
+        assert_eq!(GlAssertion::delete_glassertion(assertion), expected_query);
+    }
+
+
+}
