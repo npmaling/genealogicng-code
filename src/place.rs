@@ -45,13 +45,13 @@ impl Place {
         parameters
     }
 
-    pub(crate) fn read_place(
+    pub fn read_place(
         Place {
             placeid,
-            startdate,
-            enddate,
-            ascdescnone,
-            placecomment,
+            startdate: _,
+            enddate: _,
+            ascdescnone: _,
+            placecomment: _,
         }: Place,
     ) -> String {
         let parameters = format!("SELECT * FROM place WHERE placeid={}", &placeid.to_string());
@@ -84,10 +84,10 @@ impl Place {
     pub fn delete_place(
         Place {
             placeid,
-            startdate,
-            enddate,
-            ascdescnone,
-            placecomment,
+            startdate: _,
+            enddate: _,
+            ascdescnone: _,
+            placecomment: _,
         }: Place,
     ) -> String {
         let parameters = format!("DELETE FROM place WHERE placeid={}", &placeid.to_string());
