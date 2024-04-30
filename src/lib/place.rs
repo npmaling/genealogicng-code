@@ -55,7 +55,7 @@ impl Place {
         }: Place,
     ) -> String {
         let parameters = format!("SELECT * FROM place WHERE placeid={}", &placeid.to_string());
-        // println!("This is read_place: {}", parameters);
+        println!("This is read_place: {}", parameters);
         parameters
     }
 
@@ -77,7 +77,7 @@ impl Place {
             &placecomment,
             &placeid.to_string()
         );
-        // println!("This is update_place: {}", parameters);
+        println!("This is update_place: {}", parameters);
         parameters
     }
 

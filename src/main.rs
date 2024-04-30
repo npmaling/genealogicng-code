@@ -29,8 +29,8 @@ mod glgrouptyperole;
 use crate::persona::Persona;
 mod persona;
 
-use crate::place::Place;
-mod place;
+// use crate::place::Place;
+// mod place;
 
 use crate::placepart::PlacePart;
 mod placepart;
@@ -88,59 +88,21 @@ mod suretypart;
 
 use rusqlite::{params, Connection, Result};
 
+use genealogicng::make_place_a;
+use genealogicng::read_place_a;
+use genealogicng::update_place_a;
+use genealogicng::delete_place_a;
+
 fn main() -> Result<()> {
-    let path = "C:/Users/npmal/projects/genealogicng-code/glNG.db";
-    let conn = Connection::open(&path)?;
+    let path: &str = "C:/Users/npmal/projects/genealogicng-code/glNG.db";
+    let conn: Connection = Connection::open(&path)?;
 
     /* ------------------------------------------------------------------------- */
 
-    let place_a = Place {
-        placeid: 16,
-        startdate: "20010101".to_string(),
-        enddate: "20231231".to_string(),
-        ascdescnone: "a".to_string(),
-        placecomment: "First Place".to_string(),
-    };
-
-    let aplace = Place::create_place(place_a);
-
-    dbstring(&conn, aplace);
-
-    let place_b = Place {
-        placeid: 16,
-        startdate: "20010101".to_string(),
-        enddate: "20231231".to_string(),
-        ascdescnone: "a".to_string(),
-        placecomment: "First Place".to_string(),
-    };
-
-    let bplace = Place::read_place(place_b);
-
-    dbstring(&conn, bplace);
-
-    let place_c = Place {
-        placeid: 16,
-        startdate: "20230101".to_string(),
-        enddate: "20011231".to_string(),
-        ascdescnone: "b".to_string(),
-        placecomment: "Second Place".to_string(),
-    };
-
-    let cplace = Place::update_place(place_c);
-
-    dbstring(&conn, cplace);
-
-    let place_d = Place {
-        placeid: 16,
-        startdate: "20230101".to_string(),
-        enddate: "20011231".to_string(),
-        ascdescnone: "b".to_string(),
-        placecomment: "Second Place".to_string(),
-    };
-
-    let dplace = Place::delete_place(place_d);
-
-    dbstring(&conn, dplace);
+    let _ = make_place_a();
+    let _ = read_place_a();
+    let _ = update_place_a();
+    let _ = delete_place_a();
 
     /* ------------------------------------------------------------------------- */
 
@@ -1241,15 +1203,15 @@ fn main() -> Result<()> {
         comments: "These are another set of comments".to_string(),
     };
 
-    let cactivity: String = Activity::update_activity(activity_c);
+    let cactivity: String = Activity::read_activity(activity_c);
 
     dbstring(&conn, aactivity);
 
-    // dbstring(&conn, bactivity);
+    dbstring(&conn, bactivity);
 
-    dbstring(&conn, cactivity);
+    // dbstring(&conn, &cactivity);
 
-    let mut stmt = conn.prepare(&bactivity)?;
+    let mut stmt = conn.prepare(&cactivity)?;
     let activity_iter = stmt.query_map([], |row| {
         Ok(Activity {
             activityid: row.get(0)?,
