@@ -48,10 +48,10 @@ impl CharPart {
     pub fn read_charpart(
         CharPart {
             characteristicpartid,
-            characteristicid,
-            charparttypeid,
-            charpartname,
-            charpartseq,
+            characteristicid: _,
+            charparttypeid: _,
+            charpartname: _,
+            charpartseq: _,
         }: CharPart,
     ) -> String {
         let parameters = format!(
@@ -87,10 +87,10 @@ impl CharPart {
     pub fn delete_charpart(
         CharPart {
             characteristicpartid,
-            characteristicid,
-            charparttypeid,
-            charpartname,
-            charpartseq,
+            characteristicid: _,
+            charparttypeid: _,
+            charpartname: _,
+            charpartseq: _,
         }: CharPart,
     ) -> String {
         let parameters = format!(

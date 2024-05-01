@@ -45,9 +45,9 @@ impl CitationPart {
     pub fn read_citationpart(
         CitationPart {
             citationpartid,
-            sourceid,
-            citeparttypeid,
-            citepartvalue,
+            sourceid: _,
+            citeparttypeid: _,
+            citepartvalue: _,
         }: CitationPart,
     ) -> String {
         let parameters = format!(
@@ -81,9 +81,9 @@ impl CitationPart {
     pub fn delete_citationpart(
         CitationPart {
             citationpartid,
-            sourceid,
-            citeparttypeid,
-            citepartvalue,
+            sourceid: _,
+            citeparttypeid: _,
+            citepartvalue: _,
         }: CitationPart,
     ) -> String {
         let parameters = format!(

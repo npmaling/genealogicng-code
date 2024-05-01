@@ -23,6 +23,18 @@ mod assertassert;
 use crate::characteristic::Characteristic;
 mod characteristic;
 
+use crate::charpart::CharPart;
+mod charpart;
+
+use crate::charparttype::CharPartType;
+mod charparttype;
+
+use crate::citationpart::CitationPart;
+mod citationpart;
+
+use crate::citationparttype::CitationPartType;
+mod citationparttype;
+
 use crate::place::Place;
 mod place;
 
@@ -321,6 +333,352 @@ pub fn delete_characteristic_a() -> Result<(), rusqlite::Error> {
 
     println!("dcharacteristic : {:?}", &dcharacteristic);
     dbstring(&conn, dcharacteristic);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_charpart_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let charpart_a = CharPart {
+        characteristicpartid: 16,
+        characteristicid: 1,
+        charparttypeid: 1,
+        charpartname: "First CharPart".to_string(),
+        charpartseq: 1,
+    };
+
+    let acharpart = CharPart::create_charpart(charpart_a);
+
+    println!("acharpart : {:?}", &acharpart);
+    dbstring(&conn, acharpart);
+
+    Ok(())
+}
+
+pub fn read_charpart_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let charpart_b = CharPart {
+        characteristicpartid: 16,
+        characteristicid: 1,
+        charparttypeid: 1,
+        charpartname: "First CharPart".to_string(),
+        charpartseq: 1,
+    };
+
+    let bcharpart = CharPart::read_charpart(charpart_b);
+
+    println!("bcharpart : {:?}", &bcharpart);
+
+    // dbstring(&conn, &bcharpart);
+
+    let mut stmt = conn.prepare(&bcharpart)?;
+    let charpart_iter = stmt.query_map([], |row| {
+        Ok(CharPart {
+            characteristicpartid: row.get(0)?,
+            characteristicid: row.get(1)?,
+            charparttypeid: row.get(2)?,
+            charpartname: row.get(3)?,
+            charpartseq: row.get(4)?,
+        })
+    })?;
+
+    for charpartitem in charpart_iter {
+        println!("Found charpart data {:?}", charpartitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_charpart_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let charpart_c = CharPart {
+        characteristicpartid: 16,
+        characteristicid: 1,
+        charparttypeid: 1,
+        charpartname: "First CharPart".to_string(),
+        charpartseq: 1,
+    };
+
+    let ccharpart = CharPart::update_charpart(charpart_c);
+
+    println!("ccharpart : {:?}", &ccharpart);
+    dbstring(&conn, ccharpart);
+
+    Ok(())
+}
+
+pub fn delete_charpart_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let charpart_d = CharPart {
+        characteristicpartid: 16,
+        characteristicid: 1,
+        charparttypeid: 1,
+        charpartname: "First CharPart".to_string(),
+        charpartseq: 1,
+    };
+
+    let dcharpart = CharPart::delete_charpart(charpart_d);
+
+    println!("dcharpart : {:?}", &dcharpart);
+    dbstring(&conn, dcharpart);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_charparttype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let charparttype_a = CharPartType {
+        charparttypeid: 16,
+        charparttypename: "First CharPartType".to_string(),
+        gedcomtag: "a".to_string(),
+    };
+
+    let acharparttype = CharPartType::create_charparttype(charparttype_a);
+
+    println!("acharparttype : {:?}", &acharparttype);
+    dbstring(&conn, acharparttype);
+
+    Ok(())
+}
+
+pub fn read_charparttype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let charparttype_b = CharPartType {
+        charparttypeid: 16,
+        charparttypename: "First CharPartType".to_string(),
+        gedcomtag: "a".to_string(),
+    };
+
+    let bcharparttype = CharPartType::read_charparttype(charparttype_b);
+
+    println!("bcharparttype : {:?}", &bcharparttype);
+
+    // dbstring(&conn, &bcharparttype);
+
+    let mut stmt = conn.prepare(&bcharparttype)?;
+    let charparttype_iter = stmt.query_map([], |row| {
+        Ok(CharPartType {
+            charparttypeid: row.get(0)?,
+            charparttypename: row.get(1)?,
+            gedcomtag: row.get(2)?,
+        })
+    })?;
+
+    for charparttypeitem in charparttype_iter {
+        println!("Found charparttype data {:?}", charparttypeitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_charparttype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let charparttype_c = CharPartType {
+        charparttypeid: 16,
+        charparttypename: "First CharPartType".to_string(),
+        gedcomtag: "a".to_string(),
+    };
+
+    let ccharparttype = CharPartType::update_charparttype(charparttype_c);
+
+    println!("ccharparttype : {:?}", &ccharparttype);
+    dbstring(&conn, ccharparttype);
+
+    Ok(())
+}
+
+pub fn delete_charparttype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let charparttype_d = CharPartType {
+        charparttypeid: 16,
+        charparttypename: "First CharPartType".to_string(),
+        gedcomtag: "a".to_string(),
+    };
+
+    let dcharparttype = CharPartType::delete_charparttype(charparttype_d);
+
+    println!("dcharparttype : {:?}", &dcharparttype);
+    dbstring(&conn, dcharparttype);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_citationpart_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let citationpart_a = CitationPart {
+        citationpartid: 16,
+        sourceid: 1,
+        citeparttypeid: 1,
+        citepartvalue: "First CitationPart".to_string(),
+    };
+
+    let acitationpart = CitationPart::create_citationpart(citationpart_a);
+
+    println!("acitationpart : {:?}", &acitationpart);
+    dbstring(&conn, acitationpart);
+
+    Ok(())
+}
+
+pub fn read_citationpart_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let citationpart_b = CitationPart {
+        citationpartid: 16,
+        sourceid: 1,
+        citeparttypeid: 1,
+        citepartvalue: "First CitationPart".to_string(),
+    };
+
+    let bcitationpart = CitationPart::read_citationpart(citationpart_b);
+
+    println!("bcitationpart : {:?}", &bcitationpart);
+
+    // dbstring(&conn, &bcitationpart);
+
+    let mut stmt = conn.prepare(&bcitationpart)?;
+    let citationpart_iter = stmt.query_map([], |row| {
+        Ok(CitationPart {
+            citationpartid: row.get(0)?,
+            sourceid: row.get(1)?,
+            citeparttypeid: row.get(2)?,
+            citepartvalue: row.get(3)?,
+        })
+    })?;
+
+    for citationpartitem in citationpart_iter {
+        println!("Found citationpart data {:?}", citationpartitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_citationpart_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let citationpart_c = CitationPart {
+        citationpartid: 16,
+        sourceid: 1,
+        citeparttypeid: 1,
+        citepartvalue: "First CitationPart".to_string(),
+    };
+
+    let ccitationpart = CitationPart::update_citationpart(citationpart_c);
+
+    println!("ccitationpart : {:?}", &ccitationpart);
+    dbstring(&conn, ccitationpart);
+
+    Ok(())
+}
+
+pub fn delete_citationpart_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let citationpart_d = CitationPart {
+        citationpartid: 16,
+        sourceid: 1,
+        citeparttypeid: 1,
+        citepartvalue: "First CitationPart".to_string(),
+    };
+
+    let dcitationpart = CitationPart::delete_citationpart(citationpart_d);
+
+    println!("dcitationpart : {:?}", &dcitationpart);
+    dbstring(&conn, dcitationpart);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_citationparttype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let citationparttype_a = CitationPartType {
+        citationparttypeid: 16,
+        citationparttypename: "First CitationPartType".to_string(),
+    };
+
+    let acitationparttype = CitationPartType::create_citationparttype(citationparttype_a);
+
+    println!("acitationparttype : {:?}", &acitationparttype);
+    dbstring(&conn, acitationparttype);
+
+    Ok(())
+}
+
+pub fn read_citationparttype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let citationparttype_b = CitationPartType {
+        citationparttypeid: 16,
+        citationparttypename: "First CitationPartType".to_string(),
+    };
+
+    let bcitationparttype = CitationPartType::read_citationparttype(citationparttype_b);
+
+    println!("bcitationparttype : {:?}", &bcitationparttype);
+
+    // dbstring(&conn, &bcitationparttype);
+
+    let mut stmt = conn.prepare(&bcitationparttype)?;
+    let citationparttype_iter = stmt.query_map([], |row| {
+        Ok(CitationPartType {
+            citationparttypeid: row.get(0)?,
+            citationparttypename: row.get(1)?,
+        })
+    })?;
+
+    for citationparttypeitem in citationparttype_iter {
+        println!("Found citationparttype data {:?}", citationparttypeitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_citationparttype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let citationparttype_c = CitationPartType {
+        citationparttypeid: 16,
+        citationparttypename: "First CitationPartType".to_string(),
+    };
+
+    let ccitationparttype = CitationPartType::update_citationparttype(citationparttype_c);
+
+    println!("ccitationparttype : {:?}", &ccitationparttype);
+    dbstring(&conn, ccitationparttype);
+
+    Ok(())
+}
+
+pub fn delete_citationparttype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let citationparttype_d = CitationPartType {
+        citationparttypeid: 16,
+        citationparttypename: "First CitationPartType".to_string(),
+    };
+
+    let dcitationparttype = CitationPartType::delete_citationparttype(citationparttype_d);
+
+    println!("dcitationparttype : {:?}", &dcitationparttype);
+    dbstring(&conn, dcitationparttype);
 
     Ok(())
 }

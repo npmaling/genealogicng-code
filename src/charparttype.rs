@@ -42,8 +42,8 @@ impl CharPartType {
     pub fn read_charparttype(
         CharPartType {
             charparttypeid,
-            charparttypename,
-            gedcomtag,
+            charparttypename: _,
+            gedcomtag: _,
         }: CharPartType,
     ) -> String {
         let parameters = format!(
@@ -75,8 +75,8 @@ impl CharPartType {
     pub fn delete_charparttype(
         CharPartType {
             charparttypeid,
-            charparttypename,
-            gedcomtag,
+            charparttypename: _,
+            gedcomtag: _,
         }: CharPartType,
     ) -> String {
         let parameters = format!(

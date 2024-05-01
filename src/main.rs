@@ -97,6 +97,26 @@ use genealogicng::read_characteristic_a;
 use genealogicng::update_characteristic_a;
 use genealogicng::delete_characteristic_a;
 
+use genealogicng::make_charpart_a;
+use genealogicng::read_charpart_a;
+use genealogicng::update_charpart_a;
+use genealogicng::delete_charpart_a;
+
+use genealogicng::make_charparttype_a;
+use genealogicng::read_charparttype_a;
+use genealogicng::update_charparttype_a;
+use genealogicng::delete_charparttype_a;
+
+use genealogicng::make_citationpart_a;
+use genealogicng::read_citationpart_a;
+use genealogicng::update_citationpart_a;
+use genealogicng::delete_citationpart_a;
+
+use genealogicng::make_citationparttype_a;
+use genealogicng::read_citationparttype_a;
+use genealogicng::update_citationparttype_a;
+use genealogicng::delete_citationparttype_a;
+
 use genealogicng::make_place_a;
 use genealogicng::read_place_a;
 use genealogicng::update_place_a;
@@ -122,7 +142,27 @@ fn main() -> Result<()> {
     let _ = read_characteristic_a();
     let _ = update_characteristic_a();
     let _ = delete_characteristic_a();
-    
+
+    let _ = make_charpart_a();
+    let _ = read_charpart_a();
+    let _ = update_charpart_a();
+    let _ = delete_charpart_a();
+
+    let _ = make_charparttype_a();
+    let _ = read_charparttype_a();
+    let _ = update_charparttype_a();
+    let _ = delete_charparttype_a();
+
+    let _ = make_citationpart_a();
+    let _ = read_citationpart_a();
+    let _ = update_citationpart_a();
+    let _ = delete_citationpart_a();
+
+    let _ = make_citationparttype_a();
+    let _ = read_citationparttype_a();
+    let _ = update_citationparttype_a();
+    let _ = delete_citationparttype_a();
+
     let _ = make_place_a();
     let _ = read_place_a();
     let _ = update_place_a();
