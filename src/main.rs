@@ -87,6 +87,16 @@ use genealogicng::read_activity_a;
 use genealogicng::update_activity_a;
 use genealogicng::delete_activity_a;
 
+use genealogicng::make_assertassert_a;
+use genealogicng::read_assertassert_a;
+use genealogicng::update_assertassert_a;
+use genealogicng::delete_assertassert_a;
+
+use genealogicng::make_characteristic_a;
+use genealogicng::read_characteristic_a;
+use genealogicng::update_characteristic_a;
+use genealogicng::delete_characteristic_a;
+
 use genealogicng::make_place_a;
 use genealogicng::read_place_a;
 use genealogicng::update_place_a;
@@ -103,6 +113,16 @@ fn main() -> Result<()> {
     let _ = update_activity_a();
     let _ = delete_activity_a();
 
+    let _ = make_assertassert_a();
+    let _ = read_assertassert_a();
+    let _ = update_assertassert_a();
+    let _ = delete_assertassert_a();
+
+    let _ = make_characteristic_a();
+    let _ = read_characteristic_a();
+    let _ = update_characteristic_a();
+    let _ = delete_characteristic_a();
+    
     let _ = make_place_a();
     let _ = read_place_a();
     let _ = update_place_a();

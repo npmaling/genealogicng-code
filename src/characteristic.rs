@@ -45,9 +45,9 @@ impl Characteristic {
     pub fn read_characteristic(
         Characteristic {
             characteristicid,
-            placeid,
-            characteristicdate,
-            ascdescnone,
+            placeid: _,
+            characteristicdate: _,
+            ascdescnone: _,
         }: Characteristic,
     ) -> String {
         let parameters = format!(
@@ -81,9 +81,9 @@ impl Characteristic {
     pub fn delete_characteristic(
         Characteristic {
             characteristicid,
-            placeid,
-            characteristicdate,
-            ascdescnone,
+            placeid: _,
+            characteristicdate: _,
+            ascdescnone: _,
         }: Characteristic,
     ) -> String {
         let parameters = format!(

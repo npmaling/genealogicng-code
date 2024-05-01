@@ -45,9 +45,9 @@ impl AssertAssert {
     pub fn read_assertassert(
         AssertAssert {
             assertassertid,
-            idlo,
-            idhi,
-            seq,
+            idlo: _,
+            idhi: _,
+            seq: _,
         }: AssertAssert,
     ) -> String {
         let parameters = format!(
@@ -84,9 +84,9 @@ impl AssertAssert {
     pub fn delete_assertassert(
         AssertAssert {
             assertassertid,
-            idlo,
-            idhi,
-            seq,
+            idlo: _,
+            idhi: _,
+            seq: _,
         }: AssertAssert,
     ) -> String {
         let parameters = format!(

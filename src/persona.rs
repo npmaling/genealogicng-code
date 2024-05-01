@@ -41,8 +41,8 @@ impl Persona {
     pub fn read_persona(
         Persona {
             personaid,
-            persona_name,
-            description_comments,
+            persona_name: _,
+            description_comments: _,
         }: Persona,
     ) -> String {
         let parameters = format!(
@@ -74,8 +74,8 @@ impl Persona {
     pub fn delete_persona(
         Persona {
             personaid,
-            persona_name,
-            description_comments,
+            persona_name: _,
+            description_comments: _,
         }: Persona,
     ) -> String {
         let parameters = format!(

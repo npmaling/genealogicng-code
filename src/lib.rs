@@ -17,6 +17,12 @@
 use crate::activity::Activity;
 mod activity;
 
+use crate::assertassert::AssertAssert;
+mod assertassert;
+
+use crate::characteristic::Characteristic;
+mod characteristic;
+
 use crate::place::Place;
 mod place;
 
@@ -137,6 +143,184 @@ pub fn delete_activity_a() -> Result<(), rusqlite::Error> {
 
     println!("dactivity : {:?}", &dactivity);
     dbstring(&conn, dactivity);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_assertassert_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let assertassert_a = AssertAssert {
+        assertassertid: 16,
+        idlo: 1,
+        idhi: 1,
+        seq: 1,
+    };
+
+    let aassertassert = AssertAssert::create_assertassert(assertassert_a);
+
+    println!("aassertassert : {:?}", &aassertassert);
+    dbstring(&conn, aassertassert);
+
+    Ok(())
+}
+
+pub fn read_assertassert_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let assertassert_b = AssertAssert {
+        assertassertid: 16,
+        idlo: 1,
+        idhi: 1,
+        seq: 1,
+    };
+
+    let bassertassert = AssertAssert::read_assertassert(assertassert_b);
+
+    println!("bassertassert : {:?}", &bassertassert);
+
+    // dbstring(&conn, &bassertassert);
+
+    let mut stmt = conn.prepare(&bassertassert)?;
+    let assertassert_iter = stmt.query_map([], |row| {
+        Ok(AssertAssert {
+            assertassertid: row.get(0)?,
+            idlo: row.get(1)?,
+            idhi: row.get(2)?,
+            seq: row.get(3)?,
+        })
+    })?;
+
+    for assertassertitem in assertassert_iter {
+        println!("Found assertassert data {:?}", assertassertitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_assertassert_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let assertassert_c = AssertAssert {
+        assertassertid: 16,
+        idlo: 1,
+        idhi: 1,
+        seq: 1,
+    };
+
+    let cassertassert = AssertAssert::update_assertassert(assertassert_c);
+
+    println!("cassertassert : {:?}", &cassertassert);
+    dbstring(&conn, cassertassert);
+
+    Ok(())
+}
+
+pub fn delete_assertassert_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let assertassert_d = AssertAssert {
+        assertassertid: 16,
+        idlo: 1,
+        idhi: 1,
+        seq: 1,
+    };
+
+    let dassertassert = AssertAssert::delete_assertassert(assertassert_d);
+
+    println!("dassertassert : {:?}", &dassertassert);
+    dbstring(&conn, dassertassert);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_characteristic_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let characteristic_a = Characteristic {
+        characteristicid: 16,
+        placeid: 1,
+        characteristicdate: "20230101".to_string(),
+        ascdescnone: "a".to_string(),
+    };
+
+    let acharacteristic = Characteristic::create_characteristic(characteristic_a);
+
+    println!("acharacteristic : {:?}", &acharacteristic);
+    dbstring(&conn, acharacteristic);
+
+    Ok(())
+}
+
+pub fn read_characteristic_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let characteristic_b = Characteristic {
+        characteristicid: 16,
+        placeid: 1,
+        characteristicdate: "20230101".to_string(),
+        ascdescnone: "a".to_string(),
+    };
+
+    let bcharacteristic = Characteristic::read_characteristic(characteristic_b);
+
+    println!("bcharacteristic : {:?}", &bcharacteristic);
+
+    // dbstring(&conn, &bcharacteristic);
+
+    let mut stmt = conn.prepare(&bcharacteristic)?;
+    let characteristic_iter = stmt.query_map([], |row| {
+        Ok(Characteristic {
+            characteristicid: row.get(0)?,
+            placeid: row.get(1)?,
+            characteristicdate: row.get(2)?,
+            ascdescnone: row.get(3)?,
+        })
+    })?;
+
+    for characteristicitem in characteristic_iter {
+        println!("Found characteristic data {:?}", characteristicitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_characteristic_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let characteristic_c = Characteristic {
+        characteristicid: 16,
+        placeid: 1,
+        characteristicdate: "20230101".to_string(),
+        ascdescnone: "a".to_string(),
+    };
+
+    let ccharacteristic = Characteristic::update_characteristic(characteristic_c);
+
+    println!("ccharacteristic : {:?}", &ccharacteristic);
+    dbstring(&conn, ccharacteristic);
+
+    Ok(())
+}
+
+pub fn delete_characteristic_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let characteristic_d = Characteristic {
+        characteristicid: 16,
+        placeid: 1,
+        characteristicdate: "20230101".to_string(),
+        ascdescnone: "a".to_string(),
+    };
+
+    let dcharacteristic = Characteristic::delete_characteristic(characteristic_d);
+
+    println!("dcharacteristic : {:?}", &dcharacteristic);
+    dbstring(&conn, dcharacteristic);
 
     Ok(())
 }
