@@ -22,7 +22,6 @@ pub struct GlGroupTypeRole {
     pub sequencenumber: i64,
 }
 
-
 impl GlGroupTypeRole {
     pub fn create_glgrouptyperole(
         GlGroupTypeRole {
@@ -46,9 +45,9 @@ impl GlGroupTypeRole {
     pub fn read_glgrouptyperole(
         GlGroupTypeRole {
             glgrouptyperoleid,
-            glgrouptypeid,
-            glgrouptypename,
-            sequencenumber,
+            glgrouptypeid: _,
+            glgrouptypename: _,
+            sequencenumber: _,
         }: GlGroupTypeRole,
     ) -> String {
         let parameters = format!(
@@ -82,9 +81,9 @@ impl GlGroupTypeRole {
     pub fn delete_glgrouptyperole(
         GlGroupTypeRole {
             glgrouptyperoleid,
-            glgrouptypeid,
-            glgrouptypename,
-            sequencenumber,
+            glgrouptypeid: _,
+            glgrouptypename: _,
+            sequencenumber: _,
         }: GlGroupTypeRole,
     ) -> String {
         let parameters = format!(

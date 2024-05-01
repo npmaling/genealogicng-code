@@ -66,16 +66,16 @@ impl GlAssertion {
     pub fn read_glassertion(
         GlAssertion {
             glassertionid,
-            suretypartid,
-            researcherid,
-            sourceid,
-            subject1id,
-            subject1type,
-            subject2id,
-            subject2type,
-            value_role,
-            disproved,
-            rationale,
+            suretypartid: _,
+            researcherid: _,
+            sourceid: _,
+            subject1id: _,
+            subject1type: _,
+            subject2id: _,
+            subject2type: _,
+            value_role: _,
+            disproved: _,
+            rationale: _,
         }: GlAssertion,
     ) -> String {
         let parameters = format!(
@@ -123,16 +123,16 @@ impl GlAssertion {
     pub fn delete_glassertion(
         GlAssertion {
             glassertionid,
-            suretypartid,
-            researcherid,
-            sourceid,
-            subject1id,
-            subject1type,
-            subject2id,
-            subject2type,
-            value_role,
-            disproved,
-            rationale,
+            suretypartid: _,
+            researcherid: _,
+            sourceid: _,
+            subject1id: _,
+            subject1type: _,
+            subject2id: _,
+            subject2type: _,
+            value_role: _,
+            disproved: _,
+            rationale: _,
         }: GlAssertion,
     ) -> String {
         let parameters = format!(

@@ -51,11 +51,11 @@ impl GlGroup {
     pub fn read_glgroup(
         GlGroup {
             glgroupid,
-            glgrouptypeid,
-            placeid,
-            glgroupdate,
-            glgroupname,
-            glgroupcriteria,
+            glgrouptypeid: _,
+            placeid: _,
+            glgroupdate: _,
+            glgroupname: _,
+            glgroupcriteria: _,
         }: GlGroup,
     ) -> String {
         let parameters = format!(
@@ -93,11 +93,11 @@ impl GlGroup {
     pub fn delete_glgroup(
         GlGroup {
             glgroupid,
-            glgrouptypeid,
-            placeid,
-            glgroupdate,
-            glgroupname,
-            glgroupcriteria,
+            glgrouptypeid: _,
+            placeid: _,
+            glgroupdate: _,
+            glgroupname: _,
+            glgroupcriteria: _,
         }: GlGroup,
     ) -> String {
         let parameters = format!(

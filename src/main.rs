@@ -14,15 +14,6 @@
 -- limitations under the License.
 */
 
-use crate::glgroup::GlGroup;
-mod glgroup;
-
-use crate::glgrouptype::GlGroupType;
-mod glgrouptype;
-
-use crate::glgrouptyperole::GlGroupTypeRole;
-mod glgrouptyperole;
-
 use crate::persona::Persona;
 mod persona;
 
@@ -122,6 +113,36 @@ use genealogicng::read_event_a;
 use genealogicng::update_event_a;
 use genealogicng::delete_event_a;
 
+use genealogicng::make_eventtype_a;
+use genealogicng::read_eventtype_a;
+use genealogicng::update_eventtype_a;
+use genealogicng::delete_eventtype_a;
+
+use genealogicng::make_eventtyperole_a;
+use genealogicng::read_eventtyperole_a;
+use genealogicng::update_eventtyperole_a;
+use genealogicng::delete_eventtyperole_a;
+
+use genealogicng::make_glassertion_a;
+use genealogicng::read_glassertion_a;
+use genealogicng::update_glassertion_a;
+use genealogicng::delete_glassertion_a;
+
+use genealogicng::make_glgroup_a;
+use genealogicng::read_glgroup_a;
+use genealogicng::update_glgroup_a;
+use genealogicng::delete_glgroup_a;
+
+use genealogicng::make_glgrouptype_a;
+use genealogicng::read_glgrouptype_a;
+use genealogicng::update_glgrouptype_a;
+use genealogicng::delete_glgrouptype_a;
+
+use genealogicng::make_glgrouptyperole_a;
+use genealogicng::read_glgrouptyperole_a;
+use genealogicng::update_glgrouptyperole_a;
+use genealogicng::delete_glgrouptyperole_a;
+
 use genealogicng::make_place_a;
 use genealogicng::read_place_a;
 use genealogicng::update_place_a;
@@ -172,6 +193,36 @@ fn main() -> Result<()> {
     let _ = read_event_a();
     let _ = update_event_a();
     let _ = delete_event_a();
+
+    let _ = make_eventtype_a();
+    let _ = read_eventtype_a();
+    let _ = update_eventtype_a();
+    let _ = delete_eventtype_a();
+
+    let _ = make_eventtyperole_a();
+    let _ = read_eventtyperole_a();
+    let _ = update_eventtyperole_a();
+    let _ = delete_eventtyperole_a();
+
+    let _ = make_glassertion_a();
+    let _ = read_glassertion_a();
+    let _ = update_glassertion_a();
+    let _ = delete_glassertion_a();
+
+    let _ = make_glgroup_a();
+    let _ = read_glgroup_a();
+    let _ = update_glgroup_a();
+    let _ = delete_glgroup_a();
+
+    let _ = make_glgrouptype_a();
+    let _ = read_glgrouptype_a();
+    let _ = update_glgrouptype_a();
+    let _ = delete_glgrouptype_a();
+
+    let _ = make_glgrouptyperole_a();
+    let _ = read_glgrouptyperole_a();
+    let _ = update_glgrouptyperole_a();
+    let _ = delete_glgrouptyperole_a();
 
     let _ = make_place_a();
     let _ = read_place_a();
@@ -969,148 +1020,6 @@ fn main() -> Result<()> {
     dbstring(&conn, cpp);
 
     let dpp = Search::delete_search(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = GlGroupType {
-        glgrouptypeid: 1,
-        glgroupname: "GlGroupNameOne".to_string(),
-        ascdescnone: "Asc".to_string(),
-    };
-
-    let pp_b = GlGroupType {
-        glgrouptypeid: 2,
-        glgroupname: "GlGroupNameTwo".to_string(),
-        ascdescnone: "Asc".to_string(),
-    };
-
-    let pp_c = GlGroupType {
-        glgrouptypeid: 3,
-        glgroupname: "GlGroupNameThree".to_string(),
-        ascdescnone: "Asc".to_string(),
-    };
-
-    let pp_d = GlGroupType {
-        glgrouptypeid: 4,
-        glgroupname: "GlGroupNameFour".to_string(),
-        ascdescnone: "Asc".to_string(),
-    };
-
-    let app = GlGroupType::create_glgrouptype(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = GlGroupType::read_glgrouptype(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = GlGroupType::update_glgrouptype(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = GlGroupType::delete_glgrouptype(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = GlGroup {
-        glgroupid: 1,
-        glgrouptypeid: 1,
-        placeid: 1,
-        glgroupdate: "20230405".to_string(),
-        glgroupname: "Gl Group Name One".to_string(),
-        glgroupcriteria: "Gl Group Criteria One".to_string(),
-    };
-
-    let pp_b = GlGroup {
-        glgroupid: 1,
-        glgrouptypeid: 1,
-        placeid: 1,
-        glgroupdate: "20230405".to_string(),
-        glgroupname: "Gl Group Name One".to_string(),
-        glgroupcriteria: "Gl Group Criteria One".to_string(),
-    };
-
-    let pp_c = GlGroup {
-        glgroupid: 1,
-        glgrouptypeid: 1,
-        placeid: 1,
-        glgroupdate: "20230405".to_string(),
-        glgroupname: "Gl Group Name One".to_string(),
-        glgroupcriteria: "Gl Group Criteria One".to_string(),
-    };
-
-    let pp_d = GlGroup {
-        glgroupid: 1,
-        glgrouptypeid: 1,
-        placeid: 1,
-        glgroupdate: "20230405".to_string(),
-        glgroupname: "Gl Group Name One".to_string(),
-        glgroupcriteria: "Gl Group Criteria One".to_string(),
-    };
-
-    let app = GlGroup::create_glgroup(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = GlGroup::read_glgroup(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = GlGroup::update_glgroup(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = GlGroup::delete_glgroup(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = GlGroupTypeRole {
-        glgrouptyperoleid: 1,
-        glgrouptypeid: 1,
-        glgrouptypename: "Gl Group Type Name One".to_string(),
-        sequencenumber: 1,
-    };
-
-    let pp_b = GlGroupTypeRole {
-        glgrouptyperoleid: 2,
-        glgrouptypeid: 2,
-        glgrouptypename: "Gl Group Type Name One".to_string(),
-        sequencenumber: 2,
-    };
-
-    let pp_c = GlGroupTypeRole {
-        glgrouptyperoleid: 3,
-        glgrouptypeid: 3,
-        glgrouptypename: "Gl Group Type Name One".to_string(),
-        sequencenumber: 3,
-    };
-
-    let pp_d = GlGroupTypeRole {
-        glgrouptyperoleid: 4,
-        glgrouptypeid: 4,
-        glgrouptypename: "Gl Group Type Name One".to_string(),
-        sequencenumber: 4,
-    };
-
-    let app = GlGroupTypeRole::create_glgrouptyperole(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = GlGroupTypeRole::read_glgrouptyperole(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = GlGroupTypeRole::update_glgrouptyperole(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = GlGroupTypeRole::delete_glgrouptyperole(pp_d);
 
     dbstring(&conn, dpp);
 

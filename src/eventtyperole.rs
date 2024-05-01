@@ -42,8 +42,8 @@ impl EventTypeRole {
     pub fn read_eventtyperole(
         EventTypeRole {
             eventtyperoleid,
-            eventtypeid,
-            eventtyperolename,
+            eventtypeid: _,
+            eventtyperolename: _,
         }: EventTypeRole,
     ) -> String {
         let parameters = format!(
@@ -75,8 +75,8 @@ impl EventTypeRole {
     pub fn delete_eventtyperole(
         EventTypeRole {
             eventtyperoleid,
-            eventtypeid,
-            eventtyperolename,
+            eventtypeid: _,
+            eventtyperolename: _,
         }: EventTypeRole,
     ) -> String {
         let parameters = format!(

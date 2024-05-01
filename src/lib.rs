@@ -38,6 +38,24 @@ mod citationparttype;
 use crate::event::Event;
 mod event;
 
+use crate::eventtype::EventType;
+mod eventtype;
+
+use crate::eventtyperole::EventTypeRole;
+mod eventtyperole;
+
+use crate::glassertion::GlAssertion;
+mod glassertion;
+
+use crate::glgroup::GlGroup;
+mod glgroup;
+
+use crate::glgrouptype::GlGroupType;
+mod glgrouptype;
+
+use crate::glgrouptyperole::GlGroupTypeRole;
+mod glgrouptyperole;
+
 use crate::place::Place;
 mod place;
 
@@ -776,6 +794,570 @@ pub fn delete_event_a() -> Result<(), rusqlite::Error> {
 
     println!("devent : {:?}", &devent);
     dbstring(&conn, devent);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_eventtype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let eventtype_a = EventType {
+        eventtypeid: 16,
+        eventtypename: "First EventType".to_string(),
+        gedcomtag: "a".to_string(),
+    };
+
+    let aeventtype = EventType::create_eventtype(eventtype_a);
+
+    println!("aeventtype : {:?}", &aeventtype);
+    dbstring(&conn, aeventtype);
+
+    Ok(())
+}
+
+pub fn read_eventtype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let eventtype_b = EventType {
+        eventtypeid: 16,
+        eventtypename: "First EventType".to_string(),
+        gedcomtag: "a".to_string(),
+    };
+
+    let beventtype = EventType::read_eventtype(eventtype_b);
+
+    println!("beventtype : {:?}", &beventtype);
+
+    // dbstring(&conn, &beventtype);
+
+    let mut stmt = conn.prepare(&beventtype)?;
+    let eventtype_iter = stmt.query_map([], |row| {
+        Ok(EventType {
+            eventtypeid: row.get(0)?,
+            eventtypename: row.get(1)?,
+            gedcomtag: row.get(2)?,
+        })
+    })?;
+
+    for eventtypeitem in eventtype_iter {
+        println!("Found eventtype data {:?}", eventtypeitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_eventtype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let eventtype_c = EventType {
+        eventtypeid: 16,
+        eventtypename: "First EventType".to_string(),
+        gedcomtag: "a".to_string(),
+    };
+
+    let ceventtype = EventType::update_eventtype(eventtype_c);
+
+    println!("ceventtype : {:?}", &ceventtype);
+    dbstring(&conn, ceventtype);
+
+    Ok(())
+}
+
+pub fn delete_eventtype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let eventtype_d = EventType {
+        eventtypeid: 16,
+        eventtypename: "First EventType".to_string(),
+        gedcomtag: "a".to_string(),
+    };
+
+    let deventtype = EventType::delete_eventtype(eventtype_d);
+
+    println!("deventtype : {:?}", &deventtype);
+    dbstring(&conn, deventtype);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_eventtyperole_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let eventtyperole_a = EventTypeRole {
+        eventtyperoleid: 16,
+        eventtypeid: 1,
+        eventtyperolename: "EventTypeRole name test string".to_string(),
+    };
+
+    let aeventtyperole = EventTypeRole::create_eventtyperole(eventtyperole_a);
+
+    println!("aeventtyperole : {:?}", &aeventtyperole);
+    dbstring(&conn, aeventtyperole);
+
+    Ok(())
+}
+
+pub fn read_eventtyperole_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let eventtyperole_b = EventTypeRole {
+        eventtyperoleid: 16,
+        eventtypeid: 1,
+        eventtyperolename: "EventTypeRole name test string".to_string(),
+    };
+
+    let beventtyperole = EventTypeRole::read_eventtyperole(eventtyperole_b);
+
+    println!("beventtyperole : {:?}", &beventtyperole);
+
+    // dbstring(&conn, &beventtyperole);
+
+    let mut stmt = conn.prepare(&beventtyperole)?;
+    let eventtyperole_iter = stmt.query_map([], |row| {
+        Ok(EventTypeRole {
+            eventtyperoleid: row.get(0)?,
+            eventtypeid: row.get(1)?,
+            eventtyperolename: row.get(2)?,
+        })
+    })?;
+
+    for eventtyperoleitem in eventtyperole_iter {
+        println!("Found eventtyperole data {:?}", eventtyperoleitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_eventtyperole_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let eventtyperole_c = EventTypeRole {
+        eventtyperoleid: 16,
+        eventtypeid: 1,
+        eventtyperolename: "EventTypeRole name test string".to_string(),
+    };
+
+    let ceventtyperole = EventTypeRole::update_eventtyperole(eventtyperole_c);
+
+    println!("ceventtyperole : {:?}", &ceventtyperole);
+    dbstring(&conn, ceventtyperole);
+
+    Ok(())
+}
+
+pub fn delete_eventtyperole_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let eventtyperole_d = EventTypeRole {
+        eventtyperoleid: 16,
+        eventtypeid: 1,
+        eventtyperolename: "EventTypeRole name test string".to_string(),
+    };
+
+    let deventtyperole = EventTypeRole::delete_eventtyperole(eventtyperole_d);
+
+    println!("deventtyperole : {:?}", &deventtyperole);
+    dbstring(&conn, deventtyperole);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_glassertion_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glassertion_a = GlAssertion {
+        glassertionid: 16,
+        suretypartid: 1,
+        researcherid: 1,
+        sourceid: 1,
+        subject1id: 1,
+        subject1type: "a".to_string(),
+        subject2id: 1,
+        subject2type: "b".to_string(),
+        value_role: 1,
+        disproved: "true".to_string(),
+        rationale: "d".to_string(),
+    };
+
+    let aglassertion = GlAssertion::create_glassertion(glassertion_a);
+
+    println!("aglassertion : {:?}", &aglassertion);
+    dbstring(&conn, aglassertion);
+
+    Ok(())
+}
+
+pub fn read_glassertion_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glassertion_b = GlAssertion {
+        glassertionid: 16,
+        suretypartid: 1,
+        researcherid: 1,
+        sourceid: 1,
+        subject1id: 1,
+        subject1type: "a".to_string(),
+        subject2id: 1,
+        subject2type: "b".to_string(),
+        value_role: 1,
+        disproved: "true".to_string(),
+        rationale: "d".to_string(),
+    };
+
+    let bglassertion = GlAssertion::read_glassertion(glassertion_b);
+
+    println!("bglassertion : {:?}", &bglassertion);
+
+    // dbstring(&conn, &bglassertion);
+
+    let mut stmt = conn.prepare(&bglassertion)?;
+    let glassertion_iter = stmt.query_map([], |row| {
+        Ok(GlAssertion {
+            glassertionid: row.get(0)?,
+            suretypartid: row.get(1)?,
+            researcherid: row.get(2)?,
+            sourceid: row.get(3)?,
+            subject1id: row.get(4)?,
+            subject1type: row.get(5)?,
+            subject2id: row.get(6)?,
+            subject2type: row.get(7)?,
+            value_role: row.get(8)?,
+            disproved: row.get(9)?,
+            rationale: row.get(10)?,
+        })
+    })?;
+
+    for glassertionitem in glassertion_iter {
+        println!("Found glassertion data {:?}", glassertionitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_glassertion_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glassertion_c = GlAssertion {
+        glassertionid: 16,
+        suretypartid: 1,
+        researcherid: 1,
+        sourceid: 1,
+        subject1id: 1,
+        subject1type: "a".to_string(),
+        subject2id: 1,
+        subject2type: "b".to_string(),
+        value_role: 1,
+        disproved: "true".to_string(),
+        rationale: "d".to_string(),
+    };
+
+    let cglassertion = GlAssertion::update_glassertion(glassertion_c);
+
+    println!("cglassertion : {:?}", &cglassertion);
+    dbstring(&conn, cglassertion);
+
+    Ok(())
+}
+
+pub fn delete_glassertion_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glassertion_d = GlAssertion {
+        glassertionid: 16,
+        suretypartid: 1,
+        researcherid: 1,
+        sourceid: 1,
+        subject1id: 1,
+        subject1type: "a".to_string(),
+        subject2id: 1,
+        subject2type: "b".to_string(),
+        value_role: 1,
+        disproved: "true".to_string(),
+        rationale: "d".to_string(),
+    };
+
+    let dglassertion = GlAssertion::delete_glassertion(glassertion_d);
+
+    println!("dglassertion : {:?}", &dglassertion);
+    dbstring(&conn, dglassertion);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_glgroup_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glgroup_a = GlGroup {
+        glgroupid: 16,
+        glgrouptypeid: 1,
+        placeid: 1,
+        glgroupdate: "20230101".to_string(),
+        glgroupname: "First Group".to_string(),
+        glgroupcriteria: "a".to_string(),
+    };
+
+    let aglgroup = GlGroup::create_glgroup(glgroup_a);
+
+    println!("aglgroup : {:?}", &aglgroup);
+    dbstring(&conn, aglgroup);
+
+    Ok(())
+}
+
+pub fn read_glgroup_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glgroup_b = GlGroup {
+        glgroupid: 16,
+        glgrouptypeid: 1,
+        placeid: 1,
+        glgroupdate: "20230101".to_string(),
+        glgroupname: "First Group".to_string(),
+        glgroupcriteria: "a".to_string(),
+    };
+
+    let bglgroup = GlGroup::read_glgroup(glgroup_b);
+
+    println!("bglgroup : {:?}", &bglgroup);
+
+    // dbstring(&conn, &bglgroup);
+
+    let mut stmt = conn.prepare(&bglgroup)?;
+    let glgroup_iter = stmt.query_map([], |row| {
+        Ok(GlGroup {
+            glgroupid: row.get(0)?,
+            glgrouptypeid: row.get(1)?,
+            placeid: row.get(2)?,
+            glgroupdate: row.get(3)?,
+            glgroupname: row.get(4)?,
+            glgroupcriteria: row.get(5)?,
+        })
+    })?;
+
+    for glgroupitem in glgroup_iter {
+        println!("Found glgroup data {:?}", glgroupitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_glgroup_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glgroup_c = GlGroup {
+        glgroupid: 16,
+        glgrouptypeid: 1,
+        placeid: 1,
+        glgroupdate: "20230101".to_string(),
+        glgroupname: "First Group".to_string(),
+        glgroupcriteria: "a".to_string(),
+    };
+
+    let cglgroup = GlGroup::update_glgroup(glgroup_c);
+
+    println!("cglgroup : {:?}", &cglgroup);
+    dbstring(&conn, cglgroup);
+
+    Ok(())
+}
+
+pub fn delete_glgroup_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glgroup_d = GlGroup {
+        glgroupid: 16,
+        glgrouptypeid: 1,
+        placeid: 1,
+        glgroupdate: "20230101".to_string(),
+        glgroupname: "First Group".to_string(),
+        glgroupcriteria: "a".to_string(),
+    };
+
+    let dglgroup = GlGroup::delete_glgroup(glgroup_d);
+
+    println!("dglgroup : {:?}", &dglgroup);
+    dbstring(&conn, dglgroup);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_glgrouptype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glgrouptype_a = GlGroupType {
+        glgrouptypeid: 16,
+        glgroupname: "First GroupType".to_string(),
+        ascdescnone: "a".to_string(),
+    };
+
+    let aglgrouptype = GlGroupType::create_glgrouptype(glgrouptype_a);
+
+    println!("aglgrouptype : {:?}", &aglgrouptype);
+    dbstring(&conn, aglgrouptype);
+
+    Ok(())
+}
+
+pub fn read_glgrouptype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glgrouptype_b = GlGroupType {
+        glgrouptypeid: 16,
+        glgroupname: "First GroupType".to_string(),
+        ascdescnone: "a".to_string(),
+    };
+
+    let bglgrouptype = GlGroupType::read_glgrouptype(glgrouptype_b);
+
+    println!("bglgrouptype : {:?}", &bglgrouptype);
+
+    // dbstring(&conn, &bglgrouptype);
+
+    let mut stmt = conn.prepare(&bglgrouptype)?;
+    let glgrouptype_iter = stmt.query_map([], |row| {
+        Ok(GlGroupType {
+            glgrouptypeid: row.get(0)?,
+            glgroupname: row.get(1)?,
+            ascdescnone: row.get(2)?,
+        })
+    })?;
+
+    for glgrouptypeitem in glgrouptype_iter {
+        println!("Found glgrouptype data {:?}", glgrouptypeitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_glgrouptype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glgrouptype_c = GlGroupType {
+        glgrouptypeid: 16,
+        glgroupname: "First GroupType".to_string(),
+        ascdescnone: "a".to_string(),
+    };
+
+    let cglgrouptype = GlGroupType::update_glgrouptype(glgrouptype_c);
+
+    println!("cglgrouptype : {:?}", &cglgrouptype);
+    dbstring(&conn, cglgrouptype);
+
+    Ok(())
+}
+
+pub fn delete_glgrouptype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glgrouptype_d = GlGroupType {
+        glgrouptypeid: 16,
+        glgroupname: "First GroupType".to_string(),
+        ascdescnone: "a".to_string(),
+    };
+
+    let dglgrouptype = GlGroupType::delete_glgrouptype(glgrouptype_d);
+
+    println!("dglgrouptype : {:?}", &dglgrouptype);
+    dbstring(&conn, dglgrouptype);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_glgrouptyperole_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glgrouptyperole_a = GlGroupTypeRole {
+        glgrouptyperoleid: 16,
+        glgrouptypeid: 1,
+        glgrouptypename: "First GroupTypeRole".to_string(),
+        sequencenumber: 1,
+    };
+
+    let aglgrouptyperole = GlGroupTypeRole::create_glgrouptyperole(glgrouptyperole_a);
+
+    println!("aglgrouptyperole : {:?}", &aglgrouptyperole);
+    dbstring(&conn, aglgrouptyperole);
+
+    Ok(())
+}
+
+pub fn read_glgrouptyperole_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glgrouptyperole_b = GlGroupTypeRole {
+        glgrouptyperoleid: 16,
+        glgrouptypeid: 1,
+        glgrouptypename: "First GroupTypeRole".to_string(),
+        sequencenumber: 1,
+    };
+
+    let bglgrouptyperole = GlGroupTypeRole::read_glgrouptyperole(glgrouptyperole_b);
+
+    println!("bglgrouptyperole : {:?}", &bglgrouptyperole);
+
+    // dbstring(&conn, &bglgrouptyperole);
+
+    let mut stmt = conn.prepare(&bglgrouptyperole)?;
+    let glgrouptyperole_iter = stmt.query_map([], |row| {
+        Ok(GlGroupTypeRole {
+            glgrouptyperoleid: row.get(0)?,
+            glgrouptypeid: row.get(1)?,
+            glgrouptypename: row.get(2)?,
+            sequencenumber: row.get(3)?,
+        })
+    })?;
+
+    for glgrouptyperoleitem in glgrouptyperole_iter {
+        println!("Found glgrouptyperole data {:?}", glgrouptyperoleitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_glgrouptyperole_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glgrouptyperole_c = GlGroupTypeRole {
+        glgrouptyperoleid: 16,
+        glgrouptypeid: 1,
+        glgrouptypename: "First GroupTypeRole".to_string(),
+        sequencenumber: 1,
+    };
+
+    let cglgrouptyperole = GlGroupTypeRole::update_glgrouptyperole(glgrouptyperole_c);
+
+    println!("cglgrouptyperole : {:?}", &cglgrouptyperole);
+    dbstring(&conn, cglgrouptyperole);
+
+    Ok(())
+}
+
+pub fn delete_glgrouptyperole_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let glgrouptyperole_d = GlGroupTypeRole {
+        glgrouptyperoleid: 16,
+        glgrouptypeid: 1,
+        glgrouptypename: "First GroupTypeRole".to_string(),
+        sequencenumber: 1,
+    };
+
+    let dglgrouptyperole = GlGroupTypeRole::delete_glgrouptyperole(glgrouptyperole_d);
+
+    println!("dglgrouptyperole : {:?}", &dglgrouptyperole);
+    dbstring(&conn, dglgrouptyperole);
 
     Ok(())
 }

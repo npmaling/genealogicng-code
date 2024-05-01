@@ -42,8 +42,8 @@ impl EventType {
     pub fn read_eventtype(
         EventType {
             eventtypeid,
-            eventtypename,
-            gedcomtag,
+            eventtypename: _,
+            gedcomtag: _,
         }: EventType,
     ) -> String {
         let parameters = format!(
@@ -75,8 +75,8 @@ impl EventType {
     pub fn delete_eventtype(
         EventType {
             eventtypeid,
-            eventtypename,
-            gedcomtag,
+            eventtypename: _,
+            gedcomtag: _,
         }: EventType,
     ) -> String {
         let parameters = format!(

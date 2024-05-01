@@ -42,8 +42,8 @@ impl GlGroupType {
     pub fn read_glgrouptype(
         GlGroupType {
             glgrouptypeid,
-            glgroupname,
-            ascdescnone,
+            glgroupname: _,
+            ascdescnone: _,
         }: GlGroupType,
     ) -> String {
         let parameters = format!(
@@ -75,8 +75,8 @@ impl GlGroupType {
     pub fn delete_glgrouptype(
         GlGroupType {
             glgrouptypeid,
-            glgroupname,
-            ascdescnone,
+            glgroupname: _,
+            ascdescnone: _,
         }: GlGroupType,
     ) -> String {
         let parameters = format!(
