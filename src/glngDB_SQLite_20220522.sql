@@ -13,16 +13,16 @@
 -- limitations under the License.
 
 CREATE TABLE activity (
-    activityid INT NOT NULL,
-    projectid INT NOT NULL,
-    researcherid INT NOT NULL,
-    scheddate DATE NOT NULL,
-    completedate DATE NOT NULL,
-    typecode CHAR(1) NOT NULL,
-    status TEXT(16) NOT NULL,
-    description TEXT(32672) NOT NULL,
-    priority TEXT(16) NOT NULL,
-    comments TEXT(32672) NOT NULL,
+    activityid INT,
+    projectid INT,
+    researcherid INT,
+    scheddate TEXT(128),
+    completedate TEXT(128),
+    typecode CHAR(1),
+    status TEXT(16),
+    description TEXT(32672),
+    priority TEXT(16),
+    comments TEXT(32672)
     -- PRIMARY KEY (activityid)
 );
 -- CREATE INDEX activity_project_idx ON activity (projectid ASC);
@@ -30,46 +30,46 @@ CREATE TABLE activity (
 -- 
 -- DROP TABLE persona;
 CREATE TABLE persona (
-    personaid INT NOT NULL,
-    persona_name TEXT(128) NOT NULL,
-    description_comments TEXT(32672) NOT NULL
+    personaid INT,
+    persona_name TEXT(128),
+    description_comments TEXT(32672)
     -- PRIMARY KEY (personaid)
 );
 -- CREATE INDEX personanameidx ON persona (persona_name ASC);
 -- DROP TABLE place;
 CREATE TABLE place (
-    placeid INT NOT NULL,
-    startdate TEXT(96) NOT NULL,
-    enddate TEXT(96) NOT NULL,
-    ascdescnone CHAR(1) NOT NULL,
-    placecomment TEXT(32672) NOT NULL,
+    placeid INT,
+    startdate TEXT(96),
+    enddate TEXT(96),
+    ascdescnone CHAR(1),
+    placecomment TEXT(32672)
     -- PRIMARY KEY (placeid)
 );
 -- CREATE INDEX plstartdate ON place (startdate ASC);
 -- CREATE INDEX plenddate ON place (enddate ASC);
 -- DROP TABLE placeparttype;
 CREATE TABLE placeparttype (
-    placeparttypeid INT NOT NULL,
-    pptname TEXT(32) NOT NULL,
+    placeparttypeid INT,
+    pptname TEXT(32)
     -- PRIMARY KEY (placeparttypeid)
 );
 -- DROP TABLE placepart;
 CREATE TABLE placepart (
-    placepartid INT NOT NULL,
-    placeid INT NOT NULL,
-    placeparttypeid INT NOT NULL,
-    name TEXT(128) NOT NULL,
-    sequencenumber INT NOT NULL,
+    placepartid INT,
+    placeid INT,
+    placeparttypeid INT,
+    name TEXT(128),
+    sequencenumber INT
     -- PRIMARY KEY (placepartid),
     -- FOREIGN KEY (PLACEPARTTYPEID) REFERENCES PLACEPARTTYPE (PLACEPARTTYPEID),
     -- FOREIGN KEY (PLACEID) REFERENCES PLACE (PLACEID)
 );
 -- DROP TABLE characteristic;
 CREATE TABLE characteristic (
-    characteristicid INT NOT NULL,
-    placeid INT NOT NULL,
-    characteristicdate TEXT(96) NOT NULL,
-    ascdescnone CHAR(1) NOT NULL,
+    characteristicid INT,
+    placeid INT,
+    characteristicdate TEXT(96),
+    ascdescnone CHAR(1)
     -- PRIMARY KEY (characteristicid),
     -- FOREIGN KEY (placeid) REFERENCES PLACE (PLACEID)
 );
@@ -77,90 +77,90 @@ CREATE TABLE characteristic (
 -- GEDCOMTAG in this table is not in the GDM and is only here to accommodate
 -- that standard and provide some future consistency with imports/exports
 CREATE TABLE charparttype (
-    charparttypeid INT NOT NULL,
-    charparttypename TEXT(32) NOT NULL,
-    gedcomtag TEXT(4) NOT NULL,
+    charparttypeid INT,
+    charparttypename TEXT(32),
+    gedcomtag TEXT(4)
     -- PRIMARY KEY (charparttypeid)
 );
 -- DROP TABLE charpart;
 CREATE TABLE charpart (
-    characteristicpartid INT NOT NULL,
-    characteristicid INT NOT NULL,
-    charparttypeid INT NOT NULL,
-    charpartname TEXT(32) NOT NULL,
-    charpartseq INT NOT NULL,
+    characteristicpartid INT,
+    characteristicid INT,
+    charparttypeid INT,
+    charpartname TEXT(32),
+    charpartseq INT
     -- PRIMARY KEY (characteristicpartid),
     -- FOREIGN KEY (CHARACTERISTICID) REFERENCES CHARACTERISTIC (CHARACTERISTICID),
     -- FOREIGN KEY (CHARPARTTYPEID) REFERENCES CHARPARTTYPE (CHARPARTTYPEID)
 );
 -- DROP TABLE project;
 CREATE TABLE project (
-    projectid INT NOT NULL,
-    name TEXT(128) NOT NULL,
-    projectdesc TEXT(16384) NOT NULL,
-    clientdata TEXT(16384) NOT NULL,
+    projectid INT,
+    name TEXT(128),
+    projectdesc TEXT(16384),
+    clientdata TEXT(16384)
     -- PRIMARY KEY (projectid)
 );
 -- DROP TABLE repository;
 CREATE TABLE repository (
-    repositoryid INT NOT NULL,
-    placeid INT NOT NULL,
-    reponame TEXT(128) NOT NULL,
-    comments TEXT(16384) NOT NULL,
+    repositoryid INT,
+    placeid INT,
+    reponame TEXT(128),
+    comments TEXT(16384)
     -- PRIMARY KEY (repositoryid),
     -- FOREIGN KEY (PLACEID) REFERENCES PLACE (PLACEID)
 );
 -- DROP TABLE resobjective;
 CREATE TABLE resobjective (
-    resobjid INT NOT NULL,
-    projectid INT NOT NULL,
-    subjectid INT NOT NULL,
-    subjecttype CHAR(1) NOT NULL,
-    name TEXT(32) NOT NULL,
-    description TEXT(16384) NOT NULL,
-    sequencenumber INT NOT NULL,
-    priority TEXT(16) NOT NULL,
-    status TEXT(16) NOT NULL,
+    resobjid INT,
+    projectid INT,
+    subjectid INT,
+    subjecttype CHAR(1),
+    name TEXT(32),
+    description TEXT(16384),
+    sequencenumber INT,
+    priority TEXT(16),
+    status TEXT(16)
     -- PRIMARY KEY (resobjid),
     -- FOREIGN KEY (PROJECTID) REFERENCES PROJECT (PROJECTID)
 );
 -- DROP TABLE resobjactivity;
 CREATE TABLE resobjactivity (
-    resobjactivityid INT NOT NULL,
-    resobjid INT NOT NULL,
-    activityid INT NOT NULL,
+    resobjactivityid INT,
+    resobjid INT,
+    activityid INT
     -- PRIMARY KEY (resobjactivityid),
     -- FOREIGN KEY (RESOBJID) REFERENCES RESOBJECTIVE (RESOBJID),
     -- FOREIGN KEY (ACTIVITYID) REFERENCES ACTIVITY (ACTIVITYID)
 );
 -- DROP TABLE researcher;
 CREATE TABLE researcher (
-    researcherid INT NOT NULL,
-    name TEXT(128) NOT NULL,
-    addressid INT NOT NULL,
-    comments TEXT(16384) NOT NULL,
+    researcherid INT,
+    name TEXT(128),
+    addressid INT,
+    comments TEXT(16384)
     -- PRIMARY KEY (researcherid)
 );
 -- DROP TABLE resproj;
 CREATE TABLE resproj (
-    resprojid INT NOT NULL,
-    projectid INT NOT NULL,
-    researcherid INT NOT NULL,
-    researcherrole TEXT(32) NOT NULL,
+    resprojid INT,
+    projectid INT,
+    researcherid INT,
+    researcherrole TEXT(32)
     -- PRIMARY KEY (resprojid),
     -- FOREIGN KEY (RESEARCHERID) REFERENCES RESEARCHER (RESEARCHERID),
     -- FOREIGN KEY (PROJECTID) REFERENCES PROJECT (PROJECTID)
 );
 -- DROP TABLE source;
 CREATE TABLE source (
-    sourceid INT NOT NULL,
-    highersourceid INT NOT NULL,
-    subjectplaceid INT NOT NULL,
-    jurisplaceid INT NOT NULL,
-    researcherid INT NOT NULL,
+    sourceid INT,
+    highersourceid INT,
+    subjectplaceid INT,
+    jurisplaceid INT,
+    researcherid INT,
     subjectdate TEXT(96),
-    comments TEXT(16384),
-    --  FOREIGN KEY (HIGHERSOURCEID) REFERENCES SOURCE (HIGHERSOURCEID),
+    comments TEXT(16384)
+    -- FOREIGN KEY (HIGHERSOURCEID) REFERENCES SOURCE (HIGHERSOURCEID),
     -- FOREIGN KEY (SUBJECTPLACEID) REFERENCES PLACE (PLACEID),
     -- FOREIGN KEY (JURISPLACEID) REFERENCES PLACE (PLACEID),
     -- FOREIGN KEY (RESEARCHERID) REFERENCES RESEARCHER (RESEARCHERID)
@@ -171,74 +171,75 @@ CREATE TABLE source (
 -- ALTER TABLE SOURCE ADD CONSTRAINT RESEARCHER_FK FOREIGN KEY (RESEARCHERID) REFERENCES RESEARCHER (RESEARCHERID);
 -- DROP TABLE sourcegroup;
 CREATE TABLE sourcegroup (
-    sourcegroupid INT NOT NULL,
-    sourcegroupname TEXT(96),
+    sourcegroupid INT,
+    sourcegroupname TEXT(96)
     -- PRIMARY KEY (sourcegroupid)
 );
 -- DROP TABLE srcgrpsrc;
 CREATE TABLE srcgrpsrc (
-    srcgrpsrcid INT NOT NULL,
-    sourceid INT NOT NULL,
-    sourcegroupid INT NOT NULL,
+    srcgrpsrcid INT,
+    sourceid INT,
+    sourcegroupid INT
     -- PRIMARY KEY (srsgrpsrcid),
     -- FOREIGN KEY (SOURCEID) REFERENCES SOURCE (SOURCEID),
     -- FOREIGN KEY (SOURCEGROUPID) REFERENCES SOURCEGROUP (SOURCEGROUPID)
 );
 -- DROP TABLE citationparttype;
 CREATE TABLE citationparttype (
-    citationparttypeid INT NOT NULL,
-    citationparttypename TEXT(32) NOT NULL -- PRIMARY KEY (citationparttypeid)
+    citationparttypeid INT,
+    citationparttypename TEXT(32) 
+    -- PRIMARY KEY (citationparttypeid)
 );
 -- DROP TABLE citationpart;
 CREATE TABLE citationpart (
-    citationpartid INT NOT NULL,
-    sourceid INT NOT NULL,
-    citeparttypeid INT NOT NULL,
-    citepartvalue TEXT(512) NOT NULL,
+    citationpartid INT,
+    sourceid INT,
+    citeparttypeid INT,
+    citepartvalue TEXT(512)
     -- PRIMARY KEY (citationpartid) --  FOREIGN KEY (SOURCEID) REFERENCES SOURCE (SOURCEID),
     --  FOREIGN KEY (CITEPARTTYPEID) REFERENCES CITATIONPARTTYPE (CITATIONPARTTYPEID)
 );
 -- DROP TABLE suretyscheme;
 CREATE TABLE suretyscheme (
-    suretyschemeid INT NOT NULL,
-    name TEXT(32) NOT NULL,
-    description TEXT(16384) NOT NULL,
+    suretyschemeid INT,
+    name TEXT(32),
+    description TEXT(16384)
     -- PRIMARY KEY (suretyschemeid)
 );
 -- DROP TABLE suretypart;
 CREATE TABLE suretypart (
-    suretypartid INT NOT NULL,
-    schemeid INT NOT NULL,
-    name TEXT(32) NOT NULL,
-    description TEXT(32) NOT NULL,
-    sequencenumber INT NOT NULL,
+    suretypartid INT,
+    schemeid INT,
+    name TEXT(32),
+    description TEXT(32),
+    sequencenumber INT
     -- PRIMARY KEY (suretypartid),
     -- FOREIGN KEY (SCHEMEID) REFERENCES SURETYSCHEME (SURETYSCHEMEID)
 );
 CREATE INDEX spschemeidx ON suretypart (schemeid ASC);
 -- DROP TABLE glassertion;
 CREATE TABLE glassertion (
-    glassertionid INT NOT NULL,
-    suretypartid INT NOT NULL,
-    researcherid INT NOT NULL,
-    sourceid INT NOT NULL,
-    subject1id INT NOT NULL,
-    subject1type CHAR(1) NOT NULL,
-    subject2id INT NOT NULL,
-    subject2type CHAR(1) NOT NULL,
-    value_role INT NOT NULL,
+    glassertionid INT,
+    suretypartid INT,
+    researcherid INT,
+    sourceid INT,
+    subject1id INT,
+    subject1type CHAR(1),
+    subject2id INT,
+    subject2type CHAR(1),
+    value_role INT,
     disproved BOOLEAN,
-    rationale TEXT(32672),
+    rationale TEXT(32672)
     -- PRIMARY KEY (glassertionid) --  FOREIGN KEY (SURETYPARTID) REFERENCES SURETYPART (SURETYPARTID),
     -- FOREIGN KEY (RESEARCHERID) REFERENCES RESEARCHER (RESEARCHERID),
     -- FOREIGN KEY (SOURCEID) REFERENCES SOURCE (SOURCEID)
 );
 -- DROP TABLE assertassert;
 CREATE TABLE assertassert (
-    assertassertid INT NOT NULL,
-    idlo INT NOT NULL,
-    idhi INT NOT NULL,
-    seq INT NOT NULL,
+    assertassertid INT,
+    idlo INT,
+    idhi INT,
+    seq INT
     -- PRIMARY KEY (assertassertid),
     -- FOREIGN KEY (idlo) REFERENCES GLASSERTION (GLASSERTIONID),
     -- FOREIGN KEY (idhi) REFERENCES GLASSERTION (GLASSERTIONID)
@@ -250,26 +251,26 @@ CREATE TABLE assertassert (
 -- which were not modifiable
 -- DROP TABLE reprmediatype;
 CREATE TABLE reprmediatype (
-    reprmediaid INT NOT NULL,
-    reprmedianame TEXT(128) NOT NULL,
+    reprmediaid INT,
+    reprmedianame TEXT(128)
     -- PRIMARY KEY (reprmediaid)
 );
 -- END new table
 -- DROP TABLE representtype;
 CREATE TABLE representtype (
-    reprtypeid INT NOT NULL,
-    name TEXT(128) NOT NULL,
+    reprtypeid INT,
+    name TEXT(128)
     -- PRIMARY KEY (reprtypeid)
 );
 -- DROP TABLE representation;
 CREATE TABLE representation (
-    representationid INT NOT NULL,
-    sourceid INT NOT NULL,
-    reprtypeid INT NOT NULL,
-    reprmediaid INT NOT NULL,
+    representationid INT,
+    sourceid INT,
+    reprtypeid INT,
+    reprmediaid INT,
     physfilecode TEXT(8192),
     comments TEXT(16384),
-    externallink TEXT(255),
+    externallink TEXT(255)
     -- PRIMARY KEY (representationid),
     -- FOREIGN KEY (SOURCEID) REFERENCES SOURCE (SOURCEID),
     -- FOREIGN KEY (REPRTYPEID) REFERENCES REPRESENTTYPE (REPRTYPEID),
@@ -277,12 +278,12 @@ CREATE TABLE representation (
 );
 -- DROP TABLE search;
 CREATE TABLE search (
-    searchid INT NOT NULL,
-    activityid INT NOT NULL,
+    searchid INT,
+    activityid INT,
     -- relates to ACTIVITY
-    sourceid INT NOT NULL,
-    repositoryid INT NOT NULL,
-    searchedfor TEXT(16384) NOT NULL,
+    sourceid INT,
+    repositoryid INT,
+    searchedfor TEXT(16384)
     -- PRIMARY KEY (searchid),
     -- FOREIGN KEY (SOURCEID) REFERENCES SOURCE (SOURCEID),
     -- FOREIGN KEY (REPOSITORYID) REFERENCES REPOSITORY (REPOSITORYID)
@@ -291,55 +292,55 @@ CREATE TABLE search (
 -- GEDCOMTAG in this table is not in the GDM and is only here to accommodate
 -- that standard and provide some future consistency with imports/exports
 CREATE TABLE eventtype (
-    eventtypeid INT NOT NULL,
-    eventtypename TEXT(32) NOT NULL,
-    gedcomtag TEXT(4) NOT NULL,
+    eventtypeid INT,
+    eventtypename TEXT(32),
+    gedcomtag TEXT(4)
     -- PRIMARY KEY (eventtypeid)
 );
 -- DROP TABLE event;
 CREATE TABLE event (
-    eventid INT NOT NULL,
-    eventtypeid INT NOT NULL,
-    placeid INT NOT NULL,
-    eventdate TEXT(96) NOT NULL,
-    eventname TEXT(128) NOT NULL,
+    eventid INT,
+    eventtypeid INT,
+    placeid INT,
+    eventdate TEXT(96),
+    eventname TEXT(128)
     -- PRIMARY KEY (eventid),
     -- FOREIGN KEY (EVENTTYPEID) REFERENCES EVENTTYPE (EVENTTYPEID),
     -- FOREIGN KEY (PLACEID) REFERENCES PLACE (PLACEID)
 );
 -- DROP TABLE eventtyperole;
 CREATE TABLE eventtyperole (
-    eventtyperoleid INT NOT NULL,
-    eventtypeid INT NOT NULL,
-    eventtyperolename TEXT(32) NOT NULL,
+    eventtyperoleid INT,
+    eventtypeid INT,
+    eventtyperolename TEXT(32)
     -- PRIMARY KEY (eventtyperoleid),
     -- FOREIGN KEY (EVENTTYPEID) REFERENCES EVENTTYPE (EVENTTYPEID)
 );
 -- DROP TABLE glgrouptype;
 CREATE TABLE glgrouptype (
-    glgrouptypeid INT NOT NULL,
-    glgroupname TEXT(32) NOT NULL,
-    ascdescnone CHAR(1) NOT NULL,
+    glgrouptypeid INT,
+    glgroupname TEXT(32),
+    ascdescnone CHAR(1)
     -- PRIMARY KEY (glgrouptypeid)
 );
 -- DROP TABLE glgroup;
 CREATE TABLE glgroup (
-    glgroupid INT NOT NULL,
-    glgrouptypeid INT NOT NULL,
-    placeid INT NOT NULL,
-    glgroupdate TEXT(96) NOT NULL,
-    glgroupname TEXT(32) NOT NULL,
-    glgroupcriteria TEXT(128) NOT NULL,
+    glgroupid INT,
+    glgrouptypeid INT,
+    placeid INT,
+    glgroupdate TEXT(96),
+    glgroupname TEXT(32),
+    glgroupcriteria TEXT(128)
     -- PRIMARY KEY (glgroupid),
     -- FOREIGN KEY (GLGROUPTYPEID) REFERENCES GLGROUPTYPE (GLGROUPTYPEID),
     -- FOREIGN KEY (PLACEID) REFERENCES PLACE (PLACEID)
 );
 -- DROP TABLE glgrouptyperole;
 CREATE TABLE glgrouptyperole (
-    glgrouptyperoleid INT NOT NULL,
-    glgrouptypeid INT NOT NULL,
-    glgrouptypename TEXT(32) NOT NULL,
-    sequencenumber INT NOT NULL,
+    glgrouptyperoleid INT,
+    glgrouptypeid INT,
+    glgrouptypename TEXT(32),
+    sequencenumber INT
     -- PRIMARY KEY (glgrouptyperoleid),
     -- FOREIGN KEY (GLGROUPTYPEID) REFERENCES GLGROUPTYPE (GLGROUPTYPEID)
 );
@@ -348,12 +349,12 @@ CREATE TABLE glgrouptyperole (
 -- than the ACTIVITY table, but for some reason DERBY is failing to create the
 -- link ...
 CREATE TABLE reposource (
-    repo_sourceid INT NOT NULL,
-    repositoryid INT NOT NULL,
-    sourceid INT NOT NULL,
-    rsactivityid INT NOT NULL,
+    repo_sourceid INT,
+    repositoryid INT,
+    sourceid INT,
+    rsactivityid INT,
     callnumber TEXT(32),
-    description TEXT(128),
+    description TEXT(128)
     -- PRIMARY KEY (repo_sourceid),
     -- FOREIGN KEY (REPOSITORYID) REFERENCES REPOSITORY (REPOSITORYID),
     -- FOREIGN KEY (SOURCEID) REFERENCES SOURCE (SOURCEID),

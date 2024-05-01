@@ -14,9 +14,6 @@
 -- limitations under the License.
 */
 
-use crate::activity::Activity;
-mod activity;
-
 use crate::glgroup::GlGroup;
 mod glgroup;
 
@@ -28,9 +25,6 @@ mod glgrouptyperole;
 
 use crate::persona::Persona;
 mod persona;
-
-// use crate::place::Place;
-// mod place;
 
 use crate::placepart::PlacePart;
 mod placepart;
@@ -88,16 +82,26 @@ mod suretypart;
 
 use rusqlite::{params, Connection, Result};
 
+use genealogicng::make_activity_a;
+use genealogicng::read_activity_a;
+use genealogicng::update_activity_a;
+use genealogicng::delete_activity_a;
+
 use genealogicng::make_place_a;
 use genealogicng::read_place_a;
 use genealogicng::update_place_a;
 use genealogicng::delete_place_a;
 
 fn main() -> Result<()> {
-    let path: &str = "C:/Users/npmal/projects/genealogicng-code/glNG.db";
+    let path: &str = "C:/Users/npmal/projects/genealogicng-code/database.db";
     let conn: Connection = Connection::open(&path)?;
 
     /* ------------------------------------------------------------------------- */
+
+    let _ = make_activity_a();
+    let _ = read_activity_a();
+    let _ = update_activity_a();
+    let _ = delete_activity_a();
 
     let _ = make_place_a();
     let _ = read_place_a();
@@ -621,10 +625,6 @@ fn main() -> Result<()> {
     let dpp = SrcGrpSrc::delete_srcgrpsrc(pp_d);
 
     dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    /* ------------------------------------------------------------------------- */
 
     /* ------------------------------------------------------------------------- */
 
@@ -1159,77 +1159,5 @@ fn main() -> Result<()> {
     for person in person_iter {
         println!("Found person {:?}", person.unwrap());
     }
-
-    let activity_a = Activity {
-        activityid: 1,
-        projectid: 1,
-        researcherid: 1,
-        scheddate: "1 June 2023".to_string(),
-        completedate: "30 June 2023".to_string(),
-        typecode: "A".to_string(),
-        status: "In Progress".to_string(),
-        description: "A Test Activity".to_string(),
-        priority: "High".to_string(),
-        comments: "These are comments".to_string(),
-    };
-
-    let aactivity: String = Activity::create_activity(activity_a);
-
-    let activity_b = Activity {
-        activityid: 2,
-        projectid: 2,
-        researcherid: 2,
-        scheddate: "2 June 2023".to_string(),
-        completedate: "29 June 2023".to_string(),
-        typecode: "B".to_string(),
-        status: "In Progress".to_string(),
-        description: "A Second Test Activity".to_string(),
-        priority: "Medium".to_string(),
-        comments: "These are more comments".to_string(),
-    };
-
-    let bactivity: String = Activity::read_activity(activity_b);
-
-    let activity_c = Activity {
-        activityid: 1,
-        projectid: 1,
-        researcherid: 1,
-        scheddate: "3 June 2023".to_string(),
-        completedate: "28 June 2023".to_string(),
-        typecode: "c".to_string(),
-        status: "In Progress".to_string(),
-        description: "Another Test Activity".to_string(),
-        priority: "Low".to_string(),
-        comments: "These are another set of comments".to_string(),
-    };
-
-    let cactivity: String = Activity::read_activity(activity_c);
-
-    dbstring(&conn, aactivity);
-
-    dbstring(&conn, bactivity);
-
-    // dbstring(&conn, &cactivity);
-
-    let mut stmt = conn.prepare(&cactivity)?;
-    let activity_iter = stmt.query_map([], |row| {
-        Ok(Activity {
-            activityid: row.get(0)?,
-            projectid: row.get(1)?,
-            researcherid: row.get(2)?,
-            scheddate: row.get(3)?,
-            completedate: row.get(4)?,
-            typecode: row.get(5)?,
-            status: row.get(6)?,
-            description: row.get(7)?,
-            priority: row.get(8)?,
-            comments: row.get(9)?,
-        })
-    })?;
-
-    for activity in activity_iter {
-        println!("Found activity {:?}", activity.unwrap());
-    }
-
     Ok(())
 }
