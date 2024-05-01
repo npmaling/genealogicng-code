@@ -51,11 +51,11 @@ impl RepoSource {
     pub fn read_reposource(
         RepoSource {
             reposourceid,
-            repositoryid,
-            sourceid,
-            rsactivityid,
-            callnumber,
-            description,
+            repositoryid: _,
+            sourceid: _,
+            rsactivityid: _,
+            callnumber: _,
+            description: _,
         }: RepoSource,
     ) -> String {
         let parameters = format!(
@@ -93,11 +93,11 @@ impl RepoSource {
     pub fn delete_reposource(
         RepoSource {
             reposourceid,
-            repositoryid,
-            sourceid,
-            rsactivityid,
-            callnumber,
-            description,
+            repositoryid: _,
+            sourceid: _,
+            rsactivityid: _,
+            callnumber: _,
+            description: _,
         }: RepoSource,
     ) -> String {
         let parameters = format!(

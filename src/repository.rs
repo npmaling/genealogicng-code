@@ -45,9 +45,9 @@ impl Repository {
     pub fn read_repository(
         Repository {
             repositoryid,
-            placeid,
-            reponame,
-            comments,
+            placeid: _,
+            reponame: _,
+            comments: _,
         }: Repository,
     ) -> String {
         let parameters = format!(
@@ -81,9 +81,9 @@ impl Repository {
     pub fn delete_repository(
         Repository {
             repositoryid,
-            placeid,
-            reponame,
-            comments,
+            placeid: _,
+            reponame: _,
+            comments: _,
         }: Repository,
     ) -> String {
         let parameters = format!(

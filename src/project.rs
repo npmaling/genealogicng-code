@@ -45,9 +45,9 @@ impl Project {
     pub fn read_project(
         Project {
             projectid,
-            name,
-            projectdesc,
-            clientdata,
+            name: _,
+            projectdesc: _,
+            clientdata: _,
         }: Project,
     ) -> String {
         let parameters = format!(
@@ -81,9 +81,9 @@ impl Project {
     pub fn delete_project(
         Project {
             projectid,
-            name,
-            projectdesc,
-            clientdata,
+            name: _,
+            projectdesc: _,
+            clientdata: _,
         }: Project,
     ) -> String {
         let parameters = format!(

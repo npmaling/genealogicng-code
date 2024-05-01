@@ -14,26 +14,8 @@
 -- limitations under the License.
 */
 
-use crate::persona::Persona;
-mod persona;
-
-use crate::placepart::PlacePart;
-mod placepart;
-
-use crate::placeparttype::PlacePartType;
-mod placeparttype;
-
-use crate::project::Project;
-mod project;
-
 use crate::researcher::Researcher;
 mod researcher;
-
-use crate::repository::Repository;
-mod repository;
-
-use crate::reposource::RepoSource;
-mod reposource;
 
 use crate::representation::Representation;
 mod representation;
@@ -143,10 +125,40 @@ use genealogicng::read_glgrouptyperole_a;
 use genealogicng::update_glgrouptyperole_a;
 use genealogicng::delete_glgrouptyperole_a;
 
+use genealogicng::make_persona_a;
+use genealogicng::read_persona_a;
+use genealogicng::update_persona_a;
+use genealogicng::delete_persona_a;
+
 use genealogicng::make_place_a;
 use genealogicng::read_place_a;
 use genealogicng::update_place_a;
 use genealogicng::delete_place_a;
+
+use genealogicng::make_placepart_a;
+use genealogicng::read_placepart_a;
+use genealogicng::update_placepart_a;
+use genealogicng::delete_placepart_a;
+
+use genealogicng::make_placeparttype_a;
+use genealogicng::read_placeparttype_a;
+use genealogicng::update_placeparttype_a;
+use genealogicng::delete_placeparttype_a;
+
+use genealogicng::make_project_a;
+use genealogicng::read_project_a;
+use genealogicng::update_project_a;
+use genealogicng::delete_project_a;
+
+use genealogicng::make_repository_a;
+use genealogicng::read_repository_a;
+use genealogicng::update_repository_a;
+use genealogicng::delete_repository_a;
+
+use genealogicng::make_reposource_a;
+use genealogicng::read_reposource_a;
+use genealogicng::update_reposource_a;
+use genealogicng::delete_reposource_a;
 
 fn main() -> Result<()> {
     let path: &str = "C:/Users/npmal/projects/genealogicng-code/database.db";
@@ -224,190 +236,40 @@ fn main() -> Result<()> {
     let _ = update_glgrouptyperole_a();
     let _ = delete_glgrouptyperole_a();
 
+    let _ = make_persona_a();
+    let _ = read_persona_a();
+    let _ = update_persona_a();
+    let _ = delete_persona_a();
+
     let _ = make_place_a();
     let _ = read_place_a();
     let _ = update_place_a();
     let _ = delete_place_a();
 
-    /* ------------------------------------------------------------------------- */
+    let _ = make_placepart_a();
+    let _ = read_placepart_a();
+    let _ = update_placepart_a();
+    let _ = delete_placepart_a();
 
-    let ppt_a = PlacePartType {
-        placeparttypeid: 16,
-        pptname: "Second Part".to_string(),
-    };
+    let _ = make_placeparttype_a();
+    let _ = read_placeparttype_a();
+    let _ = update_placeparttype_a();
+    let _ = delete_placeparttype_a();
 
-    let appt = PlacePartType::create_placeparttype(ppt_a);
+    let _ = make_project_a();
+    let _ = read_project_a();
+    let _ = update_project_a();
+    let _ = delete_project_a();
 
-    dbstring(&conn, appt);
+    let _ = make_repository_a();
+    let _ = read_repository_a();
+    let _ = update_repository_a();
+    let _ = delete_repository_a();
 
-    let ppt_b = PlacePartType {
-        placeparttypeid: 16,
-        pptname: "Second Part".to_string(),
-    };
-
-    let bppt = PlacePartType::read_placeparttype(ppt_b);
-
-    dbstring(&conn, bppt);
-
-    let ppt_c = PlacePartType {
-        placeparttypeid: 16,
-        pptname: "Third Part".to_string(),
-    };
-
-    let cppt = PlacePartType::update_placeparttype(ppt_c);
-
-    dbstring(&conn, cppt);
-
-    let ppt_d = PlacePartType {
-        placeparttypeid: 16,
-        pptname: "Third Part".to_string(),
-    };
-
-    let dppt = PlacePartType::delete_placeparttype(ppt_d);
-
-    dbstring(&conn, dppt);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = PlacePart {
-        placepartid: 1,
-        placeid: 2,
-        placeparttypeid: 16,
-        name: "Place Part".to_string(),
-        sequencenumber: 16,
-    };
-
-    let appt = PlacePart::create_placepart(pp_a);
-
-    dbstring(&conn, appt);
-
-    let pp_b = PlacePart {
-        placepartid: 1,
-        placeid: 2,
-        placeparttypeid: 16,
-        name: "Place Part".to_string(),
-        sequencenumber: 16,
-    };
-
-    let bpp = PlacePart::read_placepart(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let pp_c = PlacePart {
-        placepartid: 1,
-        placeid: 2,
-        placeparttypeid: 16,
-        name: "Place Part".to_string(),
-        sequencenumber: 16,
-    };
-
-    let cpp = PlacePart::update_placepart(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let pp_d = PlacePart {
-        placepartid: 1,
-        placeid: 2,
-        placeparttypeid: 16,
-        name: "Place Part".to_string(),
-        sequencenumber: 16,
-    };
-
-    let dpp = PlacePart::delete_placepart(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = Project {
-        projectid: 1,
-        name: "Project Name One".to_string(),
-        projectdesc: "Project Description".to_string(),
-        clientdata: "Client Data".to_string(),
-    };
-
-    let pp_b = Project {
-        projectid: 2,
-        name: "Project Name Two".to_string(),
-        projectdesc: "Project Description".to_string(),
-        clientdata: "Client Data".to_string(),
-    };
-
-    let pp_c = Project {
-        projectid: 3,
-        name: "Project Name Three".to_string(),
-        projectdesc: "Project Description".to_string(),
-        clientdata: "Client Data".to_string(),
-    };
-
-    let pp_d = Project {
-        projectid: 4,
-        name: "Project Name Four".to_string(),
-        projectdesc: "Project Description".to_string(),
-        clientdata: "Client Data".to_string(),
-    };
-
-    let app = Project::create_project(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = Project::read_project(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = Project::update_project(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = Project::delete_project(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = Repository {
-        repositoryid: 1,
-        placeid: 1,
-        reponame: "Repository One Name".to_string(),
-        comments: "Repository Comment Data".to_string(),
-    };
-
-    let pp_b = Repository {
-        repositoryid: 2,
-        placeid: 2,
-        reponame: "Repository Two Name".to_string(),
-        comments: "Repository Comment Data".to_string(),
-    };
-
-    let pp_c = Repository {
-        repositoryid: 3,
-        placeid: 3,
-        reponame: "Repository Three Name".to_string(),
-        comments: "Repository Comment Data".to_string(),
-    };
-
-    let pp_d = Repository {
-        repositoryid: 4,
-        placeid: 4,
-        reponame: "Repository Four Name".to_string(),
-        comments: "Repository Comment Data".to_string(),
-    };
-
-    let app = Repository::create_repository(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = Repository::read_repository(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = Repository::update_repository(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = Repository::delete_repository(pp_d);
-
-    dbstring(&conn, dpp);
+    let _ = make_reposource_a();
+    let _ = read_reposource_a();
+    let _ = update_reposource_a();
+    let _ = delete_reposource_a();
 
     /* ------------------------------------------------------------------------- */
 
@@ -1025,100 +887,6 @@ fn main() -> Result<()> {
 
     /* ------------------------------------------------------------------------- */
 
-    let pp_a = RepoSource {
-        reposourceid: 1,
-        repositoryid: 1,
-        sourceid: 1,
-        rsactivityid: 1,
-        callnumber: "Repository Source Call Number".to_string(),
-        description: "Repository Source Description One".to_string(),
-    };
-
-    let pp_b = RepoSource {
-        reposourceid: 2,
-        repositoryid: 2,
-        sourceid: 2,
-        rsactivityid: 2,
-        callnumber: "Repository Source Call Number".to_string(),
-        description: "Repository Source Description Two".to_string(),
-    };
-
-    let pp_c = RepoSource {
-        reposourceid: 3,
-        repositoryid: 3,
-        sourceid: 3,
-        rsactivityid: 3,
-        callnumber: "Repository Source Call Number".to_string(),
-        description: "Repository Source Description Three".to_string(),
-    };
-
-    let pp_d = RepoSource {
-        reposourceid: 4,
-        repositoryid: 4,
-        sourceid: 4,
-        rsactivityid: 4,
-        callnumber: "Repository Source Call Number".to_string(),
-        description: "Repository Source Description Four".to_string(),
-    };
-
-    let app = RepoSource::create_reposource(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = RepoSource::read_reposource(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = RepoSource::update_reposource(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = RepoSource::delete_reposource(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let person_a = Persona {
-        personaid: 16,
-        persona_name: "Sixteenth Persona".to_string(),
-        description_comments: "A Sixteenth persona has been created.".to_string(),
-    };
-
-    let aname = Persona::create_persona(person_a);
-
-    let person_b = Persona {
-        personaid: 17,
-        persona_name: "Seventeenth Persona".to_string(),
-        description_comments: "A Seventeenth persona has been created.".to_string(),
-    };
-
-    let bname: String = Persona::update_persona(person_b);
-
-    let person_c = Persona {
-        personaid: 18,
-        persona_name: "Eighteenth Persona".to_string(),
-        description_comments: "A Eighteenth persona has been created.".to_string(),
-    };
-
-    let cname: String = Persona::delete_persona(person_c);
-
-    let person_d = Persona {
-        personaid: 19,
-        persona_name: "Nineteenth Persona".to_string(),
-        description_comments: "A Nineteenth persona has been created.".to_string(),
-    };
-
-    let dname: String = Persona::read_persona(person_d);
-
-    dbstring(&conn, aname);
-
-    dbstring(&conn, bname);
-
-    dbstring(&conn, cname);
-
-    // dbstring(&conn, dname);
-
     fn dbstring(conn: &Connection, dbstr: String) {
         match conn.execute(&dbstr, params![]) {
             Ok(updated) => println!("{} rows were updated by match", updated),
@@ -1126,17 +894,6 @@ fn main() -> Result<()> {
         };
     }
 
-    let mut stmt = conn.prepare(&dname)?;
-    let person_iter = stmt.query_map([], |row| {
-        Ok(Persona {
-            personaid: row.get(0)?,
-            persona_name: row.get(1)?,
-            description_comments: row.get(2)?,
-        })
-    })?;
-
-    for person in person_iter {
-        println!("Found person {:?}", person.unwrap());
-    }
     Ok(())
+
 }
