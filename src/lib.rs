@@ -35,6 +35,9 @@ mod citationpart;
 use crate::citationparttype::CitationPartType;
 mod citationparttype;
 
+use crate::event::Event;
+mod event;
+
 use crate::place::Place;
 mod place;
 
@@ -679,6 +682,100 @@ pub fn delete_citationparttype_a() -> Result<(), rusqlite::Error> {
 
     println!("dcitationparttype : {:?}", &dcitationparttype);
     dbstring(&conn, dcitationparttype);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_event_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let event_a = Event {
+        eventid: 16,
+        eventtypeid: 1,
+        placeid: 1,
+        eventdate: "20230101".to_string(),
+        eventname: "First Event".to_string(),
+    };
+
+    let aevent = Event::create_event(event_a);
+
+    println!("aevent : {:?}", &aevent);
+    dbstring(&conn, aevent);
+
+    Ok(())
+}
+
+pub fn read_event_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let event_b = Event {
+        eventid: 16,
+        eventtypeid: 1,
+        placeid: 1,
+        eventdate: "20230101".to_string(),
+        eventname: "First Event".to_string(),
+    };
+
+    let bevent = Event::read_event(event_b);
+
+    println!("bevent : {:?}", &bevent);
+
+    // dbstring(&conn, &bevent);
+
+    let mut stmt = conn.prepare(&bevent)?;
+    let event_iter = stmt.query_map([], |row| {
+        Ok(Event {
+            eventid: row.get(0)?,
+            eventtypeid: row.get(1)?,
+            placeid: row.get(2)?,
+            eventdate: row.get(3)?,
+            eventname: row.get(4)?,
+        })
+    })?;
+
+    for eventitem in event_iter {
+        println!("Found event data {:?}", eventitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_event_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let event_c = Event {
+        eventid: 16,
+        eventtypeid: 1,
+        placeid: 1,
+        eventdate: "20230101".to_string(),
+        eventname: "First Event".to_string(),
+    };
+
+    let cevent = Event::update_event(event_c);
+
+    println!("cevent : {:?}", &cevent);
+    dbstring(&conn, cevent);
+
+    Ok(())
+}
+
+pub fn delete_event_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let event_d = Event {
+        eventid: 16,
+        eventtypeid: 1,
+        placeid: 1,
+        eventdate: "20230101".to_string(),
+        eventname: "First Event".to_string(),
+    };
+
+    let devent = Event::delete_event(event_d);
+
+    println!("devent : {:?}", &devent);
+    dbstring(&conn, devent);
 
     Ok(())
 }

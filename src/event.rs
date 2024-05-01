@@ -48,10 +48,10 @@ impl Event {
     pub fn read_event(
         Event {
             eventid,
-            eventtypeid,
-            placeid,
-            eventdate,
-            eventname,
+            eventtypeid: _,
+            placeid: _,
+            eventdate: _,
+            eventname: _,
         }: Event,
     ) -> String {
         let parameters = format!("SELECT * FROM event WHERE eventid={}", eventid.to_string(),);
@@ -84,10 +84,10 @@ impl Event {
     pub fn delete_event(
         Event {
             eventid,
-            eventtypeid,
-            placeid,
-            eventdate,
-            eventname,
+            eventtypeid: _,
+            placeid: _,
+            eventdate: _,
+            eventname: _,
         }: Event,
     ) -> String {
         let parameters = format!("DELETE FROM event WHERE eventid={}", eventid.to_string(),);

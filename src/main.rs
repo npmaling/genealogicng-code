@@ -117,6 +117,11 @@ use genealogicng::read_citationparttype_a;
 use genealogicng::update_citationparttype_a;
 use genealogicng::delete_citationparttype_a;
 
+use genealogicng::make_event_a;
+use genealogicng::read_event_a;
+use genealogicng::update_event_a;
+use genealogicng::delete_event_a;
+
 use genealogicng::make_place_a;
 use genealogicng::read_place_a;
 use genealogicng::update_place_a;
@@ -162,6 +167,11 @@ fn main() -> Result<()> {
     let _ = read_citationparttype_a();
     let _ = update_citationparttype_a();
     let _ = delete_citationparttype_a();
+
+    let _ = make_event_a();
+    let _ = read_event_a();
+    let _ = update_event_a();
+    let _ = delete_event_a();
 
     let _ = make_place_a();
     let _ = read_place_a();
