@@ -54,12 +54,12 @@ impl Representation {
     pub fn read_representation(
         Representation {
             representationid,
-            sourceid,
-            reprtypeid,
-            reprmediaid,
-            physfilecode,
-            comments,
-            externallink,
+            sourceid: _,
+            reprtypeid: _,
+            reprmediaid: _,
+            physfilecode: _,
+            comments: _,
+            externallink: _,
         }: Representation,
     ) -> String {
         let parameters = format!(
@@ -99,12 +99,12 @@ impl Representation {
     pub fn delete_representation(
         Representation {
             representationid,
-            sourceid,
-            reprtypeid,
-            reprmediaid,
-            physfilecode,
-            comments,
-            externallink,
+            sourceid: _,
+            reprtypeid: _,
+            reprmediaid: _,
+            physfilecode: _,
+            comments: _,
+            externallink: _,
         }: Representation,
     ) -> String {
         let parameters = format!(

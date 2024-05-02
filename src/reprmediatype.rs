@@ -39,7 +39,7 @@ impl ReprMediaType {
     pub fn read_reprmediatype(
         ReprMediaType {
             reprmediaid,
-            reprmedianame,
+            reprmedianame: _,
         }: ReprMediaType,
     ) -> String {
         let parameters = format!(
@@ -69,7 +69,7 @@ impl ReprMediaType {
     pub fn delete_reprmediatype(
         ReprMediaType {
             reprmediaid,
-            reprmedianame,
+            reprmedianame: _,
         }: ReprMediaType,
     ) -> String {
         let parameters = format!(

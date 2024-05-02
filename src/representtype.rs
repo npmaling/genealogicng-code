@@ -31,10 +31,11 @@ impl RepresentType {
         parameters
     }
 
-    pub fn read_representtype(RepresentType { reprtypeid, name }: RepresentType) -> String {
+    pub fn read_representtype(RepresentType { reprtypeid, name: _ }: RepresentType) -> String {
         let parameters = format!(
             "SELECT * FROM representtype WHERE reprtypeid={}",
             reprtypeid.to_string(),
+            // name: _,
         );
         // println!("This is read_representtype: {}", parameters);
         parameters
@@ -51,10 +52,11 @@ impl RepresentType {
         parameters
     }
 
-    pub fn delete_representtype(RepresentType { reprtypeid, name }: RepresentType) -> String {
+    pub fn delete_representtype(RepresentType { reprtypeid, name: _ }: RepresentType) -> String {
         let parameters = format!(
             "DELETE FROM representtype WHERE reprtypeid={}",
             reprtypeid.to_string(),
+            // name: _,
         );
         // println!("This is delete_representtype: {}", parameters);
         parameters

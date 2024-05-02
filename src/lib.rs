@@ -77,6 +77,15 @@ mod repository;
 use crate::reposource::RepoSource;
 mod reposource;
 
+use crate::representation::Representation;
+mod representation;
+
+use crate::representtype::RepresentType;
+mod representtype;
+
+use crate::reprmediatype::ReprMediaType;
+mod reprmediatype;
+
 use rusqlite::{params, Connection};
 
 /* ------------------------------------------------------------------------- */
@@ -1975,6 +1984,262 @@ pub fn delete_reposource_a() -> Result<(), rusqlite::Error> {
 
     println!("dreposource : {:?}", &dreposource);
     dbstring(&conn, dreposource);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_representation_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let representation_a = Representation {
+        representationid: 16,
+        sourceid: 1,
+        reprtypeid: 1,
+        reprmediaid: 1,
+        physfilecode: "a".to_string(),
+        comments: "a".to_string(),
+        externallink: "a".to_string(),
+    };
+
+    let arepresentation = Representation::create_representation(representation_a);
+
+    println!("arepresentation : {:?}", &arepresentation);
+    dbstring(&conn, arepresentation);
+
+    Ok(())
+}
+
+pub fn read_representation_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let representation_b = Representation {
+        representationid: 16,
+        sourceid: 1,
+        reprtypeid: 1,
+        reprmediaid: 1,
+        physfilecode: "a".to_string(),
+        comments: "a".to_string(),
+        externallink: "a".to_string(),
+    };
+
+    let brepresentation = Representation::read_representation(representation_b);
+
+    println!("brepresentation : {:?}", &brepresentation);
+
+    let mut stmt = conn.prepare(&brepresentation)?;
+    let representation_iter = stmt.query_map([], |row| {
+        Ok(Representation {
+            representationid: row.get(0)?,
+            sourceid: row.get(1)?,
+            reprtypeid: row.get(2)?,
+            reprmediaid: row.get(3)?,
+            physfilecode: row.get(4)?,
+            comments: row.get(5)?,
+            externallink: row.get(6)?,
+        })
+    })?;
+
+    for representationitem in representation_iter {
+        println!("Found representation data {:?}", representationitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_representation_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let representation_c = Representation {
+        representationid: 16,
+        sourceid: 1,
+        reprtypeid: 1,
+        reprmediaid: 1,
+        physfilecode: "a".to_string(),
+        comments: "a".to_string(),
+        externallink: "a".to_string(),
+    };
+
+    let crepresentation = Representation::update_representation(representation_c);
+
+    println!("crepresentation : {:?}", &crepresentation);
+    dbstring(&conn, crepresentation);
+
+    Ok(())
+}
+
+pub fn delete_representation_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let representation_d = Representation {
+        representationid: 16,
+        sourceid: 1,
+        reprtypeid: 1,
+        reprmediaid: 1,
+        physfilecode: "a".to_string(),
+        comments: "a".to_string(),
+        externallink: "a".to_string(),
+    };
+
+    let drepresentation = Representation::delete_representation(representation_d);
+
+    println!("drepresentation : {:?}", &drepresentation);
+    dbstring(&conn, drepresentation);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_representtype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let representtype_a = RepresentType {
+        reprtypeid: 16,
+        name: "First RepresentType".to_string(),
+    };
+
+    let arepresenttype = RepresentType::create_representtype(representtype_a);
+
+    println!("arepresenttype : {:?}", &arepresenttype);
+    dbstring(&conn, arepresenttype);
+
+    Ok(())
+}
+
+pub fn read_representtype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let representtype_b = RepresentType {
+        reprtypeid: 16,
+        name: "First RepresentType".to_string(),
+    };
+
+    let brepresenttype = RepresentType::read_representtype(representtype_b);
+
+    println!("brepresenttype : {:?}", &brepresenttype);
+
+    let mut stmt = conn.prepare(&brepresenttype)?;
+    let representtype_iter = stmt.query_map([], |row| {
+        Ok(RepresentType {
+            reprtypeid: row.get(0)?,
+            name: row.get(1)?,
+        })
+    })?;
+
+    for representtypeitem in representtype_iter {
+        println!("Found representtype data {:?}", representtypeitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_representtype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let representtype_c = RepresentType {
+        reprtypeid: 16,
+        name: "First RepresentType".to_string(),
+    };
+
+    let crepresenttype = RepresentType::update_representtype(representtype_c);
+
+    println!("crepresenttype : {:?}", &crepresenttype);
+    dbstring(&conn, crepresenttype);
+
+    Ok(())
+}
+
+pub fn delete_representtype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let representtype_d = RepresentType {
+        reprtypeid: 16,
+        name: "First RepresentType".to_string(),
+    };
+
+    let drepresenttype = RepresentType::delete_representtype(representtype_d);
+
+    println!("drepresenttype : {:?}", &drepresenttype);
+    dbstring(&conn, drepresenttype);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_reprmediatype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let reprmediatype_a = ReprMediaType {
+        reprmediaid: 16,
+        reprmedianame: "First ReprMediaNameType".to_string(),
+    };
+
+    let areprmediatype = ReprMediaType::create_reprmediatype(reprmediatype_a);
+
+    println!("areprmediatype : {:?}", &areprmediatype);
+    dbstring(&conn, areprmediatype);
+
+    Ok(())
+}
+
+pub fn read_reprmediatype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let reprmediatype_b = ReprMediaType {
+        reprmediaid: 16,
+        reprmedianame: "First ReprMediaNameType".to_string(),
+    };
+
+    let breprmediatype = ReprMediaType::read_reprmediatype(reprmediatype_b);
+
+    println!("breprmediatype : {:?}", &breprmediatype);
+
+    let mut stmt = conn.prepare(&breprmediatype)?;
+    let reprmediatype_iter = stmt.query_map([], |row| {
+        Ok(ReprMediaType {
+            reprmediaid: row.get(0)?,
+            reprmedianame: row.get(1)?,
+        })
+    })?;
+
+    for reprmediatypeitem in reprmediatype_iter {
+        println!("Found reprmediatype data {:?}", reprmediatypeitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_reprmediatype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let reprmediatype_c = ReprMediaType {
+        reprmediaid: 16,
+        reprmedianame: "First ReprMediaNameType".to_string(),
+    };
+
+    let creprmediatype = ReprMediaType::update_reprmediatype(reprmediatype_c);
+
+    println!("creprmediatype : {:?}", &creprmediatype);
+    dbstring(&conn, creprmediatype);
+
+    Ok(())
+}
+
+pub fn delete_reprmediatype_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let reprmediatype_d = ReprMediaType {
+        reprmediaid: 16,
+        reprmedianame: "First ReprMediaNameType".to_string(),
+    };
+
+    let dreprmediatype = ReprMediaType::delete_reprmediatype(reprmediatype_d);
+
+    println!("dreprmediatype : {:?}", &dreprmediatype);
+    dbstring(&conn, dreprmediatype);
 
     Ok(())
 }

@@ -17,15 +17,6 @@
 use crate::researcher::Researcher;
 mod researcher;
 
-use crate::representation::Representation;
-mod representation;
-
-use crate::representtype::RepresentType;
-mod representtype;
-
-use crate::reprmediatype::ReprMediaType;
-mod reprmediatype;
-
 use crate::resobjactivity::ResObjActivity;
 mod resobjactivity;
 
@@ -160,6 +151,21 @@ use genealogicng::read_reposource_a;
 use genealogicng::update_reposource_a;
 use genealogicng::delete_reposource_a;
 
+use genealogicng::make_representation_a;
+use genealogicng::read_representation_a;
+use genealogicng::update_representation_a;
+use genealogicng::delete_representation_a;
+
+use genealogicng::make_representtype_a;
+use genealogicng::read_representtype_a;
+use genealogicng::update_representtype_a;
+use genealogicng::delete_representtype_a;
+
+use genealogicng::make_reprmediatype_a;
+use genealogicng::read_reprmediatype_a;
+use genealogicng::update_reprmediatype_a;
+use genealogicng::delete_reprmediatype_a;
+
 fn main() -> Result<()> {
     let path: &str = "C:/Users/npmal/projects/genealogicng-code/database.db";
     let conn: Connection = Connection::open(&path)?;
@@ -271,6 +277,21 @@ fn main() -> Result<()> {
     let _ = update_reposource_a();
     let _ = delete_reposource_a();
 
+    let _ = make_representation_a();
+    let _ = read_representation_a();
+    let _ = update_representation_a();
+    let _ = delete_representation_a();
+
+    let _ = make_representtype_a();
+    let _ = read_representtype_a();
+    let _ = update_representtype_a();
+    let _ = delete_representtype_a();
+
+    let _ = make_reprmediatype_a();
+    let _ = read_reprmediatype_a();
+    let _ = update_reprmediatype_a();
+    let _ = delete_reprmediatype_a();
+    
     /* ------------------------------------------------------------------------- */
 
     let pp_a = ResObjective {
@@ -698,140 +719,6 @@ fn main() -> Result<()> {
     dbstring(&conn, cpp);
 
     let dpp = SuretyPart::delete_suretypart(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = ReprMediaType {
-        reprmediaid: 1,
-        reprmedianame: "Representative Media Type Name One".to_string(),
-    };
-
-    let pp_b = ReprMediaType {
-        reprmediaid: 2,
-        reprmedianame: "Representative Media Type Name Two".to_string(),
-    };
-
-    let pp_c = ReprMediaType {
-        reprmediaid: 3,
-        reprmedianame: "Representative Media Type Name Three".to_string(),
-    };
-
-    let pp_d = ReprMediaType {
-        reprmediaid: 4,
-        reprmedianame: "Representative Media Type Name Four".to_string(),
-    };
-
-    let app = ReprMediaType::create_reprmediatype(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = ReprMediaType::read_reprmediatype(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = ReprMediaType::update_reprmediatype(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = ReprMediaType::delete_reprmediatype(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = RepresentType {
-        reprtypeid: 1,
-        name: "Represent Name One".to_string(),
-    };
-
-    let pp_b = RepresentType {
-        reprtypeid: 2,
-        name: "Represent Name Two".to_string(),
-    };
-
-    let pp_c = RepresentType {
-        reprtypeid: 3,
-        name: "Represent Name Three".to_string(),
-    };
-
-    let pp_d = RepresentType {
-        reprtypeid: 4,
-        name: "Represent Name Four".to_string(),
-    };
-
-    let app = RepresentType::create_representtype(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = RepresentType::read_representtype(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = RepresentType::update_representtype(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = RepresentType::delete_representtype(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = Representation {
-        representationid: 1,
-        sourceid: 1,
-        reprtypeid: 1,
-        reprmediaid: 1,
-        physfilecode: "Physical File Code One".to_string(),
-        comments: "Comments One".to_string(),
-        externallink: "External Link One".to_string(),
-    };
-
-    let pp_b = Representation {
-        representationid: 2,
-        sourceid: 2,
-        reprtypeid: 2,
-        reprmediaid: 2,
-        physfilecode: "Physical File Code Two".to_string(),
-        comments: "Comments Two".to_string(),
-        externallink: "External Link Two".to_string(),
-    };
-
-    let pp_c = Representation {
-        representationid: 3,
-        sourceid: 3,
-        reprtypeid: 3,
-        reprmediaid: 3,
-        physfilecode: "Physical File Code Three".to_string(),
-        comments: "Comments Three".to_string(),
-        externallink: "External Link Three".to_string(),
-    };
-
-    let pp_d = Representation {
-        representationid: 4,
-        sourceid: 4,
-        reprtypeid: 4,
-        reprmediaid: 4,
-        physfilecode: "Physical File Code Four".to_string(),
-        comments: "Comments Four".to_string(),
-        externallink: "External Link Four".to_string(),
-    };
-
-    let app = Representation::create_representation(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = Representation::read_representation(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = Representation::update_representation(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = Representation::delete_representation(pp_d);
 
     dbstring(&conn, dpp);
 
