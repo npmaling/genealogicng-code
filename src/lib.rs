@@ -86,6 +86,18 @@ mod representtype;
 use crate::reprmediatype::ReprMediaType;
 mod reprmediatype;
 
+use crate::researcher::Researcher;
+mod researcher;
+
+use crate::resobjactivity::ResObjActivity;
+mod resobjactivity;
+
+use crate::resobjective::ResObjective;
+mod resobjective;
+
+use crate::resproj::ResProj;
+mod resproj;
+
 use rusqlite::{params, Connection};
 
 /* ------------------------------------------------------------------------- */
@@ -2240,6 +2252,374 @@ pub fn delete_reprmediatype_a() -> Result<(), rusqlite::Error> {
 
     println!("dreprmediatype : {:?}", &dreprmediatype);
     dbstring(&conn, dreprmediatype);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_researcher_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let researcher_a = Researcher {
+        researcherid: 16,
+        name: "First Researcher".to_string(),
+        addressid: 1,
+        comments: "a".to_string(),
+    };
+
+    let aresearcher = Researcher::create_researcher(researcher_a);
+
+    println!("aresearcher : {:?}", &aresearcher);
+    dbstring(&conn, aresearcher);
+
+    Ok(())
+}
+
+pub fn read_researcher_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let researcher_b = Researcher {
+        researcherid: 16,
+        name: "First Researcher".to_string(),
+        addressid: 1,
+        comments: "a".to_string(),
+    };
+
+    let bresearcher = Researcher::read_researcher(researcher_b);
+
+    println!("bresearcher : {:?}", &bresearcher);
+
+    let mut stmt = conn.prepare(&bresearcher)?;
+    let researcher_iter = stmt.query_map([], |row| {
+        Ok(Researcher {
+            researcherid: row.get(0)?,
+            name: row.get(1)?,
+            addressid: row.get(2)?,
+            comments: row.get(3)?,
+        })
+    })?;
+
+    for researcheritem in researcher_iter {
+        println!("Found researcher data {:?}", researcheritem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_researcher_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let researcher_c = Researcher {
+        researcherid: 16,
+        name: "First Researcher".to_string(),
+        addressid: 1,
+        comments: "a".to_string(),
+    };
+
+    let cresearcher = Researcher::update_researcher(researcher_c);
+
+    println!("cresearcher : {:?}", &cresearcher);
+    dbstring(&conn, cresearcher);
+
+    Ok(())
+}
+
+pub fn delete_researcher_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let researcher_d = Researcher {
+        researcherid: 16,
+        name: "First Researcher".to_string(),
+        addressid: 1,
+        comments: "a".to_string(),
+    };
+
+    let dresearcher = Researcher::delete_researcher(researcher_d);
+
+    println!("dresearcher : {:?}", &dresearcher);
+    dbstring(&conn, dresearcher);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_resobjactivity_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let resobjactivity_a = ResObjActivity {
+        resobjactivityid: 16,
+        resobjid: 1,
+        activityid: 1,
+    };
+
+    let aresobjactivity = ResObjActivity::create_resobjactivity(resobjactivity_a);
+
+    println!("aresobjactivity : {:?}", &aresobjactivity);
+    dbstring(&conn, aresobjactivity);
+
+    Ok(())
+}
+
+pub fn read_resobjactivity_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let resobjactivity_b = ResObjActivity {
+        resobjactivityid: 16,
+        resobjid: 1,
+        activityid: 1,
+    };
+
+    let bresobjactivity = ResObjActivity::read_resobjactivity(resobjactivity_b);
+
+    println!("bresobjactivity : {:?}", &bresobjactivity);
+
+    let mut stmt = conn.prepare(&bresobjactivity)?;
+    let resobjactivity_iter = stmt.query_map([], |row| {
+        Ok(ResObjActivity {
+            resobjactivityid: row.get(0)?,
+            resobjid: row.get(1)?,
+            activityid: row.get(2)?,
+        })
+    })?;
+
+    for resobjactivityitem in resobjactivity_iter {
+        println!("Found resobjactivity data {:?}", resobjactivityitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_resobjactivity_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let resobjactivity_c = ResObjActivity {
+        resobjactivityid: 16,
+        resobjid: 1,
+        activityid: 1,
+    };
+
+    let cresobjactivity = ResObjActivity::update_resobjactivity(resobjactivity_c);
+
+    println!("cresobjactivity : {:?}", &cresobjactivity);
+    dbstring(&conn, cresobjactivity);
+
+    Ok(())
+}
+
+pub fn delete_resobjactivity_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let resobjactivity_d = ResObjActivity {
+        resobjactivityid: 16,
+        resobjid: 1,
+        activityid: 1,
+    };
+
+    let dresobjactivity = ResObjActivity::delete_resobjactivity(resobjactivity_d);
+
+    println!("dresobjactivity : {:?}", &dresobjactivity);
+    dbstring(&conn, dresobjactivity);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_resobjective_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let resobjective_a = ResObjective {
+        resobjid: 16,
+        projectid: 1,
+        subjectid: 1,
+        subjecttype: "a".to_string(),
+        name: "First ResObjective".to_string(),
+        description: "a".to_string(),
+        sequencenumber: 1,
+        priority: "high".to_string(),
+        status: "active".to_string(),
+    };
+
+    let aresobjective = ResObjective::create_resobjective(resobjective_a);
+
+    println!("aresobjective : {:?}", &aresobjective);
+    dbstring(&conn, aresobjective);
+
+    Ok(())
+}
+
+pub fn read_resobjective_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let resobjective_b = ResObjective {
+        resobjid: 16,
+        projectid: 1,
+        subjectid: 1,
+        subjecttype: "a".to_string(),
+        name: "First ResObjective".to_string(),
+        description: "a".to_string(),
+        sequencenumber: 1,
+        priority: "high".to_string(),
+        status: "active".to_string(),
+    };
+
+    let bresobjective = ResObjective::read_resobjective(resobjective_b);
+
+    println!("bresobjective : {:?}", &bresobjective);
+
+    let mut stmt = conn.prepare(&bresobjective)?;
+    let resobjective_iter = stmt.query_map([], |row| {
+        Ok(ResObjective {
+            resobjid: row.get(0)?,
+            projectid: row.get(1)?,
+            subjectid: row.get(2)?,
+            subjecttype: row.get(3)?,
+            name: row.get(4)?,
+            description: row.get(5)?,
+            sequencenumber: row.get(6)?,
+            priority: row.get(7)?,
+            status: row.get(8)?,
+        })
+    })?;
+
+    for resobjectiveitem in resobjective_iter {
+        println!("Found resobjective data {:?}", resobjectiveitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_resobjective_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let resobjective_c = ResObjective {
+        resobjid: 16,
+        projectid: 1,
+        subjectid: 1,
+        subjecttype: "a".to_string(),
+        name: "First ResObjective".to_string(),
+        description: "a".to_string(),
+        sequencenumber: 1,
+        priority: "high".to_string(),
+        status: "active".to_string(),
+    };
+
+    let cresobjective = ResObjective::update_resobjective(resobjective_c);
+
+    println!("cresobjective : {:?}", &cresobjective);
+    dbstring(&conn, cresobjective);
+
+    Ok(())
+}
+
+pub fn delete_resobjective_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let resobjective_d = ResObjective {
+        resobjid: 16,
+        projectid: 1,
+        subjectid: 1,
+        subjecttype: "a".to_string(),
+        name: "First ResObjective".to_string(),
+        description: "a".to_string(),
+        sequencenumber: 1,
+        priority: "high".to_string(),
+        status: "active".to_string(),
+    };
+
+    let dresobjective = ResObjective::delete_resobjective(resobjective_d);
+
+    println!("dresobjective : {:?}", &dresobjective);
+    dbstring(&conn, dresobjective);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_resproj_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let resproj_a = ResProj {
+        resprojid: 16,
+        projectid: 1,
+        researcherid: 1,
+        researcherrole: "a".to_string(),
+    };
+
+    let aresproj = ResProj::create_resproj(resproj_a);
+
+    println!("aresproj : {:?}", &aresproj);
+    dbstring(&conn, aresproj);
+
+    Ok(())
+}
+
+pub fn read_resproj_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let resproj_b = ResProj {
+        resprojid: 16,
+        projectid: 1,
+        researcherid: 1,
+        researcherrole: "a".to_string(),
+    };
+
+    let bresproj = ResProj::read_resproj(resproj_b);
+
+    println!("bresproj : {:?}", &bresproj);
+
+    let mut stmt = conn.prepare(&bresproj)?;
+    let resproj_iter = stmt.query_map([], |row| {
+        Ok(ResProj {
+            resprojid: row.get(0)?,
+            projectid: row.get(1)?,
+            researcherid: row.get(2)?,
+            researcherrole: row.get(3)?,
+        })
+    })?;
+
+    for resprojitem in resproj_iter {
+        println!("Found resproj data {:?}", resprojitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_resproj_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let resproj_c = ResProj {
+        resprojid: 16,
+        projectid: 1,
+        researcherid: 1,
+        researcherrole: "a".to_string(),
+    };
+
+    let cresproj = ResProj::update_resproj(resproj_c);
+
+    println!("cresproj : {:?}", &cresproj);
+    dbstring(&conn, cresproj);
+
+    Ok(())
+}
+
+pub fn delete_resproj_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let resproj_d = ResProj {
+        resprojid: 16,
+        projectid: 1,
+        researcherid: 1,
+        researcherrole: "a".to_string(),
+    };
+
+    let dresproj = ResProj::delete_resproj(resproj_d);
+
+    println!("dresproj : {:?}", &dresproj);
+    dbstring(&conn, dresproj);
 
     Ok(())
 }

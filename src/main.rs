@@ -14,18 +14,6 @@
 -- limitations under the License.
 */
 
-use crate::researcher::Researcher;
-mod researcher;
-
-use crate::resobjactivity::ResObjActivity;
-mod resobjactivity;
-
-use crate::resobjective::ResObjective;
-mod resobjective;
-
-use crate::resproj::ResProj;
-mod resproj;
-
 use crate::search::Search;
 mod search;
 
@@ -38,11 +26,11 @@ mod sourcegroup;
 use crate::srcgrpsrc::SrcGrpSrc;
 mod srcgrpsrc;
 
-use crate::suretyscheme::SuretyScheme;
-mod suretyscheme;
-
 use crate::suretypart::SuretyPart;
 mod suretypart;
+
+use crate::suretyscheme::SuretyScheme;
+mod suretyscheme;
 
 use rusqlite::{params, Connection, Result};
 
@@ -165,6 +153,26 @@ use genealogicng::make_reprmediatype_a;
 use genealogicng::read_reprmediatype_a;
 use genealogicng::update_reprmediatype_a;
 use genealogicng::delete_reprmediatype_a;
+
+use genealogicng::make_researcher_a;
+use genealogicng::read_researcher_a;
+use genealogicng::update_researcher_a;
+use genealogicng::delete_researcher_a;
+
+use genealogicng::make_resobjactivity_a;
+use genealogicng::read_resobjactivity_a;
+use genealogicng::update_resobjactivity_a;
+use genealogicng::delete_resobjactivity_a;
+
+use genealogicng::make_resobjective_a;
+use genealogicng::read_resobjective_a;
+use genealogicng::update_resobjective_a;
+use genealogicng::delete_resobjective_a;
+
+use genealogicng::make_resproj_a;
+use genealogicng::read_resproj_a;
+use genealogicng::update_resproj_a;
+use genealogicng::delete_resproj_a;
 
 fn main() -> Result<()> {
     let path: &str = "C:/Users/npmal/projects/genealogicng-code/database.db";
@@ -291,206 +299,26 @@ fn main() -> Result<()> {
     let _ = read_reprmediatype_a();
     let _ = update_reprmediatype_a();
     let _ = delete_reprmediatype_a();
-    
-    /* ------------------------------------------------------------------------- */
 
-    let pp_a = ResObjective {
-        resobjid: 1,
-        projectid: 1,
-        subjectid: 1,
-        subjecttype: "Subject Type One".to_string(),
-        name: "Name One".to_string(),
-        description: "Description One".to_string(),
-        sequencenumber: 1,
-        priority: "Priority One".to_string(),
-        status: "Status One".to_string(),
-    };
+    let _ = make_researcher_a();
+    let _ = read_researcher_a();
+    let _ = update_researcher_a();
+    let _ = delete_researcher_a();
 
-    let pp_b = ResObjective {
-        resobjid: 1,
-        projectid: 1,
-        subjectid: 1,
-        subjecttype: "Subject Type Two".to_string(),
-        name: "Name Two".to_string(),
-        description: "Description Two".to_string(),
-        sequencenumber: 1,
-        priority: "Priority Two".to_string(),
-        status: "Status Two".to_string(),
-    };
+    let _ = make_resobjactivity_a();
+    let _ = read_resobjactivity_a();
+    let _ = update_resobjactivity_a();
+    let _ = delete_resobjactivity_a();
 
-    let pp_c = ResObjective {
-        resobjid: 1,
-        projectid: 1,
-        subjectid: 1,
-        subjecttype: "Subject Type 3".to_string(),
-        name: "Name 3".to_string(),
-        description: "Description 3".to_string(),
-        sequencenumber: 1,
-        priority: "Priority 3".to_string(),
-        status: "Status 3".to_string(),
-    };
+    let _ = make_resobjective_a();
+    let _ = read_resobjective_a();
+    let _ = update_resobjective_a();
+    let _ = delete_resobjective_a();
 
-    let pp_d = ResObjective {
-        resobjid: 1,
-        projectid: 1,
-        subjectid: 1,
-        subjecttype: "Subject Type 4".to_string(),
-        name: "Name 4".to_string(),
-        description: "Description 4".to_string(),
-        sequencenumber: 1,
-        priority: "Priority 4".to_string(),
-        status: "Status 4".to_string(),
-    };
-
-    let app = ResObjective::create_resobjective(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = ResObjective::read_resobjective(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = ResObjective::update_resobjective(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = ResObjective::delete_resobjective(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = ResObjActivity {
-        resobjactivityid: 1,
-        resobjid: 2,
-        activityid: 3,
-    };
-
-    let pp_b = ResObjActivity {
-        resobjactivityid: 4,
-        resobjid: 5,
-        activityid: 6,
-    };
-
-    let pp_c = ResObjActivity {
-        resobjactivityid: 7,
-        resobjid: 8,
-        activityid: 9,
-    };
-
-    let pp_d = ResObjActivity {
-        resobjactivityid: 10,
-        resobjid: 11,
-        activityid: 12,
-    };
-
-    let app = ResObjActivity::create_resobjactivity(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = ResObjActivity::read_resobjactivity(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = ResObjActivity::update_resobjactivity(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = ResObjActivity::delete_resobjactivity(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = Researcher {
-        researcherid: 3,
-        name: "First Middle Last".to_string(),
-        addressid: 4,
-        comments: "Researcher Comment One".to_string(),
-    };
-
-    let pp_b = Researcher {
-        researcherid: 5,
-        name: "First Middle Last".to_string(),
-        addressid: 6,
-        comments: "Researcher Comment Two".to_string(),
-    };
-
-    let pp_c = Researcher {
-        researcherid: 7,
-        name: "First Middle Last".to_string(),
-        addressid: 8,
-        comments: "Researcher Comment Three".to_string(),
-    };
-
-    let pp_d = Researcher {
-        researcherid: 9,
-        name: "First Middle Last".to_string(),
-        addressid: 10,
-        comments: "Researcher Comment Four".to_string(),
-    };
-
-    let app = Researcher::create_researcher(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = Researcher::read_researcher(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = Researcher::update_researcher(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = Researcher::delete_researcher(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = ResProj {
-        resprojid: 1,
-        projectid: 2,
-        researcherid: 3,
-        researcherrole: "Researcher Role Note One".to_string(),
-    };
-
-    let pp_b = ResProj {
-        resprojid: 4,
-        projectid: 5,
-        researcherid: 6,
-        researcherrole: "Researcher Role Note Two".to_string(),
-    };
-
-    let pp_c = ResProj {
-        resprojid: 7,
-        projectid: 8,
-        researcherid: 9,
-        researcherrole: "Researcher Role Note Three".to_string(),
-    };
-
-    let pp_d = ResProj {
-        resprojid: 10,
-        projectid: 11,
-        researcherid: 12,
-        researcherrole: "Researcher Role Note Four".to_string(),
-    };
-
-    let app = ResProj::create_resproj(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = ResProj::read_resproj(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = ResProj::update_resproj(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = ResProj::delete_resproj(pp_d);
-
-    dbstring(&conn, dpp);
+    let _ = make_resproj_a();
+    let _ = read_resproj_a();
+    let _ = update_resproj_a();
+    let _ = delete_resproj_a();
 
     /* ------------------------------------------------------------------------- */
 

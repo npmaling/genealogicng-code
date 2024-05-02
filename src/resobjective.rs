@@ -60,14 +60,14 @@ impl ResObjective {
     pub fn read_resobjective(
         ResObjective {
             resobjid,
-            projectid,
-            subjectid,
-            subjecttype,
-            name,
-            description,
-            sequencenumber,
-            priority,
-            status,
+            projectid: _,
+            subjectid: _,
+            subjecttype: _,
+            name: _,
+            description: _,
+            sequencenumber: _,
+            priority: _,
+            status: _,
         }: ResObjective,
     ) -> String {
         let parameters = format!(
@@ -111,14 +111,14 @@ impl ResObjective {
     pub fn delete_resobjective(
         ResObjective {
             resobjid,
-            projectid,
-            subjectid,
-            subjecttype,
-            name,
-            description,
-            sequencenumber,
-            priority,
-            status,
+            projectid: _,
+            subjectid: _,
+            subjecttype: _,
+            name: _,
+            description: _,
+            sequencenumber: _,
+            priority: _,
+            status: _,
         }: ResObjective,
     ) -> String {
         let parameters = format!(

@@ -45,9 +45,9 @@ impl ResProj {
     pub fn read_resproj(
         ResProj {
             resprojid,
-            projectid,
-            researcherid,
-            researcherrole,
+            projectid: _,
+            researcherid: _,
+            researcherrole: _,
         }: ResProj,
     ) -> String {
         let parameters = format!(
@@ -81,9 +81,9 @@ impl ResProj {
     pub fn delete_resproj(
         ResProj {
             resprojid,
-            projectid,
-            researcherid,
-            researcherrole,
+            projectid: _,
+            researcherid: _,
+            researcherrole: _,
         }: ResProj,
     ) -> String {
         let parameters = format!(

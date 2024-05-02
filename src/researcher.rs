@@ -45,9 +45,9 @@ impl Researcher {
     pub fn read_researcher(
         Researcher {
             researcherid,
-            name,
-            addressid,
-            comments,
+            name: _,
+            addressid: _,
+            comments: _,
         }: Researcher,
     ) -> String {
         let parameters = format!(
@@ -81,9 +81,9 @@ impl Researcher {
     pub fn delete_researcher(
         Researcher {
             researcherid,
-            name,
-            addressid,
-            comments,
+            name: _,
+            addressid: _,
+            comments: _,
         }: Researcher,
     ) -> String {
         let parameters = format!(

@@ -42,8 +42,8 @@ impl ResObjActivity {
     pub fn read_resobjactivity(
         ResObjActivity {
             resobjactivityid,
-            resobjid,
-            activityid,
+            resobjid: _,
+            activityid: _,
         }: ResObjActivity,
     ) -> String {
         let parameters = format!(
@@ -75,8 +75,8 @@ impl ResObjActivity {
     pub fn delete_resobjactivity(
         ResObjActivity {
             resobjactivityid,
-            resobjid,
-            activityid,
+            resobjid: _,
+            activityid: _,
         }: ResObjActivity,
     ) -> String {
         let parameters = format!(
