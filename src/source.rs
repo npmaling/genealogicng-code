@@ -115,3 +115,83 @@ impl Source {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_source() {
+        let source = Source {
+            sourceid: 1,
+            highersourceid: 2,
+            subjectplaceid: 3,
+            jurisplaceid: 4,
+            researcherid: 5,
+            subjectdate: "2022-01-01".to_string(),
+            comments: "Test comments".to_string(),
+        };
+
+        let expected = "INSERT INTO source (sourceid, highersourceid, subjectplaceid, jurisplaceid, researcherid, subjectdate, comments) VALUES (1, 2, 3, 4, 5, \"2022-01-01\", \"Test comments\")";
+        let result = Source::create_source(source);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_source() {
+        let source = Source {
+            sourceid: 1,
+            highersourceid: 2,
+            subjectplaceid: 3,
+            jurisplaceid: 4,
+            researcherid: 5,
+            subjectdate: "2022-01-01".to_string(),
+            comments: "Test comments".to_string(),
+        };
+
+        let expected = "SELECT * FROM source WHERE sourceid=1";
+        let result = Source::read_source(source);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_source() {
+        let source = Source {
+            sourceid: 1,
+            highersourceid: 2,
+            subjectplaceid: 3,
+            jurisplaceid: 4,
+            researcherid: 5,
+            subjectdate: "2022-01-01".to_string(),
+            comments: "Test comments".to_string(),
+        };
+
+        let expected = "UPDATE source SET sourceid=1, highersourceid=2, subjectplaceid=3, jurisplaceid=4, researcherid=5, subjectdate=\"2022-01-01\", comments=\"Test comments\" WHERE sourceid=1";
+        let result = Source::update_source(source);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_source() {
+        let source = Source {
+            sourceid: 1,
+            highersourceid: 2,
+            subjectplaceid: 3,
+            jurisplaceid: 4,
+            researcherid: 5,
+            subjectdate: "2022-01-01".to_string(),
+            comments: "Test comments".to_string(),
+        };
+
+        let expected = "DELETE FROM source WHERE sourceid=1";
+        let result = Source::delete_source(source);
+
+        assert_eq!(result, expected);
+    }
+}
+
+
+

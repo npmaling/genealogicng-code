@@ -129,3 +129,87 @@ impl ResObjective {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_resobjective() {
+        let resobjective = ResObjective {
+            resobjid: 1,
+            projectid: 1,
+            subjectid: 1,
+            subjecttype: "Type".to_string(),
+            name: "Objective".to_string(),
+            description: "Description".to_string(),
+            sequencenumber: 1,
+            priority: "High".to_string(),
+            status: "Active".to_string(),
+        };
+
+        let expected = "INSERT INTO resobjective (resobjid, projectid, subjectid, subjecttype, name, description, sequencenumber, priority, status) VALUES (1, 1, 1, \"Type\", \"Objective\", \"Description\", 1, \"High\", \"Active\")";
+        let result = ResObjective::create_resobjective(resobjective);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_resobjective() {
+        let resobjective = ResObjective {
+            resobjid: 1,
+            projectid: 1,
+            subjectid: 1,
+            subjecttype: "Type".to_string(),
+            name: "Objective".to_string(),
+            description: "Description".to_string(),
+            sequencenumber: 1,
+            priority: "High".to_string(),
+            status: "Active".to_string(),
+        };
+
+        let expected = "SELECT * FROM resobjective WHERE resobjid=1";
+        let result = ResObjective::read_resobjective(resobjective);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_resobjective() {
+        let resobjective = ResObjective {
+            resobjid: 1,
+            projectid: 1,
+            subjectid: 1,
+            subjecttype: "Type".to_string(),
+            name: "Objective".to_string(),
+            description: "Description".to_string(),
+            sequencenumber: 1,
+            priority: "High".to_string(),
+            status: "Active".to_string(),
+        };
+
+        let expected = "UPDATE resobjective SET resobjid=1, projectid=1, subjectid=1, subjecttype=\"Type\", name=\"Objective\", description=\"Description\", sequencenumber=1, priority=\"High\", status=\"Active\" WHERE resobjid=1";
+        let result = ResObjective::update_resobjective(resobjective);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_resobjective() {
+        let resobjective = ResObjective {
+            resobjid: 1,
+            projectid: 1,
+            subjectid: 1,
+            subjecttype: "Type".to_string(),
+            name: "Objective".to_string(),
+            description: "Description".to_string(),
+            sequencenumber: 1,
+            priority: "High".to_string(),
+            status: "Active".to_string(),
+        };
+
+        let expected = "DELETE FROM ResObjective WHERE resobjid=1";
+        let result = ResObjective::delete_resobjective(resobjective);
+        assert_eq!(result, expected);
+    }
+}
+
+
+

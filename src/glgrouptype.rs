@@ -87,3 +87,56 @@ impl GlGroupType {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_glgrouptype() {
+        let glgrouptype = GlGroupType {
+            glgrouptypeid: 1,
+            glgroupname: String::from("Group 1"),
+            ascdescnone: String::from("None"),
+        };
+        let expected = "INSERT INTO glgrouptype (glgrouptypeid, glgroupname, ascdescnone) VALUES (1, \"Group 1\", \"None\")";
+        let result = GlGroupType::create_glgrouptype(glgrouptype);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_glgrouptype() {
+        let glgrouptype = GlGroupType {
+            glgrouptypeid: 1,
+            glgroupname: String::from("Group 1"),
+            ascdescnone: String::from("None"),
+        };
+        let expected = "SELECT * FROM glgrouptype WHERE glgrouptypeid=1";
+        let result = GlGroupType::read_glgrouptype(glgrouptype);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_glgrouptype() {
+        let glgrouptype = GlGroupType {
+            glgrouptypeid: 1,
+            glgroupname: String::from("Group 1"),
+            ascdescnone: String::from("None"),
+        };
+        let expected = "UPDATE glgrouptype SET glgrouptypeid=1, glgroupname=\"Group 1\", ascdescnone=\"None\" WHERE glgrouptypeid=1";
+        let result = GlGroupType::update_glgrouptype(glgrouptype);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_glgrouptype() {
+        let glgrouptype = GlGroupType {
+            glgrouptypeid: 1,
+            glgroupname: String::from("Group 1"),
+            ascdescnone: String::from("None"),
+        };
+        let expected = "DELETE FROM glgrouptype WHERE glgrouptypeid=1";
+        let result = GlGroupType::delete_glgrouptype(glgrouptype);
+        assert_eq!(result, expected);
+    }
+}

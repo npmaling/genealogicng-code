@@ -87,3 +87,66 @@ impl SuretyScheme {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_suretyscheme() {
+        let suretyscheme = SuretyScheme {
+            suretyschemeid: 1,
+            name: String::from("Test Scheme"),
+            description: String::from("This is a test scheme"),
+        };
+        let result = SuretyScheme::create_suretyscheme(suretyscheme);
+        assert_eq!(
+            result,
+            "INSERT INTO suretyscheme (suretyschemeid, name, description) VALUES (1, \"Test Scheme\", \"This is a test scheme\")"
+        );
+    }
+
+    #[test]
+    fn test_read_suretyscheme() {
+        let suretyscheme = SuretyScheme {
+            suretyschemeid: 1,
+            name: String::from("Test Scheme"),
+            description: String::from("This is a test scheme"),
+        };
+        let result = SuretyScheme::read_suretyscheme(suretyscheme);
+        assert_eq!(
+            result,
+            "SELECT * FROM suretyscheme WHERE suretyschemeid=1"
+        );
+    }
+
+    #[test]
+    fn test_update_suretyscheme() {
+        let suretyscheme = SuretyScheme {
+            suretyschemeid: 1,
+            name: String::from("Test Scheme"),
+            description: String::from("This is a test scheme"),
+        };
+        let result = SuretyScheme::update_suretyscheme(suretyscheme);
+        assert_eq!(
+            result,
+            "UPDATE suretyscheme SET suretyschemeid=1, name=\"Test Scheme\", description=\"This is a test scheme\" WHERE suretyschemeid=1"
+        );
+    }
+
+    #[test]
+    fn test_delete_suretyscheme() {
+        let suretyscheme = SuretyScheme {
+            suretyschemeid: 1,
+            name: String::from("Test Scheme"),
+            description: String::from("This is a test scheme"),
+        };
+        let result = SuretyScheme::delete_suretyscheme(suretyscheme);
+        assert_eq!(
+            result,
+            "DELETE FROM suretyscheme WHERE suretyschemeid=1"
+        );
+    }
+}
+
+

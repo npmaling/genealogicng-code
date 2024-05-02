@@ -87,3 +87,60 @@ impl SrcGrpSrc {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_srcgrpsrc() {
+        let srcgrpsrc = SrcGrpSrc {
+            srcgrpsrcid: 1,
+            sourceid: 2,
+            sourcegroupid: 3,
+        };
+        let expected = "INSERT INTO srcgrpsrc (srcgrpsrcid, sourceid, sourcegroupid) VALUES (1, 2, 3)";
+        let result = SrcGrpSrc::create_srcgrpsrc(srcgrpsrc);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_srcgrpsrc() {
+        let srcgrpsrc = SrcGrpSrc {
+            srcgrpsrcid: 1,
+            sourceid: 2,
+            sourcegroupid: 3,
+        };
+        let expected = "SELECT * FROM srcgrpsrc WHERE srcgrpsrcid=1";
+        let result = SrcGrpSrc::read_srcgrpsrc(srcgrpsrc);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_srcgrpsrc() {
+        let srcgrpsrc = SrcGrpSrc {
+            srcgrpsrcid: 1,
+            sourceid: 2,
+            sourcegroupid: 3,
+        };
+        let expected = "UPDATE srcgrpsrc SET srcgrpsrcid=1, sourceid=2, sourcegroupid=3 WHERE srcgrpsrcid=1";
+        let result = SrcGrpSrc::update_srcgrpsrc(srcgrpsrc);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_srcgrpsrc() {
+        let srcgrpsrc = SrcGrpSrc {
+            srcgrpsrcid: 1,
+            sourceid: 2,
+            sourcegroupid: 3,
+        };
+        let expected = "DELETE FROM srcgrpsrc WHERE srcgrpsrcid=1";
+        let result = SrcGrpSrc::delete_srcgrpsrc(srcgrpsrc);
+        assert_eq!(result, expected);
+    }
+}
+
+
+
+

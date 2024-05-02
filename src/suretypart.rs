@@ -101,3 +101,75 @@ impl SuretyPart {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_suretypart() {
+        let surety_part = SuretyPart {
+            suretypartid: 1,
+            schemeid: 2,
+            name: String::from("Surety Part 1"),
+            description: String::from("Description 1"),
+            sequencenumber: 3,
+        };
+
+        let expected = "INSERT INTO suretypart (suretypartid, schemeid, name, description, sequencenumber) VALUES (1, 2, \"Surety Part 1\", \"Description 1\", 3)";
+        let result = SuretyPart::create_suretypart(surety_part);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_suretypart() {
+        let surety_part = SuretyPart {
+            suretypartid: 1,
+            schemeid: 2,
+            name: String::from("Surety Part 1"),
+            description: String::from("Description 1"),
+            sequencenumber: 3,
+        };
+
+        let expected = "SELECT * FROM suretypart WHERE suretypartid=1";
+        let result = SuretyPart::read_suretypart(surety_part);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_suretypart() {
+        let surety_part = SuretyPart {
+            suretypartid: 1,
+            schemeid: 2,
+            name: String::from("Surety Part 1"),
+            description: String::from("Description 1"),
+            sequencenumber: 3,
+        };
+
+        let expected = "UPDATE suretypart SET suretypartid=1, schemeid=2, name=\"Surety Part 1\", description=\"Description 1\", sequencenumber=3 WHERE suretypartid=1";
+        let result = SuretyPart::update_suretypart(surety_part);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_suretypart() {
+        let surety_part = SuretyPart {
+            suretypartid: 1,
+            schemeid: 2,
+            name: String::from("Surety Part 1"),
+            description: String::from("Description 1"),
+            sequencenumber: 3,
+        };
+
+        let expected = "DELETE FROM suretypart WHERE suretypartid=1";
+        let result = SuretyPart::delete_suretypart(surety_part);
+
+        assert_eq!(result, expected);
+    }
+}
+
+
+

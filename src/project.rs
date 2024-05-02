@@ -94,3 +94,68 @@ impl Project {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_project() {
+        let project = Project {
+            projectid: 1,
+            name: String::from("Project 1"),
+            projectdesc: String::from("Description 1"),
+            clientdata: String::from("Client Data 1"),
+        };
+
+        let expected = "INSERT INTO project (projectid, name, projectdesc, clientdata) VALUES (1, \"Project 1\", \"Description 1\", \"Client Data 1\")";
+        let result = Project::create_project(project);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_project() {
+        let project = Project {
+            projectid: 1,
+            name: String::from("Project 1"),
+            projectdesc: String::from("Description 1"),
+            clientdata: String::from("Client Data 1"),
+        };
+
+        let expected = "SELECT * FROM project WHERE projectid=1";
+        let result = Project::read_project(project);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_project() {
+        let project = Project {
+            projectid: 1,
+            name: String::from("Project 1"),
+            projectdesc: String::from("Description 1"),
+            clientdata: String::from("Client Data 1"),
+        };
+
+        let expected = "UPDATE project SET projectid=1, name=\"Project 1\", projectdesc=\"Description 1\", clientdata=\"Client Data 1\" WHERE projectid=1";
+        let result = Project::update_project(project);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_project() {
+        let project = Project {
+            projectid: 1,
+            name: String::from("Project 1"),
+            projectdesc: String::from("Description 1"),
+            clientdata: String::from("Client Data 1"),
+        };
+
+        let expected = "DELETE FROM project WHERE projectid=1";
+        let result = Project::delete_project(project);
+
+        assert_eq!(result, expected);
+    }
+}

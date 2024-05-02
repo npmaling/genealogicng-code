@@ -86,3 +86,56 @@ impl Persona {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_persona() {
+        let persona = Persona {
+            personaid: 1,
+            persona_name: String::from("John Doe"),
+            description_comments: String::from("Lorem ipsum"),
+        };
+        let expected = "INSERT INTO Persona (personaid, persona_name, description_comments) VALUES (1, \"John Doe\", \"Lorem ipsum\")";
+        let result = Persona::create_persona(persona);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_persona() {
+        let persona = Persona {
+            personaid: 1,
+            persona_name: String::from("John Doe"),
+            description_comments: String::from("Lorem ipsum"),
+        };
+        let expected = "SELECT * FROM Persona WHERE personaid=1";
+        let result = Persona::read_persona(persona);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_persona() {
+        let persona = Persona {
+            personaid: 1,
+            persona_name: String::from("John Doe"),
+            description_comments: String::from("Lorem ipsum"),
+        };
+        let expected = "UPDATE persona SET personaid=1, persona_name=\"John Doe\", description_comments=\"Lorem ipsum\" WHERE personaid=1";
+        let result = Persona::update_persona(persona);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_persona() {
+        let persona = Persona {
+            personaid: 1,
+            persona_name: String::from("John Doe"),
+            description_comments: String::from("Lorem ipsum"),
+        };
+        let expected = "DELETE FROM persona WHERE personaid=1";
+        let result = Persona::delete_persona(persona);
+        assert_eq!(result, expected);
+    }
+}

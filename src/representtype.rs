@@ -62,3 +62,52 @@ impl RepresentType {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_representtype() {
+        let reprtype = RepresentType {
+            reprtypeid: 1,
+            name: String::from("Type1"),
+        };
+        let expected = "INSERT INTO representtype (reprtypeid, name) VALUES (1, \"Type1\")";
+        assert_eq!(RepresentType::create_representtype(reprtype), expected);
+    }
+
+    #[test]
+    fn test_read_representtype() {
+        let reprtype = RepresentType {
+            reprtypeid: 1,
+            name: String::from("Type1"),
+        };
+        let expected = "SELECT * FROM representtype WHERE reprtypeid=1";
+        assert_eq!(RepresentType::read_representtype(reprtype), expected);
+    }
+
+    #[test]
+    fn test_update_representtype() {
+        let reprtype = RepresentType {
+            reprtypeid: 1,
+            name: String::from("Type1"),
+        };
+        let expected = "UPDATE representtype SET reprtypeid=1, name=\"Type1\" WHERE reprtypeid=1";
+        assert_eq!(RepresentType::update_representtype(reprtype), expected);
+    }
+
+    #[test]
+    fn test_delete_representtype() {
+        let reprtype = RepresentType {
+            reprtypeid: 1,
+            name: String::from("Type1"),
+        };
+        let expected = "DELETE FROM representtype WHERE reprtypeid=1";
+        assert_eq!(RepresentType::delete_representtype(reprtype), expected);
+    }
+}
+
+
+
+

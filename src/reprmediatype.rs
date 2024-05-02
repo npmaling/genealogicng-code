@@ -80,3 +80,57 @@ impl ReprMediaType {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_reprmediatype() {
+        let reprmediatype = ReprMediaType {
+            reprmediaid: 1,
+            reprmedianame: String::from("example"),
+        };
+        let expected = "INSERT INTO reprmediatype (reprmediaid, reprmedianame) VALUES (1, \"example\")";
+        let result = ReprMediaType::create_reprmediatype(reprmediatype);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_reprmediatype() {
+        let reprmediatype = ReprMediaType {
+            reprmediaid: 1,
+            reprmedianame: String::from("example"),
+        };
+        let expected = "SELECT * FROM reprmediatype WHERE reprmediaid=1";
+        let result = ReprMediaType::read_reprmediatype(reprmediatype);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_reprmediatype() {
+        let reprmediatype = ReprMediaType {
+            reprmediaid: 1,
+            reprmedianame: String::from("example"),
+        };
+        let expected = "UPDATE reprmediatype SET reprmediaid=1, reprmedianame=\"example\" WHERE reprmediaid=1";
+        let result = ReprMediaType::update_reprmediatype(reprmediatype);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_reprmediatype() {
+        let reprmediatype = ReprMediaType {
+            reprmediaid: 1,
+            reprmedianame: String::from("example"),
+        };
+        let expected = "DELETE FROM reprmediatype WHERE reprmediaid=1";
+        let result = ReprMediaType::delete_reprmediatype(reprmediatype);
+        assert_eq!(result, expected);
+    }
+}
+
+
+
+
+

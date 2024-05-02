@@ -88,3 +88,60 @@ impl ResObjActivity {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_resobjactivity() {
+        let resobjactivity = ResObjActivity {
+            resobjactivityid: 1,
+            resobjid: 2,
+            activityid: 3,
+        };
+        let expected = "INSERT INTO resobjactivity (resobjactivityid, resobjid, activityid) VALUES (1, 2, 3)";
+        let result = ResObjActivity::create_resobjactivity(resobjactivity);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_resobjactivity() {
+        let resobjactivity = ResObjActivity {
+            resobjactivityid: 1,
+            resobjid: 2,
+            activityid: 3,
+        };
+        let expected = "SELECT * FROM resobjactivity WHERE resobjactivityid=1";
+        let result = ResObjActivity::read_resobjactivity(resobjactivity);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_resobjactivity() {
+        let resobjactivity = ResObjActivity {
+            resobjactivityid: 1,
+            resobjid: 2,
+            activityid: 3,
+        };
+        let expected = "UPDATE resobjactivity SET resobjactivityid=1, resobjid=2, activityid=3 WHERE resobjactivityid=1";
+        let result = ResObjActivity::update_resobjactivity(resobjactivity);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_resobjactivity() {
+        let resobjactivity = ResObjActivity {
+            resobjactivityid: 1,
+            resobjid: 2,
+            activityid: 3,
+        };
+        let expected = "DELETE FROM resobjactivity WHERE resobjactivityid=1";
+        let result = ResObjActivity::delete_resobjactivity(resobjactivity);
+        assert_eq!(result, expected);
+    }
+}
+
+
+
+
+

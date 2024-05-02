@@ -94,3 +94,69 @@ impl Repository {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_repository() {
+        let repository = Repository {
+            repositoryid: 1,
+            placeid: 2,
+            reponame: String::from("Test Repository"),
+            comments: String::from("Test comments"),
+        };
+
+        let expected = "INSERT INTO repository (repositoryid, placeid, reponame, comments) VALUES (1, 2, \"Test Repository\", \"Test comments\")";
+        let result = Repository::create_repository(repository);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_repository() {
+        let repository = Repository {
+            repositoryid: 1,
+            placeid: 2,
+            reponame: String::from("Test Repository"),
+            comments: String::from("Test comments"),
+        };
+
+        let expected = "SELECT * FROM repository WHERE repositoryid=1";
+        let result = Repository::read_repository(repository);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_repository() {
+        let repository = Repository {
+            repositoryid: 1,
+            placeid: 2,
+            reponame: String::from("Test Repository"),
+            comments: String::from("Test comments"),
+        };
+
+        let expected = "UPDATE repository SET repositoryid=1, placeid=2, reponame=\"Test Repository\", comments=\"Test comments\" WHERE repositoryid=1";
+        let result = Repository::update_repository(repository);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_repository() {
+        let repository = Repository {
+            repositoryid: 1,
+            placeid: 2,
+            reponame: String::from("Test Repository"),
+            comments: String::from("Test comments"),
+        };
+
+        let expected = "DELETE FROM repository WHERE repositoryid=1";
+        let result = Repository::delete_repository(repository);
+
+        assert_eq!(result, expected);
+    }
+}
+

@@ -94,3 +94,69 @@ impl GlGroupTypeRole {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_glgrouptyperole() {
+        let glgrouptyperole = GlGroupTypeRole {
+            glgrouptyperoleid: 1,
+            glgrouptypeid: 2,
+            glgrouptypename: String::from("Test Group Type"),
+            sequencenumber: 3,
+        };
+
+        let expected = "INSERT INTO glgrouptyperole (glgrouptyperoleid, glgrouptypeid, glgrouptypename, sequencenumber) VALUES (1, 2, \"Test Group Type\", 3)";
+        let result = GlGroupTypeRole::create_glgrouptyperole(glgrouptyperole);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_glgrouptyperole() {
+        let glgrouptyperole = GlGroupTypeRole {
+            glgrouptyperoleid: 1,
+            glgrouptypeid: 2,
+            glgrouptypename: String::from("Test Group Type"),
+            sequencenumber: 3,
+        };
+
+        let expected = "SELECT * FROM glgrouptyperole WHERE glgrouptyperoleid=1";
+        let result = GlGroupTypeRole::read_glgrouptyperole(glgrouptyperole);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_glgrouptyperole() {
+        let glgrouptyperole = GlGroupTypeRole {
+            glgrouptyperoleid: 1,
+            glgrouptypeid: 2,
+            glgrouptypename: String::from("Test Group Type"),
+            sequencenumber: 3,
+        };
+
+        let expected = "UPDATE glgrouptyperole SET glgrouptyperoleid=1, glgrouptypeid=2, glgrouptypename=\"Test Group Type\", sequencenumber=3 WHERE glgrouptyperoleid=1";
+        let result = GlGroupTypeRole::update_glgrouptyperole(glgrouptyperole);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_glgrouptyperole() {
+        let glgrouptyperole = GlGroupTypeRole {
+            glgrouptyperoleid: 1,
+            glgrouptypeid: 2,
+            glgrouptypename: String::from("Test Group Type"),
+            sequencenumber: 3,
+        };
+
+        let expected = "DELETE FROM glgrouptyperole WHERE glgrouptyperoleid=1";
+        let result = GlGroupTypeRole::delete_glgrouptyperole(glgrouptyperole);
+
+        assert_eq!(result, expected);
+    }
+}
+

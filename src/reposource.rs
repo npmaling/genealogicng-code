@@ -108,3 +108,76 @@ impl RepoSource {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_reposource() {
+        let reposource = RepoSource {
+            reposourceid: 1,
+            repositoryid: 2,
+            sourceid: 3,
+            rsactivityid: 4,
+            callnumber: String::from("ABC123"),
+            description: String::from("Test description"),
+        };
+
+        let expected = "INSERT INTO reposource (reposourceid, repositoryid, sourceid, rsactivityid, callnumber, description) VALUES (1, 2, 3, 4, \"ABC123\", \"Test description\")";
+        let result = RepoSource::create_reposource(reposource);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_reposource() {
+        let reposource = RepoSource {
+            reposourceid: 1,
+            repositoryid: 2,
+            sourceid: 3,
+            rsactivityid: 4,
+            callnumber: String::from("ABC123"),
+            description: String::from("Test description"),
+        };
+
+        let expected = "SELECT * FROM reposource WHERE reposourceid=1";
+        let result = RepoSource::read_reposource(reposource);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_reposource() {
+        let reposource = RepoSource {
+            reposourceid: 1,
+            repositoryid: 2,
+            sourceid: 3,
+            rsactivityid: 4,
+            callnumber: String::from("ABC123"),
+            description: String::from("Test description"),
+        };
+
+        let expected = "UPDATE reposource SET reposourceid=1, repositoryid=2, sourceid=3, rsactivityid=4, callnumber=\"ABC123\", description=\"Test description\" WHERE reposourceid=1";
+        let result = RepoSource::update_reposource(reposource);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_reposource() {
+        let reposource = RepoSource {
+            reposourceid: 1,
+            repositoryid: 2,
+            sourceid: 3,
+            rsactivityid: 4,
+            callnumber: String::from("ABC123"),
+            description: String::from("Test description"),
+        };
+
+        let expected = "DELETE FROM reposource WHERE reposourceid=1";
+        let result = RepoSource::delete_reposource(reposource);
+
+        assert_eq!(result, expected);
+    }
+}

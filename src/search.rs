@@ -98,3 +98,74 @@ impl Search {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_search() {
+        let search = Search {
+            searchid: 1,
+            activityid: 2,
+            sourceid: 3,
+            repositoryid: 4,
+            searchedfor: "example".to_string(),
+        };
+
+        let expected = "INSERT INTO search (searchid, activityid, sourceid, repositoryid, searchedfor) VALUES (1, 2, 3, 4, \"example\")";
+        let result = Search::create_search(search);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_search() {
+        let search = Search {
+            searchid: 1,
+            activityid: 2,
+            sourceid: 3,
+            repositoryid: 4,
+            searchedfor: "example".to_string(),
+        };
+
+        let expected = "SELECT * FROM search WHERE searchid=1";
+        let result = Search::read_search(search);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_search() {
+        let search = Search {
+            searchid: 1,
+            activityid: 2,
+            sourceid: 3,
+            repositoryid: 4,
+            searchedfor: "example".to_string(),
+        };
+
+        let expected = "UPDATE search SET searchid=1, activityid=2, sourceid=3, repositoryid=4, searchedfor=\"example\" WHERE searchid=1";
+        let result = Search::update_search(search);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_search() {
+        let search = Search {
+            searchid: 1,
+            activityid: 2,
+            sourceid: 3,
+            repositoryid: 4,
+            searchedfor: "example".to_string(),
+        };
+
+        let expected = "DELETE FROM search WHERE searchid=1";
+        let result = Search::delete_search(search);
+
+        assert_eq!(result, expected);
+    }
+}
+
+

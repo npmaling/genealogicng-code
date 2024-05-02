@@ -108,3 +108,76 @@ impl GlGroup {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_glgroup() {
+        let glgroup = GlGroup {
+            glgroupid: 1,
+            glgrouptypeid: 2,
+            placeid: 3,
+            glgroupdate: "2022-01-01".to_string(),
+            glgroupname: "Test Group".to_string(),
+            glgroupcriteria: "Test Criteria".to_string(),
+        };
+
+        let expected = "INSERT INTO glgroup (glgroupid, glgrouptypeid, placeid, glgroupdate, glgroupname, glgroupcriteria) VALUES (1, 2, 3, \"2022-01-01\",\"Test Group\", \"Test Criteria\")";
+        let result = GlGroup::create_glgroup(glgroup);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_glgroup() {
+        let glgroup = GlGroup {
+            glgroupid: 1,
+            glgrouptypeid: 2,
+            placeid: 3,
+            glgroupdate: "2022-01-01".to_string(),
+            glgroupname: "Test Group".to_string(),
+            glgroupcriteria: "Test Criteria".to_string(),
+        };
+
+        let expected = "SELECT * FROM glgroup WHERE glgroupid=1";
+        let result = GlGroup::read_glgroup(glgroup);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_glgroup() {
+        let glgroup = GlGroup {
+            glgroupid: 1,
+            glgrouptypeid: 2,
+            placeid: 3,
+            glgroupdate: "2022-01-01".to_string(),
+            glgroupname: "Test Group".to_string(),
+            glgroupcriteria: "Test Criteria".to_string(),
+        };
+
+        let expected = "UPDATE glgroup SET glgroupid=1, glgrouptypeid=2, placeid=3, glgroupdate=\"2022-01-01\", glgroupname=\"Test Group\", glgroupcriteria=\"Test Criteria\" WHERE glgroupid=1";
+        let result = GlGroup::update_glgroup(glgroup);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_glgroup() {
+        let glgroup = GlGroup {
+            glgroupid: 1,
+            glgrouptypeid: 2,
+            placeid: 3,
+            glgroupdate: "2022-01-01".to_string(),
+            glgroupname: "Test Group".to_string(),
+            glgroupcriteria: "Test Criteria".to_string(),
+        };
+
+        let expected = "DELETE FROM glgroup WHERE glgroupid=1";
+        let result = GlGroup::delete_glgroup(glgroup);
+
+        assert_eq!(result, expected);
+    }
+}

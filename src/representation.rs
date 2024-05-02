@@ -115,3 +115,84 @@ impl Representation {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_representation() {
+        let representation = Representation {
+            representationid: 1,
+            sourceid: 2,
+            reprtypeid: 3,
+            reprmediaid: 4,
+            physfilecode: "filecode".to_string(),
+            comments: "comments".to_string(),
+            externallink: "link".to_string(),
+        };
+
+        let expected = "INSERT INTO representation (representationid, sourceid, reprtypeid, reprmediaid, physfilecode, comments, externallink) VALUES (1, 2, 3, 4, \"filecode\", \"comments\", \"link\")";
+        let result = Representation::create_representation(representation);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_representation() {
+        let representation = Representation {
+            representationid: 1,
+            sourceid: 2,
+            reprtypeid: 3,
+            reprmediaid: 4,
+            physfilecode: "filecode".to_string(),
+            comments: "comments".to_string(),
+            externallink: "link".to_string(),
+        };
+
+        let expected = "SELECT * FROM representation WHERE representationid=1";
+        let result = Representation::read_representation(representation);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_representation() {
+        let representation = Representation {
+            representationid: 1,
+            sourceid: 2,
+            reprtypeid: 3,
+            reprmediaid: 4,
+            physfilecode: "filecode".to_string(),
+            comments: "comments".to_string(),
+            externallink: "link".to_string(),
+        };
+
+        let expected = "UPDATE representation SET representationid=1, sourceid=2, reprtypeid=3, reprmediaid=4, physfilecode=\"filecode\", comments=\"comments\", externallink=\"link\" WHERE reprtypeid=1";
+        let result = Representation::update_representation(representation);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_representation() {
+        let representation = Representation {
+            representationid: 1,
+            sourceid: 2,
+            reprtypeid: 3,
+            reprmediaid: 4,
+            physfilecode: "filecode".to_string(),
+            comments: "comments".to_string(),
+            externallink: "link".to_string(),
+        };
+
+        let expected = "DELETE FROM representation WHERE representationid=1";
+        let result = Representation::delete_representation(representation);
+
+        assert_eq!(result, expected);
+    }
+}
+
+
+
+

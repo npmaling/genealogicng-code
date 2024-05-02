@@ -94,3 +94,62 @@ impl ResProj {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_resproj() {
+        let resproj = ResProj {
+            resprojid: 1,
+            projectid: 1,
+            researcherid: 1,
+            researcherrole: String::from("Role"),
+        };
+        let expected = "INSERT INTO resproj (resprojid, projectid, researcherid, researcherrole) VALUES (1, 1, 1, \"Role\")";
+        let result = ResProj::create_resproj(resproj);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_resproj() {
+        let resproj = ResProj {
+            resprojid: 1,
+            projectid: 1,
+            researcherid: 1,
+            researcherrole: String::from("Role"),
+        };
+        let expected = "SELECT * FROM resproj WHERE resprojid=1";
+        let result = ResProj::read_resproj(resproj);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_resproj() {
+        let resproj = ResProj {
+            resprojid: 1,
+            projectid: 1,
+            researcherid: 1,
+            researcherrole: String::from("Role"),
+        };
+        let expected = "UPDATE resproj SET resprojid=1, projectid=1, researcherid=1, researcherrole=\"Role\" WHERE resprojid=1";
+        let result = ResProj::update_resproj(resproj);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_resproj() {
+        let resproj = ResProj {
+            resprojid: 1,
+            projectid: 1,
+            researcherid: 1,
+            researcherrole: String::from("Role"),
+        };
+        let expected = "DELETE FROM resproj WHERE resprojid=1";
+        let result = ResProj::delete_resproj(resproj);
+        assert_eq!(result, expected);
+    }
+}
+
+

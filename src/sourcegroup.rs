@@ -80,3 +80,56 @@ impl SourceGroup {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_sourcegroup() {
+        let sourcegroup = SourceGroup {
+            sourcegroupid: 1,
+            sourcegroupname: String::from("Group 1"),
+        };
+        let expected = "INSERT INTO sourcegroup (sourcegroupid, sourcegroupname) VALUES (1, \"Group 1\")";
+        let result = SourceGroup::create_sourcegroup(sourcegroup);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_sourcegroup() {
+        let sourcegroup = SourceGroup {
+            sourcegroupid: 1,
+            sourcegroupname: String::from("Group 1"),
+        };
+        let expected = "SELECT * FROM sourcegroup WHERE sourcegroupid=1";
+        let result = SourceGroup::read_sourcegroup(sourcegroup);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_sourcegroup() {
+        let sourcegroup = SourceGroup {
+            sourcegroupid: 1,
+            sourcegroupname: String::from("Group 1"),
+        };
+        let expected = "UPDATE sourcegroup SET sourcegroupid=1, sourcegroupname=\"Group 1\" WHERE sourcegroupid=1";
+        let result = SourceGroup::update_sourcegroup(sourcegroup);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_sourcegroup() {
+        let sourcegroup = SourceGroup {
+            sourcegroupid: 1,
+            sourcegroupname: String::from("Group 1"),
+        };
+        let expected = "DELETE FROM sourcegroup WHERE sourcegroupid=1";
+        let result = SourceGroup::delete_sourcegroup(sourcegroup);
+        assert_eq!(result, expected);
+    }
+}
+
+
+
+

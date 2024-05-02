@@ -101,3 +101,72 @@ impl PlacePart {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_placepart() {
+        let placepart = PlacePart {
+            placepartid: 1,
+            placeid: 2,
+            placeparttypeid: 3,
+            name: String::from("Test Place Part"),
+            sequencenumber: 4,
+        };
+
+        let expected = "INSERT INTO PlacePart (placepartid, placeid, placeparttypeid, name, sequencenumber) VALUES (1, 2, 3, \"Test Place Part\", 4)";
+        let result = PlacePart::create_placepart(placepart);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_placepart() {
+        let placepart = PlacePart {
+            placepartid: 1,
+            placeid: 2,
+            placeparttypeid: 3,
+            name: String::from("Test Place Part"),
+            sequencenumber: 4,
+        };
+
+        let expected = "SELECT * FROM PlacePart WHERE placepartid=1";
+        let result = PlacePart::read_placepart(placepart);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_placepart() {
+        let placepart = PlacePart {
+            placepartid: 1,
+            placeid: 2,
+            placeparttypeid: 3,
+            name: String::from("Test Place Part"),
+            sequencenumber: 4,
+        };
+
+        let expected = "UPDATE placePart SET placepartid=1, placeid=2, placeparttypeid=3, name=\"Test Place Part\", sequencenumber=4 WHERE placepartid=1";
+        let result = PlacePart::update_placepart(placepart);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_placepart() {
+        let placepart = PlacePart {
+            placepartid: 1,
+            placeid: 2,
+            placeparttypeid: 3,
+            name: String::from("Test Place Part"),
+            sequencenumber: 4,
+        };
+
+        let expected = "DELETE FROM PlacePart WHERE placepartid=1";
+        let result = PlacePart::delete_placepart(placepart);
+
+        assert_eq!(result, expected);
+    }
+}

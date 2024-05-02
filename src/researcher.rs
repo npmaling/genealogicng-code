@@ -94,3 +94,68 @@ impl Researcher {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_researcher() {
+        let researcher = Researcher {
+            researcherid: 1,
+            name: String::from("John Doe"),
+            addressid: 123,
+            comments: String::from("Some comments"),
+        };
+
+        let expected = "INSERT INTO researcher (researcherid, name, addressid, comments) VALUES (1, \"John Doe\", 123, \"Some comments\")";
+        let result = Researcher::create_researcher(researcher);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_researcher() {
+        let researcher = Researcher {
+            researcherid: 1,
+            name: String::from("John Doe"),
+            addressid: 123,
+            comments: String::from("Some comments"),
+        };
+
+        let expected = "SELECT * FROM researcher WHERE researcherid=1";
+        let result = Researcher::read_researcher(researcher);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_researcher() {
+        let researcher = Researcher {
+            researcherid: 1,
+            name: String::from("John Doe"),
+            addressid: 123,
+            comments: String::from("Some comments"),
+        };
+
+        let expected = "UPDATE researcher SET researcherid=1, name=\"John Doe\", addressid=123, comments=\"Some comments\" WHERE researcherid=1";
+        let result = Researcher::update_researcher(researcher);
+
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_researcher() {
+        let researcher = Researcher {
+            researcherid: 1,
+            name: String::from("John Doe"),
+            addressid: 123,
+            comments: String::from("Some comments"),
+        };
+
+        let expected = "DELETE FROM researcher WHERE researcherid=1";
+        let result = Researcher::delete_researcher(researcher);
+
+        assert_eq!(result, expected);
+    }
+}

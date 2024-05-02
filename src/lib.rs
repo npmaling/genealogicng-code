@@ -146,22 +146,20 @@ use rusqlite::{params, Connection};
 
 /* ------------------------------------------------------------------------- */
 
-// let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+fn dbstring(dbstr: String) -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
 
-/* ------------------------------------------------------------------------- */
-
-fn dbstring(conn: &Connection, dbstr: String) {
     match conn.execute(&dbstr, params![]) {
         Ok(updated) => println!("{} rows were updated by match", updated),
         Err(err) => println!("update failed: {}", err),
     };
+
+    Ok(())
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_activity_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_activity_a() {
     let activity_a = Activity {
         activityid: 16,
         projectid: 1,
@@ -177,10 +175,10 @@ pub fn make_activity_a() -> Result<(), rusqlite::Error> {
 
     let aactivity = Activity::create_activity(activity_a);
 
-    println!("aactivity : {:?}", &aactivity);
-    dbstring(&conn, aactivity);
-
-    Ok(())
+    // println!("aactivity : {:?}", &aactivity);
+    if let Err(err) = dbstring(aactivity) {
+        println!("Error: {}", err);
+    }
 }
 
 pub fn read_activity_a() -> Result<(), rusqlite::Error> {
@@ -201,7 +199,7 @@ pub fn read_activity_a() -> Result<(), rusqlite::Error> {
 
     let bactivity = Activity::read_activity(activity_b);
 
-    println!("bactivity : {:?}", &bactivity);
+    // println!("bactivity : {:?}", &bactivity);
 
     let mut stmt = conn.prepare(&bactivity)?;
     let activity_iter = stmt.query_map([], |row| {
@@ -226,9 +224,7 @@ pub fn read_activity_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_activity_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_activity_a() {
     let activity_c = Activity {
         activityid: 16,
         projectid: 1,
@@ -244,15 +240,14 @@ pub fn update_activity_a() -> Result<(), rusqlite::Error> {
 
     let cactivity = Activity::update_activity(activity_c);
 
-    println!("cactivity : {:?}", &cactivity);
-    dbstring(&conn, cactivity);
+    // println!("cactivity : {:?}", &cactivity);
+    if let Err(err) = dbstring(cactivity) {
+        println!("Error: {}", err);
+    }
 
-    Ok(())
 }
 
-pub fn delete_activity_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_activity_a() {
     let activity_d = Activity {
         activityid: 16,
         projectid: 1,
@@ -268,17 +263,15 @@ pub fn delete_activity_a() -> Result<(), rusqlite::Error> {
 
     let dactivity = Activity::delete_activity(activity_d);
 
-    println!("dactivity : {:?}", &dactivity);
-    dbstring(&conn, dactivity);
-
-    Ok(())
+    // println!("dactivity : {:?}", &dactivity);
+    if let Err(err) = dbstring(dactivity) {
+        println!("Error: {}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_assertassert_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_assertassert_a() {
     let assertassert_a = AssertAssert {
         assertassertid: 16,
         idlo: 1,
@@ -288,10 +281,10 @@ pub fn make_assertassert_a() -> Result<(), rusqlite::Error> {
 
     let aassertassert = AssertAssert::create_assertassert(assertassert_a);
 
-    println!("aassertassert : {:?}", &aassertassert);
-    dbstring(&conn, aassertassert);
-
-    Ok(())
+    // println!("aassertassert : {:?}", &aassertassert);
+    if let Err(err) = dbstring(aassertassert) {
+        println!("Error: {}", err);
+    }
 }
 
 pub fn read_assertassert_a() -> Result<(), rusqlite::Error> {
@@ -306,7 +299,7 @@ pub fn read_assertassert_a() -> Result<(), rusqlite::Error> {
 
     let bassertassert = AssertAssert::read_assertassert(assertassert_b);
 
-    println!("bassertassert : {:?}", &bassertassert);
+    // println!("bassertassert : {:?}", &bassertassert);
 
     let mut stmt = conn.prepare(&bassertassert)?;
     let assertassert_iter = stmt.query_map([], |row| {
@@ -325,9 +318,7 @@ pub fn read_assertassert_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_assertassert_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_assertassert_a() {
     let assertassert_c = AssertAssert {
         assertassertid: 16,
         idlo: 1,
@@ -337,15 +328,13 @@ pub fn update_assertassert_a() -> Result<(), rusqlite::Error> {
 
     let cassertassert = AssertAssert::update_assertassert(assertassert_c);
 
-    println!("cassertassert : {:?}", &cassertassert);
-    dbstring(&conn, cassertassert);
-
-    Ok(())
+    // println!("cassertassert : {:?}", &cassertassert);
+    if let Err(err) = dbstring(cassertassert) {
+        println!("Error: {}", err);
+    }
 }
 
-pub fn delete_assertassert_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_assertassert_a() {
     let assertassert_d = AssertAssert {
         assertassertid: 16,
         idlo: 1,
@@ -355,17 +344,15 @@ pub fn delete_assertassert_a() -> Result<(), rusqlite::Error> {
 
     let dassertassert = AssertAssert::delete_assertassert(assertassert_d);
 
-    println!("dassertassert : {:?}", &dassertassert);
-    dbstring(&conn, dassertassert);
-
-    Ok(())
+    // println!("dassertassert : {:?}", &dassertassert);
+    if let Err(err) = dbstring(dassertassert) {
+        println!("Error: {}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_characteristic_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_characteristic_a() {
     let characteristic_a = Characteristic {
         characteristicid: 16,
         placeid: 1,
@@ -375,10 +362,10 @@ pub fn make_characteristic_a() -> Result<(), rusqlite::Error> {
 
     let acharacteristic = Characteristic::create_characteristic(characteristic_a);
 
-    println!("acharacteristic : {:?}", &acharacteristic);
-    dbstring(&conn, acharacteristic);
-
-    Ok(())
+    // println!("acharacteristic : {:?}", &acharacteristic);
+    if let Err(err) = dbstring(acharacteristic) {
+        println!("Error: {}", err);
+    }
 }
 
 pub fn read_characteristic_a() -> Result<(), rusqlite::Error> {
@@ -393,7 +380,7 @@ pub fn read_characteristic_a() -> Result<(), rusqlite::Error> {
 
     let bcharacteristic = Characteristic::read_characteristic(characteristic_b);
 
-    println!("bcharacteristic : {:?}", &bcharacteristic);
+    // println!("bcharacteristic : {:?}", &bcharacteristic);
 
     let mut stmt = conn.prepare(&bcharacteristic)?;
     let characteristic_iter = stmt.query_map([], |row| {
@@ -412,9 +399,7 @@ pub fn read_characteristic_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_characteristic_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_characteristic_a() {
     let characteristic_c = Characteristic {
         characteristicid: 16,
         placeid: 1,
@@ -424,15 +409,13 @@ pub fn update_characteristic_a() -> Result<(), rusqlite::Error> {
 
     let ccharacteristic = Characteristic::update_characteristic(characteristic_c);
 
-    println!("ccharacteristic : {:?}", &ccharacteristic);
-    dbstring(&conn, ccharacteristic);
-
-    Ok(())
+    // println!("ccharacteristic : {:?}", &ccharacteristic);
+    if let Err(err) = dbstring(ccharacteristic) {
+        println!("Error: {}", err);
+    }
 }
 
-pub fn delete_characteristic_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_characteristic_a() {
     let characteristic_d = Characteristic {
         characteristicid: 16,
         placeid: 1,
@@ -442,17 +425,15 @@ pub fn delete_characteristic_a() -> Result<(), rusqlite::Error> {
 
     let dcharacteristic = Characteristic::delete_characteristic(characteristic_d);
 
-    println!("dcharacteristic : {:?}", &dcharacteristic);
-    dbstring(&conn, dcharacteristic);
-
-    Ok(())
+    // println!("dcharacteristic : {:?}", &dcharacteristic);
+    if let Err(err) = dbstring(dcharacteristic) {
+        println!("Error: {}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_charpart_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_charpart_a() {
     let charpart_a = CharPart {
         characteristicpartid: 16,
         characteristicid: 1,
@@ -463,10 +444,10 @@ pub fn make_charpart_a() -> Result<(), rusqlite::Error> {
 
     let acharpart = CharPart::create_charpart(charpart_a);
 
-    println!("acharpart : {:?}", &acharpart);
-    dbstring(&conn, acharpart);
-
-    Ok(())
+    // println!("acharpart : {:?}", &acharpart);
+    if let Err(err) = dbstring(acharpart) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_charpart_a() -> Result<(), rusqlite::Error> {
@@ -482,7 +463,7 @@ pub fn read_charpart_a() -> Result<(), rusqlite::Error> {
 
     let bcharpart = CharPart::read_charpart(charpart_b);
 
-    println!("bcharpart : {:?}", &bcharpart);
+    // println!("bcharpart : {:?}", &bcharpart);
 
     let mut stmt = conn.prepare(&bcharpart)?;
     let charpart_iter = stmt.query_map([], |row| {
@@ -502,9 +483,7 @@ pub fn read_charpart_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_charpart_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_charpart_a() {
     let charpart_c = CharPart {
         characteristicpartid: 16,
         characteristicid: 1,
@@ -515,15 +494,13 @@ pub fn update_charpart_a() -> Result<(), rusqlite::Error> {
 
     let ccharpart = CharPart::update_charpart(charpart_c);
 
-    println!("ccharpart : {:?}", &ccharpart);
-    dbstring(&conn, ccharpart);
-
-    Ok(())
+    // println!("ccharpart : {:?}", &ccharpart);
+    if let Err(err) = dbstring(ccharpart) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_charpart_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_charpart_a() {
     let charpart_d = CharPart {
         characteristicpartid: 16,
         characteristicid: 1,
@@ -534,17 +511,15 @@ pub fn delete_charpart_a() -> Result<(), rusqlite::Error> {
 
     let dcharpart = CharPart::delete_charpart(charpart_d);
 
-    println!("dcharpart : {:?}", &dcharpart);
-    dbstring(&conn, dcharpart);
-
-    Ok(())
+    // println!("dcharpart : {:?}", &dcharpart);
+    if let Err(err) = dbstring(dcharpart) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_charparttype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_charparttype_a() {
     let charparttype_a = CharPartType {
         charparttypeid: 16,
         charparttypename: "First CharPartType".to_string(),
@@ -553,10 +528,10 @@ pub fn make_charparttype_a() -> Result<(), rusqlite::Error> {
 
     let acharparttype = CharPartType::create_charparttype(charparttype_a);
 
-    println!("acharparttype : {:?}", &acharparttype);
-    dbstring(&conn, acharparttype);
-
-    Ok(())
+    // println!("acharparttype : {:?}", &acharparttype);
+    if let Err(err) = dbstring(acharparttype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_charparttype_a() -> Result<(), rusqlite::Error> {
@@ -570,7 +545,7 @@ pub fn read_charparttype_a() -> Result<(), rusqlite::Error> {
 
     let bcharparttype = CharPartType::read_charparttype(charparttype_b);
 
-    println!("bcharparttype : {:?}", &bcharparttype);
+    // println!("bcharparttype : {:?}", &bcharparttype);
 
     let mut stmt = conn.prepare(&bcharparttype)?;
     let charparttype_iter = stmt.query_map([], |row| {
@@ -588,9 +563,7 @@ pub fn read_charparttype_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_charparttype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_charparttype_a() {
     let charparttype_c = CharPartType {
         charparttypeid: 16,
         charparttypename: "First CharPartType".to_string(),
@@ -599,15 +572,13 @@ pub fn update_charparttype_a() -> Result<(), rusqlite::Error> {
 
     let ccharparttype = CharPartType::update_charparttype(charparttype_c);
 
-    println!("ccharparttype : {:?}", &ccharparttype);
-    dbstring(&conn, ccharparttype);
-
-    Ok(())
+    // println!("ccharparttype : {:?}", &ccharparttype);
+    if let Err(err) = dbstring(ccharparttype) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_charparttype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_charparttype_a() {
     let charparttype_d = CharPartType {
         charparttypeid: 16,
         charparttypename: "First CharPartType".to_string(),
@@ -616,17 +587,15 @@ pub fn delete_charparttype_a() -> Result<(), rusqlite::Error> {
 
     let dcharparttype = CharPartType::delete_charparttype(charparttype_d);
 
-    println!("dcharparttype : {:?}", &dcharparttype);
-    dbstring(&conn, dcharparttype);
-
-    Ok(())
+    // println!("dcharparttype : {:?}", &dcharparttype);
+    if let Err(err) = dbstring(dcharparttype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_citationpart_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_citationpart_a() {
     let citationpart_a = CitationPart {
         citationpartid: 16,
         sourceid: 1,
@@ -636,10 +605,10 @@ pub fn make_citationpart_a() -> Result<(), rusqlite::Error> {
 
     let acitationpart = CitationPart::create_citationpart(citationpart_a);
 
-    println!("acitationpart : {:?}", &acitationpart);
-    dbstring(&conn, acitationpart);
-
-    Ok(())
+    // println!("acitationpart : {:?}", &acitationpart);
+    if let Err(err) = dbstring(acitationpart) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_citationpart_a() -> Result<(), rusqlite::Error> {
@@ -654,7 +623,7 @@ pub fn read_citationpart_a() -> Result<(), rusqlite::Error> {
 
     let bcitationpart = CitationPart::read_citationpart(citationpart_b);
 
-    println!("bcitationpart : {:?}", &bcitationpart);
+    // println!("bcitationpart : {:?}", &bcitationpart);
 
     let mut stmt = conn.prepare(&bcitationpart)?;
     let citationpart_iter = stmt.query_map([], |row| {
@@ -673,9 +642,7 @@ pub fn read_citationpart_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_citationpart_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_citationpart_a() {
     let citationpart_c = CitationPart {
         citationpartid: 16,
         sourceid: 1,
@@ -685,15 +652,13 @@ pub fn update_citationpart_a() -> Result<(), rusqlite::Error> {
 
     let ccitationpart = CitationPart::update_citationpart(citationpart_c);
 
-    println!("ccitationpart : {:?}", &ccitationpart);
-    dbstring(&conn, ccitationpart);
-
-    Ok(())
+    // println!("ccitationpart : {:?}", &ccitationpart);
+    if let Err(err) = dbstring(ccitationpart) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_citationpart_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_citationpart_a() {
     let citationpart_d = CitationPart {
         citationpartid: 16,
         sourceid: 1,
@@ -703,17 +668,15 @@ pub fn delete_citationpart_a() -> Result<(), rusqlite::Error> {
 
     let dcitationpart = CitationPart::delete_citationpart(citationpart_d);
 
-    println!("dcitationpart : {:?}", &dcitationpart);
-    dbstring(&conn, dcitationpart);
-
-    Ok(())
+    // println!("dcitationpart : {:?}", &dcitationpart);
+    if let Err(err) = dbstring(dcitationpart) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_citationparttype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_citationparttype_a() {
     let citationparttype_a = CitationPartType {
         citationparttypeid: 16,
         citationparttypename: "First CitationPartType".to_string(),
@@ -721,10 +684,10 @@ pub fn make_citationparttype_a() -> Result<(), rusqlite::Error> {
 
     let acitationparttype = CitationPartType::create_citationparttype(citationparttype_a);
 
-    println!("acitationparttype : {:?}", &acitationparttype);
-    dbstring(&conn, acitationparttype);
-
-    Ok(())
+    // println!("acitationparttype : {:?}", &acitationparttype);
+    if let Err(err) = dbstring(acitationparttype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_citationparttype_a() -> Result<(), rusqlite::Error> {
@@ -737,7 +700,7 @@ pub fn read_citationparttype_a() -> Result<(), rusqlite::Error> {
 
     let bcitationparttype = CitationPartType::read_citationparttype(citationparttype_b);
 
-    println!("bcitationparttype : {:?}", &bcitationparttype);
+    // println!("bcitationparttype : {:?}", &bcitationparttype);
 
     let mut stmt = conn.prepare(&bcitationparttype)?;
     let citationparttype_iter = stmt.query_map([], |row| {
@@ -754,9 +717,7 @@ pub fn read_citationparttype_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_citationparttype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_citationparttype_a() {
     let citationparttype_c = CitationPartType {
         citationparttypeid: 16,
         citationparttypename: "First CitationPartType".to_string(),
@@ -764,15 +725,13 @@ pub fn update_citationparttype_a() -> Result<(), rusqlite::Error> {
 
     let ccitationparttype = CitationPartType::update_citationparttype(citationparttype_c);
 
-    println!("ccitationparttype : {:?}", &ccitationparttype);
-    dbstring(&conn, ccitationparttype);
-
-    Ok(())
+    // println!("ccitationparttype : {:?}", &ccitationparttype);
+    if let Err(err) = dbstring(ccitationparttype) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_citationparttype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_citationparttype_a() {
     let citationparttype_d = CitationPartType {
         citationparttypeid: 16,
         citationparttypename: "First CitationPartType".to_string(),
@@ -780,17 +739,15 @@ pub fn delete_citationparttype_a() -> Result<(), rusqlite::Error> {
 
     let dcitationparttype = CitationPartType::delete_citationparttype(citationparttype_d);
 
-    println!("dcitationparttype : {:?}", &dcitationparttype);
-    dbstring(&conn, dcitationparttype);
-
-    Ok(())
+    // println!("dcitationparttype : {:?}", &dcitationparttype);
+    if let Err(err) = dbstring(dcitationparttype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_event_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_event_a() {
     let event_a = Event {
         eventid: 16,
         eventtypeid: 1,
@@ -801,10 +758,10 @@ pub fn make_event_a() -> Result<(), rusqlite::Error> {
 
     let aevent = Event::create_event(event_a);
 
-    println!("aevent : {:?}", &aevent);
-    dbstring(&conn, aevent);
-
-    Ok(())
+    // println!("aevent : {:?}", &aevent);
+    if let Err(err) = dbstring(aevent) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_event_a() -> Result<(), rusqlite::Error> {
@@ -820,7 +777,7 @@ pub fn read_event_a() -> Result<(), rusqlite::Error> {
 
     let bevent = Event::read_event(event_b);
 
-    println!("bevent : {:?}", &bevent);
+    // println!("bevent : {:?}", &bevent);
 
     let mut stmt = conn.prepare(&bevent)?;
     let event_iter = stmt.query_map([], |row| {
@@ -840,9 +797,7 @@ pub fn read_event_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_event_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_event_a() {
     let event_c = Event {
         eventid: 16,
         eventtypeid: 1,
@@ -853,15 +808,13 @@ pub fn update_event_a() -> Result<(), rusqlite::Error> {
 
     let cevent = Event::update_event(event_c);
 
-    println!("cevent : {:?}", &cevent);
-    dbstring(&conn, cevent);
-
-    Ok(())
+    // println!("cevent : {:?}", &cevent);
+    if let Err(err) = dbstring(cevent) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_event_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_event_a() {
     let event_d = Event {
         eventid: 16,
         eventtypeid: 1,
@@ -872,17 +825,15 @@ pub fn delete_event_a() -> Result<(), rusqlite::Error> {
 
     let devent = Event::delete_event(event_d);
 
-    println!("devent : {:?}", &devent);
-    dbstring(&conn, devent);
-
-    Ok(())
+    // println!("devent : {:?}", &devent);
+    if let Err(err) = dbstring(devent) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_eventtype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_eventtype_a() {
     let eventtype_a = EventType {
         eventtypeid: 16,
         eventtypename: "First EventType".to_string(),
@@ -891,10 +842,10 @@ pub fn make_eventtype_a() -> Result<(), rusqlite::Error> {
 
     let aeventtype = EventType::create_eventtype(eventtype_a);
 
-    println!("aeventtype : {:?}", &aeventtype);
-    dbstring(&conn, aeventtype);
-
-    Ok(())
+    // println!("aeventtype : {:?}", &aeventtype);
+    if let Err(err) = dbstring(aeventtype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_eventtype_a() -> Result<(), rusqlite::Error> {
@@ -908,7 +859,7 @@ pub fn read_eventtype_a() -> Result<(), rusqlite::Error> {
 
     let beventtype = EventType::read_eventtype(eventtype_b);
 
-    println!("beventtype : {:?}", &beventtype);
+    // println!("beventtype : {:?}", &beventtype);
 
     let mut stmt = conn.prepare(&beventtype)?;
     let eventtype_iter = stmt.query_map([], |row| {
@@ -926,9 +877,7 @@ pub fn read_eventtype_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_eventtype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_eventtype_a() {
     let eventtype_c = EventType {
         eventtypeid: 16,
         eventtypename: "First EventType".to_string(),
@@ -937,15 +886,13 @@ pub fn update_eventtype_a() -> Result<(), rusqlite::Error> {
 
     let ceventtype = EventType::update_eventtype(eventtype_c);
 
-    println!("ceventtype : {:?}", &ceventtype);
-    dbstring(&conn, ceventtype);
-
-    Ok(())
+    // println!("ceventtype : {:?}", &ceventtype);
+    if let Err(err) = dbstring(ceventtype) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_eventtype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_eventtype_a() {
     let eventtype_d = EventType {
         eventtypeid: 16,
         eventtypename: "First EventType".to_string(),
@@ -954,17 +901,15 @@ pub fn delete_eventtype_a() -> Result<(), rusqlite::Error> {
 
     let deventtype = EventType::delete_eventtype(eventtype_d);
 
-    println!("deventtype : {:?}", &deventtype);
-    dbstring(&conn, deventtype);
-
-    Ok(())
+    // println!("deventtype : {:?}", &deventtype);
+    if let Err(err) = dbstring(deventtype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_eventtyperole_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_eventtyperole_a() {
     let eventtyperole_a = EventTypeRole {
         eventtyperoleid: 16,
         eventtypeid: 1,
@@ -973,10 +918,10 @@ pub fn make_eventtyperole_a() -> Result<(), rusqlite::Error> {
 
     let aeventtyperole = EventTypeRole::create_eventtyperole(eventtyperole_a);
 
-    println!("aeventtyperole : {:?}", &aeventtyperole);
-    dbstring(&conn, aeventtyperole);
-
-    Ok(())
+    // println!("aeventtyperole : {:?}", &aeventtyperole);
+    if let Err(err) = dbstring(aeventtyperole) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_eventtyperole_a() -> Result<(), rusqlite::Error> {
@@ -990,7 +935,7 @@ pub fn read_eventtyperole_a() -> Result<(), rusqlite::Error> {
 
     let beventtyperole = EventTypeRole::read_eventtyperole(eventtyperole_b);
 
-    println!("beventtyperole : {:?}", &beventtyperole);
+    // println!("beventtyperole : {:?}", &beventtyperole);
 
     let mut stmt = conn.prepare(&beventtyperole)?;
     let eventtyperole_iter = stmt.query_map([], |row| {
@@ -1008,9 +953,7 @@ pub fn read_eventtyperole_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_eventtyperole_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_eventtyperole_a() {
     let eventtyperole_c = EventTypeRole {
         eventtyperoleid: 16,
         eventtypeid: 1,
@@ -1019,15 +962,13 @@ pub fn update_eventtyperole_a() -> Result<(), rusqlite::Error> {
 
     let ceventtyperole = EventTypeRole::update_eventtyperole(eventtyperole_c);
 
-    println!("ceventtyperole : {:?}", &ceventtyperole);
-    dbstring(&conn, ceventtyperole);
-
-    Ok(())
+    // println!("ceventtyperole : {:?}", &ceventtyperole);
+    if let Err(err) = dbstring(ceventtyperole) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_eventtyperole_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_eventtyperole_a() {
     let eventtyperole_d = EventTypeRole {
         eventtyperoleid: 16,
         eventtypeid: 1,
@@ -1036,17 +977,15 @@ pub fn delete_eventtyperole_a() -> Result<(), rusqlite::Error> {
 
     let deventtyperole = EventTypeRole::delete_eventtyperole(eventtyperole_d);
 
-    println!("deventtyperole : {:?}", &deventtyperole);
-    dbstring(&conn, deventtyperole);
-
-    Ok(())
+    // println!("deventtyperole : {:?}", &deventtyperole);
+    if let Err(err) = dbstring(deventtyperole) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_glassertion_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_glassertion_a() {
     let glassertion_a = GlAssertion {
         glassertionid: 16,
         suretypartid: 1,
@@ -1063,10 +1002,10 @@ pub fn make_glassertion_a() -> Result<(), rusqlite::Error> {
 
     let aglassertion = GlAssertion::create_glassertion(glassertion_a);
 
-    println!("aglassertion : {:?}", &aglassertion);
-    dbstring(&conn, aglassertion);
-
-    Ok(())
+    // println!("aglassertion : {:?}", &aglassertion);
+    if let Err(err) = dbstring(aglassertion) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_glassertion_a() -> Result<(), rusqlite::Error> {
@@ -1088,7 +1027,7 @@ pub fn read_glassertion_a() -> Result<(), rusqlite::Error> {
 
     let bglassertion = GlAssertion::read_glassertion(glassertion_b);
 
-    println!("bglassertion : {:?}", &bglassertion);
+    // println!("bglassertion : {:?}", &bglassertion);
 
     let mut stmt = conn.prepare(&bglassertion)?;
     let glassertion_iter = stmt.query_map([], |row| {
@@ -1114,9 +1053,7 @@ pub fn read_glassertion_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_glassertion_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_glassertion_a() {
     let glassertion_c = GlAssertion {
         glassertionid: 16,
         suretypartid: 1,
@@ -1133,15 +1070,13 @@ pub fn update_glassertion_a() -> Result<(), rusqlite::Error> {
 
     let cglassertion = GlAssertion::update_glassertion(glassertion_c);
 
-    println!("cglassertion : {:?}", &cglassertion);
-    dbstring(&conn, cglassertion);
-
-    Ok(())
+    // println!("cglassertion : {:?}", &cglassertion);
+    if let Err(err) = dbstring(cglassertion) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_glassertion_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_glassertion_a() {
     let glassertion_d = GlAssertion {
         glassertionid: 16,
         suretypartid: 1,
@@ -1158,17 +1093,15 @@ pub fn delete_glassertion_a() -> Result<(), rusqlite::Error> {
 
     let dglassertion = GlAssertion::delete_glassertion(glassertion_d);
 
-    println!("dglassertion : {:?}", &dglassertion);
-    dbstring(&conn, dglassertion);
-
-    Ok(())
+    // println!("dglassertion : {:?}", &dglassertion);
+    if let Err(err) = dbstring(dglassertion) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_glgroup_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_glgroup_a() {
     let glgroup_a = GlGroup {
         glgroupid: 16,
         glgrouptypeid: 1,
@@ -1180,10 +1113,10 @@ pub fn make_glgroup_a() -> Result<(), rusqlite::Error> {
 
     let aglgroup = GlGroup::create_glgroup(glgroup_a);
 
-    println!("aglgroup : {:?}", &aglgroup);
-    dbstring(&conn, aglgroup);
-
-    Ok(())
+    // println!("aglgroup : {:?}", &aglgroup);
+    if let Err(err) = dbstring(aglgroup) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_glgroup_a() -> Result<(), rusqlite::Error> {
@@ -1200,7 +1133,7 @@ pub fn read_glgroup_a() -> Result<(), rusqlite::Error> {
 
     let bglgroup = GlGroup::read_glgroup(glgroup_b);
 
-    println!("bglgroup : {:?}", &bglgroup);
+    // println!("bglgroup : {:?}", &bglgroup);
 
     let mut stmt = conn.prepare(&bglgroup)?;
     let glgroup_iter = stmt.query_map([], |row| {
@@ -1221,9 +1154,7 @@ pub fn read_glgroup_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_glgroup_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_glgroup_a() {
     let glgroup_c = GlGroup {
         glgroupid: 16,
         glgrouptypeid: 1,
@@ -1235,15 +1166,13 @@ pub fn update_glgroup_a() -> Result<(), rusqlite::Error> {
 
     let cglgroup = GlGroup::update_glgroup(glgroup_c);
 
-    println!("cglgroup : {:?}", &cglgroup);
-    dbstring(&conn, cglgroup);
-
-    Ok(())
+    // println!("cglgroup : {:?}", &cglgroup);
+    if let Err(err) = dbstring(cglgroup) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_glgroup_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_glgroup_a() {
     let glgroup_d = GlGroup {
         glgroupid: 16,
         glgrouptypeid: 1,
@@ -1255,17 +1184,15 @@ pub fn delete_glgroup_a() -> Result<(), rusqlite::Error> {
 
     let dglgroup = GlGroup::delete_glgroup(glgroup_d);
 
-    println!("dglgroup : {:?}", &dglgroup);
-    dbstring(&conn, dglgroup);
-
-    Ok(())
+    // println!("dglgroup : {:?}", &dglgroup);
+    if let Err(err) = dbstring(dglgroup) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_glgrouptype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_glgrouptype_a() {
     let glgrouptype_a = GlGroupType {
         glgrouptypeid: 16,
         glgroupname: "First GroupType".to_string(),
@@ -1274,10 +1201,10 @@ pub fn make_glgrouptype_a() -> Result<(), rusqlite::Error> {
 
     let aglgrouptype = GlGroupType::create_glgrouptype(glgrouptype_a);
 
-    println!("aglgrouptype : {:?}", &aglgrouptype);
-    dbstring(&conn, aglgrouptype);
-
-    Ok(())
+    // println!("aglgrouptype : {:?}", &aglgrouptype);
+    if let Err(err) = dbstring(aglgrouptype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_glgrouptype_a() -> Result<(), rusqlite::Error> {
@@ -1291,7 +1218,7 @@ pub fn read_glgrouptype_a() -> Result<(), rusqlite::Error> {
 
     let bglgrouptype = GlGroupType::read_glgrouptype(glgrouptype_b);
 
-    println!("bglgrouptype : {:?}", &bglgrouptype);
+    // println!("bglgrouptype : {:?}", &bglgrouptype);
 
     let mut stmt = conn.prepare(&bglgrouptype)?;
     let glgrouptype_iter = stmt.query_map([], |row| {
@@ -1309,9 +1236,7 @@ pub fn read_glgrouptype_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_glgrouptype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_glgrouptype_a() {
     let glgrouptype_c = GlGroupType {
         glgrouptypeid: 16,
         glgroupname: "First GroupType".to_string(),
@@ -1320,15 +1245,13 @@ pub fn update_glgrouptype_a() -> Result<(), rusqlite::Error> {
 
     let cglgrouptype = GlGroupType::update_glgrouptype(glgrouptype_c);
 
-    println!("cglgrouptype : {:?}", &cglgrouptype);
-    dbstring(&conn, cglgrouptype);
-
-    Ok(())
+    // println!("cglgrouptype : {:?}", &cglgrouptype);
+    if let Err(err) = dbstring(cglgrouptype) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_glgrouptype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_glgrouptype_a() {
     let glgrouptype_d = GlGroupType {
         glgrouptypeid: 16,
         glgroupname: "First GroupType".to_string(),
@@ -1337,17 +1260,15 @@ pub fn delete_glgrouptype_a() -> Result<(), rusqlite::Error> {
 
     let dglgrouptype = GlGroupType::delete_glgrouptype(glgrouptype_d);
 
-    println!("dglgrouptype : {:?}", &dglgrouptype);
-    dbstring(&conn, dglgrouptype);
-
-    Ok(())
+    // println!("dglgrouptype : {:?}", &dglgrouptype);
+    if let Err(err) = dbstring(dglgrouptype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_glgrouptyperole_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_glgrouptyperole_a() {
     let glgrouptyperole_a = GlGroupTypeRole {
         glgrouptyperoleid: 16,
         glgrouptypeid: 1,
@@ -1357,10 +1278,10 @@ pub fn make_glgrouptyperole_a() -> Result<(), rusqlite::Error> {
 
     let aglgrouptyperole = GlGroupTypeRole::create_glgrouptyperole(glgrouptyperole_a);
 
-    println!("aglgrouptyperole : {:?}", &aglgrouptyperole);
-    dbstring(&conn, aglgrouptyperole);
-
-    Ok(())
+    // println!("aglgrouptyperole : {:?}", &aglgrouptyperole);
+    if let Err(err) = dbstring(aglgrouptyperole) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_glgrouptyperole_a() -> Result<(), rusqlite::Error> {
@@ -1375,7 +1296,7 @@ pub fn read_glgrouptyperole_a() -> Result<(), rusqlite::Error> {
 
     let bglgrouptyperole = GlGroupTypeRole::read_glgrouptyperole(glgrouptyperole_b);
 
-    println!("bglgrouptyperole : {:?}", &bglgrouptyperole);
+    // println!("bglgrouptyperole : {:?}", &bglgrouptyperole);
 
     let mut stmt = conn.prepare(&bglgrouptyperole)?;
     let glgrouptyperole_iter = stmt.query_map([], |row| {
@@ -1394,9 +1315,7 @@ pub fn read_glgrouptyperole_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_glgrouptyperole_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_glgrouptyperole_a() {
     let glgrouptyperole_c = GlGroupTypeRole {
         glgrouptyperoleid: 16,
         glgrouptypeid: 1,
@@ -1406,15 +1325,13 @@ pub fn update_glgrouptyperole_a() -> Result<(), rusqlite::Error> {
 
     let cglgrouptyperole = GlGroupTypeRole::update_glgrouptyperole(glgrouptyperole_c);
 
-    println!("cglgrouptyperole : {:?}", &cglgrouptyperole);
-    dbstring(&conn, cglgrouptyperole);
-
-    Ok(())
+    // println!("cglgrouptyperole : {:?}", &cglgrouptyperole);
+    if let Err(err) = dbstring(cglgrouptyperole) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_glgrouptyperole_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_glgrouptyperole_a() {
     let glgrouptyperole_d = GlGroupTypeRole {
         glgrouptyperoleid: 16,
         glgrouptypeid: 1,
@@ -1424,17 +1341,15 @@ pub fn delete_glgrouptyperole_a() -> Result<(), rusqlite::Error> {
 
     let dglgrouptyperole = GlGroupTypeRole::delete_glgrouptyperole(glgrouptyperole_d);
 
-    println!("dglgrouptyperole : {:?}", &dglgrouptyperole);
-    dbstring(&conn, dglgrouptyperole);
-
-    Ok(())
+    // println!("dglgrouptyperole : {:?}", &dglgrouptyperole);
+    if let Err(err) = dbstring(dglgrouptyperole) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_persona_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_persona_a() {
     let persona_a = Persona {
         personaid: 16,
         persona_name: "First Persona".to_string(),
@@ -1443,10 +1358,10 @@ pub fn make_persona_a() -> Result<(), rusqlite::Error> {
 
     let apersona = Persona::create_persona(persona_a);
 
-    println!("apersona : {:?}", &apersona);
-    dbstring(&conn, apersona);
-
-    Ok(())
+    // println!("apersona : {:?}", &apersona);
+    if let Err(err) = dbstring(apersona) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_persona_a() -> Result<(), rusqlite::Error> {
@@ -1460,7 +1375,7 @@ pub fn read_persona_a() -> Result<(), rusqlite::Error> {
 
     let bpersona = Persona::read_persona(persona_b);
 
-    println!("bpersona : {:?}", &bpersona);
+    // println!("bpersona : {:?}", &bpersona);
 
     let mut stmt = conn.prepare(&bpersona)?;
     let persona_iter = stmt.query_map([], |row| {
@@ -1478,9 +1393,7 @@ pub fn read_persona_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_persona_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_persona_a() {
     let persona_c = Persona {
         personaid: 16,
         persona_name: "First Persona".to_string(),
@@ -1489,15 +1402,13 @@ pub fn update_persona_a() -> Result<(), rusqlite::Error> {
 
     let cpersona = Persona::update_persona(persona_c);
 
-    println!("cpersona : {:?}", &cpersona);
-    dbstring(&conn, cpersona);
-
-    Ok(())
+    // println!("cpersona : {:?}", &cpersona);
+    if let Err(err) = dbstring(cpersona) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_persona_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_persona_a() {
     let persona_d = Persona {
         personaid: 16,
         persona_name: "First Persona".to_string(),
@@ -1506,17 +1417,15 @@ pub fn delete_persona_a() -> Result<(), rusqlite::Error> {
 
     let dpersona = Persona::delete_persona(persona_d);
 
-    println!("dpersona : {:?}", &dpersona);
-    dbstring(&conn, dpersona);
-
-    Ok(())
+    // println!("dpersona : {:?}", &dpersona);
+    if let Err(err) = dbstring(dpersona) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_place_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_place_a() {
     let place_a = Place {
         placeid: 16,
         startdate: "20010101".to_string(),
@@ -1527,10 +1436,10 @@ pub fn make_place_a() -> Result<(), rusqlite::Error> {
 
     let aplace = Place::create_place(place_a);
 
-    println!("aplace : {:?}", &aplace);
-    dbstring(&conn, aplace);
-
-    Ok(())
+    // println!("aplace : {:?}", &aplace);
+    if let Err(err) = dbstring(aplace) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_place_a() -> Result<(), rusqlite::Error> {
@@ -1546,7 +1455,7 @@ pub fn read_place_a() -> Result<(), rusqlite::Error> {
 
     let bplace = Place::read_place(place_b);
 
-    println!("bplace : {:?}", &bplace);
+    // println!("bplace : {:?}", &bplace);
 
     let mut stmt = conn.prepare(&bplace)?;
     let place_iter = stmt.query_map([], |row| {
@@ -1566,9 +1475,7 @@ pub fn read_place_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_place_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_place_a() {
     let place_c = Place {
         placeid: 16,
         startdate: "20230101".to_string(),
@@ -1579,15 +1486,13 @@ pub fn update_place_a() -> Result<(), rusqlite::Error> {
     
     let cplace = Place::update_place(place_c);
     
-    println!("cplace : {:?}", &cplace);
-    dbstring(&conn, cplace);
-
-    Ok(())
+    // println!("cplace : {:?}", &cplace);
+    if let Err(err) = dbstring(cplace) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_place_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_place_a() {
     let place_d = Place {
         placeid: 16,
         startdate: "20230101".to_string(),
@@ -1598,17 +1503,15 @@ pub fn delete_place_a() -> Result<(), rusqlite::Error> {
     
     let dplace = Place::delete_place(place_d);
     
-    println!("dplace : {:?}", &dplace);
-    dbstring(&conn, dplace);
-
-    Ok(())
+    // println!("dplace : {:?}", &dplace);
+    if let Err(err) = dbstring(dplace) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_placepart_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_placepart_a() {
     let placepart_a = PlacePart {
         placepartid: 16,
         placeid: 1,
@@ -1619,10 +1522,10 @@ pub fn make_placepart_a() -> Result<(), rusqlite::Error> {
 
     let aplacepart = PlacePart::create_placepart(placepart_a);
 
-    println!("aplacepart : {:?}", &aplacepart);
-    dbstring(&conn, aplacepart);
-
-    Ok(())
+    // println!("aplacepart : {:?}", &aplacepart);
+    if let Err(err) = dbstring(aplacepart) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_placepart_a() -> Result<(), rusqlite::Error> {
@@ -1638,7 +1541,7 @@ pub fn read_placepart_a() -> Result<(), rusqlite::Error> {
 
     let bplacepart = PlacePart::read_placepart(placepart_b);
 
-    println!("bplacepart : {:?}", &bplacepart);
+    // println!("bplacepart : {:?}", &bplacepart);
 
     let mut stmt = conn.prepare(&bplacepart)?;
     let placepart_iter = stmt.query_map([], |row| {
@@ -1658,9 +1561,7 @@ pub fn read_placepart_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_placepart_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_placepart_a() {
     let placepart_c = PlacePart {
         placepartid: 16,
         placeid: 1,
@@ -1671,15 +1572,13 @@ pub fn update_placepart_a() -> Result<(), rusqlite::Error> {
 
     let cplacepart = PlacePart::update_placepart(placepart_c);
 
-    println!("cplacepart : {:?}", &cplacepart);
-    dbstring(&conn, cplacepart);
-
-    Ok(())
+    // println!("cplacepart : {:?}", &cplacepart);
+    if let Err(err) = dbstring(cplacepart) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_placepart_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_placepart_a() {
     let placepart_d = PlacePart {
         placepartid: 16,
         placeid: 1,
@@ -1690,17 +1589,15 @@ pub fn delete_placepart_a() -> Result<(), rusqlite::Error> {
 
     let dplacepart = PlacePart::delete_placepart(placepart_d);
 
-    println!("dplacepart : {:?}", &dplacepart);
-    dbstring(&conn, dplacepart);
-
-    Ok(())
+    // println!("dplacepart : {:?}", &dplacepart);
+    if let Err(err) = dbstring(dplacepart) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_placeparttype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_placeparttype_a() {
     let placeparttype_a = PlacePartType {
         placeparttypeid: 16,
         pptname: "First PlacePartType".to_string(),
@@ -1708,10 +1605,10 @@ pub fn make_placeparttype_a() -> Result<(), rusqlite::Error> {
 
     let aplaceparttype = PlacePartType::create_placeparttype(placeparttype_a);
 
-    println!("aplaceparttype : {:?}", &aplaceparttype);
-    dbstring(&conn, aplaceparttype);
-
-    Ok(())
+    // println!("aplaceparttype : {:?}", &aplaceparttype);
+    if let Err(err) = dbstring(aplaceparttype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_placeparttype_a() -> Result<(), rusqlite::Error> {
@@ -1724,7 +1621,7 @@ pub fn read_placeparttype_a() -> Result<(), rusqlite::Error> {
 
     let bplaceparttype = PlacePartType::read_placeparttype(placeparttype_b);
 
-    println!("bplaceparttype : {:?}", &bplaceparttype);
+    // println!("bplaceparttype : {:?}", &bplaceparttype);
 
     let mut stmt = conn.prepare(&bplaceparttype)?;
     let placeparttype_iter = stmt.query_map([], |row| {
@@ -1741,9 +1638,7 @@ pub fn read_placeparttype_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_placeparttype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_placeparttype_a() {
     let placeparttype_c = PlacePartType {
         placeparttypeid: 16,
         pptname: "First PlacePartType".to_string(),
@@ -1751,15 +1646,13 @@ pub fn update_placeparttype_a() -> Result<(), rusqlite::Error> {
 
     let cplaceparttype = PlacePartType::update_placeparttype(placeparttype_c);
 
-    println!("cplaceparttype : {:?}", &cplaceparttype);
-    dbstring(&conn, cplaceparttype);
-
-    Ok(())
+    // println!("cplaceparttype : {:?}", &cplaceparttype);
+    if let Err(err) = dbstring(cplaceparttype) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_placeparttype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_placeparttype_a() {
     let placeparttype_d = PlacePartType {
         placeparttypeid: 16,
         pptname: "First PlacePartType".to_string(),
@@ -1767,17 +1660,15 @@ pub fn delete_placeparttype_a() -> Result<(), rusqlite::Error> {
 
     let dplaceparttype = PlacePartType::delete_placeparttype(placeparttype_d);
 
-    println!("dplaceparttype : {:?}", &dplaceparttype);
-    dbstring(&conn, dplaceparttype);
-
-    Ok(())
+    // println!("dplaceparttype : {:?}", &dplaceparttype);
+    if let Err(err) = dbstring(dplaceparttype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_project_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_project_a() {
     let project_a = Project {
         projectid: 16,
         name: "First Project".to_string(),
@@ -1787,10 +1678,10 @@ pub fn make_project_a() -> Result<(), rusqlite::Error> {
 
     let aproject = Project::create_project(project_a);
 
-    println!("aproject : {:?}", &aproject);
-    dbstring(&conn, aproject);
-
-    Ok(())
+    // println!("aproject : {:?}", &aproject);
+    if let Err(err) = dbstring(aproject) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_project_a() -> Result<(), rusqlite::Error> {
@@ -1805,7 +1696,7 @@ pub fn read_project_a() -> Result<(), rusqlite::Error> {
 
     let bproject = Project::read_project(project_b);
 
-    println!("bproject : {:?}", &bproject);
+    // println!("bproject : {:?}", &bproject);
 
     let mut stmt = conn.prepare(&bproject)?;
     let project_iter = stmt.query_map([], |row| {
@@ -1824,9 +1715,7 @@ pub fn read_project_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_project_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_project_a() {
     let project_c = Project {
         projectid: 16,
         name: "First Project".to_string(),
@@ -1836,15 +1725,13 @@ pub fn update_project_a() -> Result<(), rusqlite::Error> {
 
     let cproject = Project::update_project(project_c);
 
-    println!("cproject : {:?}", &cproject);
-    dbstring(&conn, cproject);
-
-    Ok(())
+    // println!("cproject : {:?}", &cproject);
+    if let Err(err) = dbstring(cproject) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_project_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_project_a() {
     let project_d = Project {
         projectid: 16,
         name: "First Project".to_string(),
@@ -1854,17 +1741,15 @@ pub fn delete_project_a() -> Result<(), rusqlite::Error> {
 
     let dproject = Project::delete_project(project_d);
 
-    println!("dproject : {:?}", &dproject);
-    dbstring(&conn, dproject);
-
-    Ok(())
+    // println!("dproject : {:?}", &dproject);
+    if let Err(err) = dbstring(dproject) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_repository_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_repository_a() {
     let repository_a = Repository {
         repositoryid: 16,
         placeid: 1,
@@ -1874,10 +1759,10 @@ pub fn make_repository_a() -> Result<(), rusqlite::Error> {
 
     let arepository = Repository::create_repository(repository_a);
 
-    println!("arepository : {:?}", &arepository);
-    dbstring(&conn, arepository);
-
-    Ok(())
+    // println!("arepository : {:?}", &arepository);
+    if let Err(err) = dbstring(arepository) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_repository_a() -> Result<(), rusqlite::Error> {
@@ -1892,7 +1777,7 @@ pub fn read_repository_a() -> Result<(), rusqlite::Error> {
 
     let brepository = Repository::read_repository(repository_b);
 
-    println!("brepository : {:?}", &brepository);
+    // println!("brepository : {:?}", &brepository);
 
     let mut stmt = conn.prepare(&brepository)?;
     let repository_iter = stmt.query_map([], |row| {
@@ -1911,9 +1796,7 @@ pub fn read_repository_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_repository_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_repository_a() {
     let repository_c = Repository {
         repositoryid: 16,
         placeid: 1,
@@ -1923,15 +1806,13 @@ pub fn update_repository_a() -> Result<(), rusqlite::Error> {
 
     let crepository = Repository::update_repository(repository_c);
 
-    println!("crepository : {:?}", &crepository);
-    dbstring(&conn, crepository);
-
-    Ok(())
+    // println!("crepository : {:?}", &crepository);
+    if let Err(err) = dbstring(crepository) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_repository_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_repository_a() {
     let repository_d = Repository {
         repositoryid: 16,
         placeid: 1,
@@ -1941,17 +1822,15 @@ pub fn delete_repository_a() -> Result<(), rusqlite::Error> {
 
     let drepository = Repository::delete_repository(repository_d);
 
-    println!("drepository : {:?}", &drepository);
-    dbstring(&conn, drepository);
-
-    Ok(())
+    // println!("drepository : {:?}", &drepository);
+    if let Err(err) = dbstring(drepository) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_reposource_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_reposource_a() {
     let reposource_a = RepoSource {
         reposourceid: 16,
         repositoryid: 1,
@@ -1963,10 +1842,10 @@ pub fn make_reposource_a() -> Result<(), rusqlite::Error> {
 
     let areposource = RepoSource::create_reposource(reposource_a);
 
-    println!("areposource : {:?}", &areposource);
-    dbstring(&conn, areposource);
-
-    Ok(())
+    // println!("areposource : {:?}", &areposource);
+    if let Err(err) = dbstring(areposource) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_reposource_a() -> Result<(), rusqlite::Error> {
@@ -1983,7 +1862,7 @@ pub fn read_reposource_a() -> Result<(), rusqlite::Error> {
 
     let breposource = RepoSource::read_reposource(reposource_b);
 
-    println!("breposource : {:?}", &breposource);
+    // println!("breposource : {:?}", &breposource);
 
     let mut stmt = conn.prepare(&breposource)?;
     let reposource_iter = stmt.query_map([], |row| {
@@ -2004,9 +1883,7 @@ pub fn read_reposource_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_reposource_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_reposource_a() {
     let reposource_c = RepoSource {
         reposourceid: 16,
         repositoryid: 1,
@@ -2018,15 +1895,13 @@ pub fn update_reposource_a() -> Result<(), rusqlite::Error> {
 
     let creposource = RepoSource::update_reposource(reposource_c);
 
-    println!("creposource : {:?}", &creposource);
-    dbstring(&conn, creposource);
-
-    Ok(())
+    // println!("creposource : {:?}", &creposource);
+    if let Err(err) = dbstring(creposource) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_reposource_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_reposource_a() {
     let reposource_d = RepoSource {
         reposourceid: 16,
         repositoryid: 1,
@@ -2038,17 +1913,15 @@ pub fn delete_reposource_a() -> Result<(), rusqlite::Error> {
 
     let dreposource = RepoSource::delete_reposource(reposource_d);
 
-    println!("dreposource : {:?}", &dreposource);
-    dbstring(&conn, dreposource);
-
-    Ok(())
+    // println!("dreposource : {:?}", &dreposource);
+    if let Err(err) = dbstring(dreposource) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_representation_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_representation_a() {
     let representation_a = Representation {
         representationid: 16,
         sourceid: 1,
@@ -2062,9 +1935,9 @@ pub fn make_representation_a() -> Result<(), rusqlite::Error> {
     let arepresentation = Representation::create_representation(representation_a);
 
     println!("arepresentation : {:?}", &arepresentation);
-    dbstring(&conn, arepresentation);
-
-    Ok(())
+    if let Err(err) = dbstring(arepresentation) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_representation_a() -> Result<(), rusqlite::Error> {
@@ -2104,9 +1977,7 @@ pub fn read_representation_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_representation_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_representation_a() {
     let representation_c = Representation {
         representationid: 16,
         sourceid: 1,
@@ -2120,14 +1991,12 @@ pub fn update_representation_a() -> Result<(), rusqlite::Error> {
     let crepresentation = Representation::update_representation(representation_c);
 
     println!("crepresentation : {:?}", &crepresentation);
-    dbstring(&conn, crepresentation);
-
-    Ok(())
+    if let Err(err) = dbstring(crepresentation) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_representation_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_representation_a() {
     let representation_d = Representation {
         representationid: 16,
         sourceid: 1,
@@ -2141,16 +2010,14 @@ pub fn delete_representation_a() -> Result<(), rusqlite::Error> {
     let drepresentation = Representation::delete_representation(representation_d);
 
     println!("drepresentation : {:?}", &drepresentation);
-    dbstring(&conn, drepresentation);
-
-    Ok(())
+    if let Err(err) = dbstring(drepresentation) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_representtype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_representtype_a() {
     let representtype_a = RepresentType {
         reprtypeid: 16,
         name: "First RepresentType".to_string(),
@@ -2158,10 +2025,10 @@ pub fn make_representtype_a() -> Result<(), rusqlite::Error> {
 
     let arepresenttype = RepresentType::create_representtype(representtype_a);
 
-    println!("arepresenttype : {:?}", &arepresenttype);
-    dbstring(&conn, arepresenttype);
-
-    Ok(())
+    // println!("arepresenttype : {:?}", &arepresenttype);
+    if let Err(err) = dbstring(arepresenttype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_representtype_a() -> Result<(), rusqlite::Error> {
@@ -2174,7 +2041,7 @@ pub fn read_representtype_a() -> Result<(), rusqlite::Error> {
 
     let brepresenttype = RepresentType::read_representtype(representtype_b);
 
-    println!("brepresenttype : {:?}", &brepresenttype);
+    // println!("brepresenttype : {:?}", &brepresenttype);
 
     let mut stmt = conn.prepare(&brepresenttype)?;
     let representtype_iter = stmt.query_map([], |row| {
@@ -2191,9 +2058,7 @@ pub fn read_representtype_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_representtype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_representtype_a() {
     let representtype_c = RepresentType {
         reprtypeid: 16,
         name: "First RepresentType".to_string(),
@@ -2201,15 +2066,13 @@ pub fn update_representtype_a() -> Result<(), rusqlite::Error> {
 
     let crepresenttype = RepresentType::update_representtype(representtype_c);
 
-    println!("crepresenttype : {:?}", &crepresenttype);
-    dbstring(&conn, crepresenttype);
-
-    Ok(())
+    // println!("crepresenttype : {:?}", &crepresenttype);
+    if let Err(err) = dbstring(crepresenttype) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_representtype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_representtype_a() {
     let representtype_d = RepresentType {
         reprtypeid: 16,
         name: "First RepresentType".to_string(),
@@ -2217,17 +2080,15 @@ pub fn delete_representtype_a() -> Result<(), rusqlite::Error> {
 
     let drepresenttype = RepresentType::delete_representtype(representtype_d);
 
-    println!("drepresenttype : {:?}", &drepresenttype);
-    dbstring(&conn, drepresenttype);
-
-    Ok(())
+    // println!("drepresenttype : {:?}", &drepresenttype);
+    if let Err(err) = dbstring(drepresenttype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_reprmediatype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_reprmediatype_a() {
     let reprmediatype_a = ReprMediaType {
         reprmediaid: 16,
         reprmedianame: "First ReprMediaNameType".to_string(),
@@ -2235,10 +2096,10 @@ pub fn make_reprmediatype_a() -> Result<(), rusqlite::Error> {
 
     let areprmediatype = ReprMediaType::create_reprmediatype(reprmediatype_a);
 
-    println!("areprmediatype : {:?}", &areprmediatype);
-    dbstring(&conn, areprmediatype);
-
-    Ok(())
+    // println!("areprmediatype : {:?}", &areprmediatype);
+    if let Err(err) = dbstring(areprmediatype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_reprmediatype_a() -> Result<(), rusqlite::Error> {
@@ -2251,7 +2112,7 @@ pub fn read_reprmediatype_a() -> Result<(), rusqlite::Error> {
 
     let breprmediatype = ReprMediaType::read_reprmediatype(reprmediatype_b);
 
-    println!("breprmediatype : {:?}", &breprmediatype);
+    // println!("breprmediatype : {:?}", &breprmediatype);
 
     let mut stmt = conn.prepare(&breprmediatype)?;
     let reprmediatype_iter = stmt.query_map([], |row| {
@@ -2268,9 +2129,7 @@ pub fn read_reprmediatype_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_reprmediatype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_reprmediatype_a() {
     let reprmediatype_c = ReprMediaType {
         reprmediaid: 16,
         reprmedianame: "First ReprMediaNameType".to_string(),
@@ -2278,15 +2137,13 @@ pub fn update_reprmediatype_a() -> Result<(), rusqlite::Error> {
 
     let creprmediatype = ReprMediaType::update_reprmediatype(reprmediatype_c);
 
-    println!("creprmediatype : {:?}", &creprmediatype);
-    dbstring(&conn, creprmediatype);
-
-    Ok(())
+    // println!("creprmediatype : {:?}", &creprmediatype);
+    if let Err(err) = dbstring(creprmediatype) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_reprmediatype_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_reprmediatype_a() {
     let reprmediatype_d = ReprMediaType {
         reprmediaid: 16,
         reprmedianame: "First ReprMediaNameType".to_string(),
@@ -2294,17 +2151,15 @@ pub fn delete_reprmediatype_a() -> Result<(), rusqlite::Error> {
 
     let dreprmediatype = ReprMediaType::delete_reprmediatype(reprmediatype_d);
 
-    println!("dreprmediatype : {:?}", &dreprmediatype);
-    dbstring(&conn, dreprmediatype);
-
-    Ok(())
+    // println!("dreprmediatype : {:?}", &dreprmediatype);
+    if let Err(err) = dbstring(dreprmediatype) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_researcher_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_researcher_a() {
     let researcher_a = Researcher {
         researcherid: 16,
         name: "First Researcher".to_string(),
@@ -2314,10 +2169,10 @@ pub fn make_researcher_a() -> Result<(), rusqlite::Error> {
 
     let aresearcher = Researcher::create_researcher(researcher_a);
 
-    println!("aresearcher : {:?}", &aresearcher);
-    dbstring(&conn, aresearcher);
-
-    Ok(())
+    // println!("aresearcher : {:?}", &aresearcher);
+    if let Err(err) = dbstring(aresearcher) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_researcher_a() -> Result<(), rusqlite::Error> {
@@ -2332,7 +2187,7 @@ pub fn read_researcher_a() -> Result<(), rusqlite::Error> {
 
     let bresearcher = Researcher::read_researcher(researcher_b);
 
-    println!("bresearcher : {:?}", &bresearcher);
+    // println!("bresearcher : {:?}", &bresearcher);
 
     let mut stmt = conn.prepare(&bresearcher)?;
     let researcher_iter = stmt.query_map([], |row| {
@@ -2351,9 +2206,7 @@ pub fn read_researcher_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_researcher_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_researcher_a() {
     let researcher_c = Researcher {
         researcherid: 16,
         name: "First Researcher".to_string(),
@@ -2363,15 +2216,13 @@ pub fn update_researcher_a() -> Result<(), rusqlite::Error> {
 
     let cresearcher = Researcher::update_researcher(researcher_c);
 
-    println!("cresearcher : {:?}", &cresearcher);
-    dbstring(&conn, cresearcher);
-
-    Ok(())
+    // println!("cresearcher : {:?}", &cresearcher);
+    if let Err(err) = dbstring(cresearcher) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_researcher_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_researcher_a() {
     let researcher_d = Researcher {
         researcherid: 16,
         name: "First Researcher".to_string(),
@@ -2381,17 +2232,15 @@ pub fn delete_researcher_a() -> Result<(), rusqlite::Error> {
 
     let dresearcher = Researcher::delete_researcher(researcher_d);
 
-    println!("dresearcher : {:?}", &dresearcher);
-    dbstring(&conn, dresearcher);
-
-    Ok(())
+    // println!("dresearcher : {:?}", &dresearcher);
+    if let Err(err) = dbstring(dresearcher) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_resobjactivity_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_resobjactivity_a() {
     let resobjactivity_a = ResObjActivity {
         resobjactivityid: 16,
         resobjid: 1,
@@ -2400,10 +2249,10 @@ pub fn make_resobjactivity_a() -> Result<(), rusqlite::Error> {
 
     let aresobjactivity = ResObjActivity::create_resobjactivity(resobjactivity_a);
 
-    println!("aresobjactivity : {:?}", &aresobjactivity);
-    dbstring(&conn, aresobjactivity);
-
-    Ok(())
+    // println!("aresobjactivity : {:?}", &aresobjactivity);
+    if let Err(err) = dbstring(aresobjactivity) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_resobjactivity_a() -> Result<(), rusqlite::Error> {
@@ -2417,7 +2266,7 @@ pub fn read_resobjactivity_a() -> Result<(), rusqlite::Error> {
 
     let bresobjactivity = ResObjActivity::read_resobjactivity(resobjactivity_b);
 
-    println!("bresobjactivity : {:?}", &bresobjactivity);
+    // println!("bresobjactivity : {:?}", &bresobjactivity);
 
     let mut stmt = conn.prepare(&bresobjactivity)?;
     let resobjactivity_iter = stmt.query_map([], |row| {
@@ -2435,9 +2284,7 @@ pub fn read_resobjactivity_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_resobjactivity_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_resobjactivity_a() {
     let resobjactivity_c = ResObjActivity {
         resobjactivityid: 16,
         resobjid: 1,
@@ -2446,15 +2293,13 @@ pub fn update_resobjactivity_a() -> Result<(), rusqlite::Error> {
 
     let cresobjactivity = ResObjActivity::update_resobjactivity(resobjactivity_c);
 
-    println!("cresobjactivity : {:?}", &cresobjactivity);
-    dbstring(&conn, cresobjactivity);
-
-    Ok(())
+    // println!("cresobjactivity : {:?}", &cresobjactivity);
+    if let Err(err) = dbstring(cresobjactivity) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_resobjactivity_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_resobjactivity_a() {
     let resobjactivity_d = ResObjActivity {
         resobjactivityid: 16,
         resobjid: 1,
@@ -2463,17 +2308,15 @@ pub fn delete_resobjactivity_a() -> Result<(), rusqlite::Error> {
 
     let dresobjactivity = ResObjActivity::delete_resobjactivity(resobjactivity_d);
 
-    println!("dresobjactivity : {:?}", &dresobjactivity);
-    dbstring(&conn, dresobjactivity);
-
-    Ok(())
+    // println!("dresobjactivity : {:?}", &dresobjactivity);
+    if let Err(err) = dbstring(dresobjactivity) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_resobjective_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_resobjective_a() {
     let resobjective_a = ResObjective {
         resobjid: 16,
         projectid: 1,
@@ -2488,10 +2331,10 @@ pub fn make_resobjective_a() -> Result<(), rusqlite::Error> {
 
     let aresobjective = ResObjective::create_resobjective(resobjective_a);
 
-    println!("aresobjective : {:?}", &aresobjective);
-    dbstring(&conn, aresobjective);
-
-    Ok(())
+    // println!("aresobjective : {:?}", &aresobjective);
+    if let Err(err) = dbstring(aresobjective) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_resobjective_a() -> Result<(), rusqlite::Error> {
@@ -2511,7 +2354,7 @@ pub fn read_resobjective_a() -> Result<(), rusqlite::Error> {
 
     let bresobjective = ResObjective::read_resobjective(resobjective_b);
 
-    println!("bresobjective : {:?}", &bresobjective);
+    // println!("bresobjective : {:?}", &bresobjective);
 
     let mut stmt = conn.prepare(&bresobjective)?;
     let resobjective_iter = stmt.query_map([], |row| {
@@ -2535,9 +2378,7 @@ pub fn read_resobjective_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_resobjective_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_resobjective_a() {
     let resobjective_c = ResObjective {
         resobjid: 16,
         projectid: 1,
@@ -2552,15 +2393,13 @@ pub fn update_resobjective_a() -> Result<(), rusqlite::Error> {
 
     let cresobjective = ResObjective::update_resobjective(resobjective_c);
 
-    println!("cresobjective : {:?}", &cresobjective);
-    dbstring(&conn, cresobjective);
-
-    Ok(())
+    // println!("cresobjective : {:?}", &cresobjective);
+    if let Err(err) = dbstring(cresobjective) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_resobjective_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_resobjective_a() {
     let resobjective_d = ResObjective {
         resobjid: 16,
         projectid: 1,
@@ -2575,17 +2414,15 @@ pub fn delete_resobjective_a() -> Result<(), rusqlite::Error> {
 
     let dresobjective = ResObjective::delete_resobjective(resobjective_d);
 
-    println!("dresobjective : {:?}", &dresobjective);
-    dbstring(&conn, dresobjective);
-
-    Ok(())
+    // println!("dresobjective : {:?}", &dresobjective);
+    if let Err(err) = dbstring(dresobjective) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_resproj_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_resproj_a() {
     let resproj_a = ResProj {
         resprojid: 16,
         projectid: 1,
@@ -2595,10 +2432,10 @@ pub fn make_resproj_a() -> Result<(), rusqlite::Error> {
 
     let aresproj = ResProj::create_resproj(resproj_a);
 
-    println!("aresproj : {:?}", &aresproj);
-    dbstring(&conn, aresproj);
-
-    Ok(())
+    // println!("aresproj : {:?}", &aresproj);
+    if let Err(err) = dbstring(aresproj) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_resproj_a() -> Result<(), rusqlite::Error> {
@@ -2613,7 +2450,7 @@ pub fn read_resproj_a() -> Result<(), rusqlite::Error> {
 
     let bresproj = ResProj::read_resproj(resproj_b);
 
-    println!("bresproj : {:?}", &bresproj);
+    // println!("bresproj : {:?}", &bresproj);
 
     let mut stmt = conn.prepare(&bresproj)?;
     let resproj_iter = stmt.query_map([], |row| {
@@ -2632,9 +2469,7 @@ pub fn read_resproj_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_resproj_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_resproj_a() {
     let resproj_c = ResProj {
         resprojid: 16,
         projectid: 1,
@@ -2644,15 +2479,13 @@ pub fn update_resproj_a() -> Result<(), rusqlite::Error> {
 
     let cresproj = ResProj::update_resproj(resproj_c);
 
-    println!("cresproj : {:?}", &cresproj);
-    dbstring(&conn, cresproj);
-
-    Ok(())
+    // println!("cresproj : {:?}", &cresproj);
+    if let Err(err) = dbstring(cresproj) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_resproj_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_resproj_a() {
     let resproj_d = ResProj {
         resprojid: 16,
         projectid: 1,
@@ -2662,17 +2495,15 @@ pub fn delete_resproj_a() -> Result<(), rusqlite::Error> {
 
     let dresproj = ResProj::delete_resproj(resproj_d);
 
-    println!("dresproj : {:?}", &dresproj);
-    dbstring(&conn, dresproj);
-
-    Ok(())
+    // println!("dresproj : {:?}", &dresproj);
+    if let Err(err) = dbstring(dresproj) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_search_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_search_a() {
     let search_a = Search {
         searchid: 16,
         activityid: 1,
@@ -2683,10 +2514,10 @@ pub fn make_search_a() -> Result<(), rusqlite::Error> {
 
     let asearch = Search::create_search(search_a);
 
-    println!("asearch : {:?}", &asearch);
-    dbstring(&conn, asearch);
-
-    Ok(())
+    // println!("asearch : {:?}", &asearch);
+    if let Err(err) = dbstring(asearch) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_search_a() -> Result<(), rusqlite::Error> {
@@ -2702,7 +2533,7 @@ pub fn read_search_a() -> Result<(), rusqlite::Error> {
 
     let bsearch = Search::read_search(search_b);
 
-    println!("bsearch : {:?}", &bsearch);
+    // println!("bsearch : {:?}", &bsearch);
 
     let mut stmt = conn.prepare(&bsearch)?;
     let search_iter = stmt.query_map([], |row| {
@@ -2722,9 +2553,7 @@ pub fn read_search_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_search_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_search_a() {
     let search_c = Search {
         searchid: 16,
         activityid: 1,
@@ -2735,15 +2564,13 @@ pub fn update_search_a() -> Result<(), rusqlite::Error> {
 
     let csearch = Search::update_search(search_c);
 
-    println!("csearch : {:?}", &csearch);
-    dbstring(&conn, csearch);
-
-    Ok(())
+    // println!("csearch : {:?}", &csearch);
+    if let Err(err) = dbstring(csearch) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_search_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_search_a() {
     let search_d = Search {
         searchid: 16,
         activityid: 1,
@@ -2754,17 +2581,15 @@ pub fn delete_search_a() -> Result<(), rusqlite::Error> {
 
     let dsearch = Search::delete_search(search_d);
 
-    println!("dsearch : {:?}", &dsearch);
-    dbstring(&conn, dsearch);
-
-    Ok(())
+    // println!("dsearch : {:?}", &dsearch);
+    if let Err(err) = dbstring(dsearch) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_source_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_source_a() {
     let source_a = Source {
         sourceid: 16,
         highersourceid: 1,
@@ -2777,10 +2602,10 @@ pub fn make_source_a() -> Result<(), rusqlite::Error> {
 
     let asource = Source::create_source(source_a);
 
-    println!("asource : {:?}", &asource);
-    dbstring(&conn, asource);
-
-    Ok(())
+    // println!("asource : {:?}", &asource);
+    if let Err(err) = dbstring(asource) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_source_a() -> Result<(), rusqlite::Error> {
@@ -2798,7 +2623,7 @@ pub fn read_source_a() -> Result<(), rusqlite::Error> {
 
     let bsource = Source::read_source(source_b);
 
-    println!("bsource : {:?}", &bsource);
+    // println!("bsource : {:?}", &bsource);
 
     let mut stmt = conn.prepare(&bsource)?;
     let source_iter = stmt.query_map([], |row| {
@@ -2820,9 +2645,7 @@ pub fn read_source_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_source_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_source_a() {
     let source_c = Source {
         sourceid: 16,
         highersourceid: 1,
@@ -2835,15 +2658,13 @@ pub fn update_source_a() -> Result<(), rusqlite::Error> {
 
     let csource = Source::update_source(source_c);
 
-    println!("csource : {:?}", &csource);
-    dbstring(&conn, csource);
-
-    Ok(())
+    // println!("csource : {:?}", &csource);
+    if let Err(err) = dbstring(csource) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_source_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_source_a() {
     let source_d = Source {
         sourceid: 16,
         highersourceid: 1,
@@ -2856,17 +2677,15 @@ pub fn delete_source_a() -> Result<(), rusqlite::Error> {
 
     let dsource = Source::delete_source(source_d);
 
-    println!("dsource : {:?}", &dsource);
-    dbstring(&conn, dsource);
-
-    Ok(())
+    // println!("dsource : {:?}", &dsource);
+    if let Err(err) = dbstring(dsource) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_sourcegroup_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_sourcegroup_a() {
     let sourcegroup_a = SourceGroup {
         sourcegroupid: 16,
         sourcegroupname: "First SourceGroup".to_string(),
@@ -2874,10 +2693,10 @@ pub fn make_sourcegroup_a() -> Result<(), rusqlite::Error> {
 
     let asourcegroup = SourceGroup::create_sourcegroup(sourcegroup_a);
 
-    println!("asourcegroup : {:?}", &asourcegroup);
-    dbstring(&conn, asourcegroup);
-
-    Ok(())
+    // println!("asourcegroup : {:?}", &asourcegroup);
+    if let Err(err) = dbstring(asourcegroup) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_sourcegroup_a() -> Result<(), rusqlite::Error> {
@@ -2890,7 +2709,7 @@ pub fn read_sourcegroup_a() -> Result<(), rusqlite::Error> {
 
     let bsourcegroup = SourceGroup::read_sourcegroup(sourcegroup_b);
 
-    println!("bsourcegroup : {:?}", &bsourcegroup);
+    // println!("bsourcegroup : {:?}", &bsourcegroup);
 
     let mut stmt = conn.prepare(&bsourcegroup)?;
     let sourcegroup_iter = stmt.query_map([], |row| {
@@ -2907,9 +2726,7 @@ pub fn read_sourcegroup_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_sourcegroup_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_sourcegroup_a() {
     let sourcegroup_c = SourceGroup {
         sourcegroupid: 16,
         sourcegroupname: "First SourceGroup".to_string(),
@@ -2917,15 +2734,13 @@ pub fn update_sourcegroup_a() -> Result<(), rusqlite::Error> {
 
     let csourcegroup = SourceGroup::update_sourcegroup(sourcegroup_c);
 
-    println!("csourcegroup : {:?}", &csourcegroup);
-    dbstring(&conn, csourcegroup);
-
-    Ok(())
+    // println!("csourcegroup : {:?}", &csourcegroup);
+    if let Err(err) = dbstring(csourcegroup) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_sourcegroup_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_sourcegroup_a() {
     let sourcegroup_d = SourceGroup {
         sourcegroupid: 16,
         sourcegroupname: "First SourceGroup".to_string(),
@@ -2933,15 +2748,15 @@ pub fn delete_sourcegroup_a() -> Result<(), rusqlite::Error> {
 
     let dsourcegroup = SourceGroup::delete_sourcegroup(sourcegroup_d);
 
-    println!("dsourcegroup : {:?}", &dsourcegroup);
-    dbstring(&conn, dsourcegroup);
-
-    Ok(())
+    // println!("dsourcegroup : {:?}", &dsourcegroup);
+    if let Err(err) = dbstring(dsourcegroup) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn make_srcgrpsrc_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+/* -------------------------------------------------------------------------- */
 
+pub fn make_srcgrpsrc_a() {
     let srcgrpsrc_a = SrcGrpSrc {
         srcgrpsrcid: 16,
         sourceid: 1,
@@ -2950,10 +2765,10 @@ pub fn make_srcgrpsrc_a() -> Result<(), rusqlite::Error> {
 
     let asrcgrpsrc = SrcGrpSrc::create_srcgrpsrc(srcgrpsrc_a);
 
-    println!("asrcgrpsrc : {:?}", &asrcgrpsrc);
-    dbstring(&conn, asrcgrpsrc);
-
-    Ok(())
+    // println!("asrcgrpsrc : {:?}", &asrcgrpsrc);
+    if let Err(err) = dbstring(asrcgrpsrc) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_srcgrpsrc_a() -> Result<(), rusqlite::Error> {
@@ -2967,7 +2782,7 @@ pub fn read_srcgrpsrc_a() -> Result<(), rusqlite::Error> {
 
     let bsrcgrpsrc = SrcGrpSrc::read_srcgrpsrc(srcgrpsrc_b);
 
-    println!("bsrcgrpsrc : {:?}", &bsrcgrpsrc);
+    // println!("bsrcgrpsrc : {:?}", &bsrcgrpsrc);
 
     let mut stmt = conn.prepare(&bsrcgrpsrc)?;
     let srcgrpsrc_iter = stmt.query_map([], |row| {
@@ -2985,9 +2800,7 @@ pub fn read_srcgrpsrc_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_srcgrpsrc_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_srcgrpsrc_a() {
     let srcgrpsrc_c = SrcGrpSrc {
         srcgrpsrcid: 16,
         sourceid: 1,
@@ -2996,15 +2809,13 @@ pub fn update_srcgrpsrc_a() -> Result<(), rusqlite::Error> {
 
     let csrcgrpsrc = SrcGrpSrc::update_srcgrpsrc(srcgrpsrc_c);
 
-    println!("csrcgrpsrc : {:?}", &csrcgrpsrc);
-    dbstring(&conn, csrcgrpsrc);
-
-    Ok(())
+    // println!("csrcgrpsrc : {:?}", &csrcgrpsrc);
+    if let Err(err) = dbstring(csrcgrpsrc) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_srcgrpsrc_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_srcgrpsrc_a() {
     let srcgrpsrc_d = SrcGrpSrc {
         srcgrpsrcid: 16,
         sourceid: 1,
@@ -3013,17 +2824,15 @@ pub fn delete_srcgrpsrc_a() -> Result<(), rusqlite::Error> {
 
     let dsrcgrpsrc = SrcGrpSrc::delete_srcgrpsrc(srcgrpsrc_d);
 
-    println!("dsrcgrpsrc : {:?}", &dsrcgrpsrc);
-    dbstring(&conn, dsrcgrpsrc);
-
-    Ok(())
+    // println!("dsrcgrpsrc : {:?}", &dsrcgrpsrc);
+    if let Err(err) = dbstring(dsrcgrpsrc) {
+        println!("Error: {:?}", err);
+    }
 }   
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_suretypart_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_suretypart_a() {
     let suretypart_a = SuretyPart {
         suretypartid: 16,
         schemeid: 1,
@@ -3034,10 +2843,10 @@ pub fn make_suretypart_a() -> Result<(), rusqlite::Error> {
 
     let asuretypart = SuretyPart::create_suretypart(suretypart_a);
 
-    println!("asuretypart : {:?}", &asuretypart);
-    dbstring(&conn, asuretypart);
-
-    Ok(())
+    // println!("asuretypart : {:?}", &asuretypart);
+    if let Err(err) = dbstring(asuretypart) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_suretypart_a() -> Result<(), rusqlite::Error> {
@@ -3053,7 +2862,7 @@ pub fn read_suretypart_a() -> Result<(), rusqlite::Error> {
 
     let bsuretypart = SuretyPart::read_suretypart(suretypart_b);
 
-    println!("bsuretypart : {:?}", &bsuretypart);
+    // println!("bsuretypart : {:?}", &bsuretypart);
 
     let mut stmt = conn.prepare(&bsuretypart)?;
     let suretypart_iter = stmt.query_map([], |row| {
@@ -3073,9 +2882,7 @@ pub fn read_suretypart_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_suretypart_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_suretypart_a() {
     let suretypart_c = SuretyPart {
         suretypartid: 16,
         schemeid: 1,
@@ -3086,15 +2893,13 @@ pub fn update_suretypart_a() -> Result<(), rusqlite::Error> {
 
     let csuretypart = SuretyPart::update_suretypart(suretypart_c);
 
-    println!("csuretypart : {:?}", &csuretypart);
-    dbstring(&conn, csuretypart);
-
-    Ok(())
+    // println!("csuretypart : {:?}", &csuretypart);
+    if let Err(err) = dbstring(csuretypart) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_suretypart_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_suretypart_a() {
     let suretypart_d = SuretyPart {
         suretypartid: 16,
         schemeid: 1,
@@ -3105,17 +2910,15 @@ pub fn delete_suretypart_a() -> Result<(), rusqlite::Error> {
 
     let dsuretypart = SuretyPart::delete_suretypart(suretypart_d);
 
-    println!("dsuretypart : {:?}", &dsuretypart);
-    dbstring(&conn, dsuretypart);
-
-    Ok(())
+    // println!("dsuretypart : {:?}", &dsuretypart);
+    if let Err(err) = dbstring(dsuretypart) {
+        println!("Error: {:?}", err);
+    }
 }
 
 /* ------------------------------------------------------------------------- */
 
-pub fn make_suretyscheme_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn make_suretyscheme_a() {
     let suretyscheme_a = SuretyScheme {
         suretyschemeid: 16,
         name: "First SuretyScheme".to_string(),
@@ -3124,10 +2927,10 @@ pub fn make_suretyscheme_a() -> Result<(), rusqlite::Error> {
 
     let asuretyscheme = SuretyScheme::create_suretyscheme(suretyscheme_a);
 
-    println!("asuretypescheme : {:?}", &asuretyscheme);
-    dbstring(&conn, asuretyscheme);
-
-    Ok(())
+    // println!("asuretypescheme : {:?}", &asuretyscheme);
+    if let Err(err) = dbstring(asuretyscheme) {
+        println!("Error: {:?}", err);
+    }
 }
 
 pub fn read_suretyscheme_a() -> Result<(), rusqlite::Error> {
@@ -3141,7 +2944,7 @@ pub fn read_suretyscheme_a() -> Result<(), rusqlite::Error> {
 
     let bsuretyscheme = SuretyScheme::read_suretyscheme(suretyscheme_b);
 
-    println!("bsuretypescheme : {:?}", &bsuretyscheme);
+    // println!("bsuretypescheme : {:?}", &bsuretyscheme);
 
     let mut stmt = conn.prepare(&bsuretyscheme)?;
     let suretyscheme_iter = stmt.query_map([], |row| {
@@ -3159,9 +2962,7 @@ pub fn read_suretyscheme_a() -> Result<(), rusqlite::Error> {
     Ok(())
 }
 
-pub fn update_suretyscheme_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn update_suretyscheme_a() {
     let suretyscheme_c = SuretyScheme {
         suretyschemeid: 16,
         name: "First SuretyScheme".to_string(),
@@ -3170,15 +2971,13 @@ pub fn update_suretyscheme_a() -> Result<(), rusqlite::Error> {
 
     let csuretyscheme = SuretyScheme::update_suretyscheme(suretyscheme_c);
 
-    println!("csuretypescheme : {:?}", &csuretyscheme);
-    dbstring(&conn, csuretyscheme);
-
-    Ok(())
+    // println!("csuretypescheme : {:?}", &csuretyscheme);
+    if let Err(err) = dbstring(csuretyscheme) {
+        println!("Error: {:?}", err);
+    }
 }
 
-pub fn delete_suretyscheme_a() -> Result<(), rusqlite::Error> {
-    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
+pub fn delete_suretyscheme_a() {
     let suretyscheme_d = SuretyScheme {
         suretyschemeid: 16,
         name: "First SuretyScheme".to_string(),
@@ -3187,14 +2986,9 @@ pub fn delete_suretyscheme_a() -> Result<(), rusqlite::Error> {
 
     let dsuretyscheme = SuretyScheme::delete_suretyscheme(suretyscheme_d);
 
-    println!("dsuretypescheme : {:?}", &dsuretyscheme);
-    dbstring(&conn, dsuretyscheme);
-
-    Ok(())
+    // println!("dsuretypescheme : {:?}", &dsuretyscheme);
+    if let Err(err) = dbstring(dsuretyscheme) {
+        // Handle the error here
+        println!("Error: {:?}", err);
+    }
 }
-
-/* ------------------------------------------------------------------------- */
-
-
-
-

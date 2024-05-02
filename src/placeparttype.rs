@@ -80,3 +80,52 @@ impl PlacePartType {
         parameters
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_placeparttype() {
+        let placeparttype = PlacePartType {
+            placeparttypeid: 1,
+            pptname: String::from("Test"),
+        };
+        let expected = "INSERT INTO PlacePartType (placeparttypeid, pptname) VALUES (1, \"Test\")";
+        let result = PlacePartType::create_placeparttype(placeparttype);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_read_placeparttype() {
+        let placeparttype = PlacePartType {
+            placeparttypeid: 1,
+            pptname: String::from("Test"),
+        };
+        let expected = "SELECT * FROM PlacePartType WHERE placeparttypeid=1";
+        let result = PlacePartType::read_placeparttype(placeparttype);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_update_placeparttype() {
+        let placeparttype = PlacePartType {
+            placeparttypeid: 1,
+            pptname: String::from("Test"),
+        };
+        let expected = "UPDATE placePartType SET placeparttypeid=1, pptname=\"Test\" WHERE placeparttypeid=1";
+        let result = PlacePartType::update_placeparttype(placeparttype);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_delete_placeparttype() {
+        let placeparttype = PlacePartType {
+            placeparttypeid: 1,
+            pptname: String::from("Test"),
+        };
+        let expected = "DELETE FROM PlacePartType WHERE placeparttypeid=1";
+        let result = PlacePartType::delete_placeparttype(placeparttype);
+        assert_eq!(result, expected);
+    }
+}
