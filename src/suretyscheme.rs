@@ -42,8 +42,8 @@ impl SuretyScheme {
     pub fn read_suretyscheme(
         SuretyScheme {
             suretyschemeid,
-            name,
-            description,
+            name: _,
+            description: _,
         }: SuretyScheme,
     ) -> String {
         let parameters = format!(
@@ -75,8 +75,8 @@ impl SuretyScheme {
     pub fn delete_suretyscheme(
         SuretyScheme {
             suretyschemeid,
-            name,
-            description,
+            name: _,
+            description: _,
         }: SuretyScheme,
     ) -> String {
         let parameters = format!(

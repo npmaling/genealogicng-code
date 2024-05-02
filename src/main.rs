@@ -14,26 +14,6 @@
 -- limitations under the License.
 */
 
-use crate::search::Search;
-mod search;
-
-use crate::source::Source;
-mod source;
-
-use crate::sourcegroup::SourceGroup;
-mod sourcegroup;
-
-use crate::srcgrpsrc::SrcGrpSrc;
-mod srcgrpsrc;
-
-use crate::suretypart::SuretyPart;
-mod suretypart;
-
-use crate::suretyscheme::SuretyScheme;
-mod suretyscheme;
-
-use rusqlite::{params, Connection, Result};
-
 use genealogicng::make_activity_a;
 use genealogicng::read_activity_a;
 use genealogicng::update_activity_a;
@@ -174,12 +154,37 @@ use genealogicng::read_resproj_a;
 use genealogicng::update_resproj_a;
 use genealogicng::delete_resproj_a;
 
-fn main() -> Result<()> {
-    let path: &str = "C:/Users/npmal/projects/genealogicng-code/database.db";
-    let conn: Connection = Connection::open(&path)?;
+use genealogicng::make_search_a;
+use genealogicng::read_search_a;
+use genealogicng::update_search_a;
+use genealogicng::delete_search_a;
 
-    /* ------------------------------------------------------------------------- */
+use genealogicng::make_source_a;
+use genealogicng::read_source_a;
+use genealogicng::update_source_a;
+use genealogicng::delete_source_a;
 
+use genealogicng::make_sourcegroup_a;
+use genealogicng::read_sourcegroup_a;
+use genealogicng::update_sourcegroup_a;
+use genealogicng::delete_sourcegroup_a;
+
+use genealogicng::make_srcgrpsrc_a;
+use genealogicng::read_srcgrpsrc_a;
+use genealogicng::update_srcgrpsrc_a;
+use genealogicng::delete_srcgrpsrc_a;
+
+use genealogicng::make_suretypart_a;
+use genealogicng::read_suretypart_a;
+use genealogicng::update_suretypart_a;
+use genealogicng::delete_suretypart_a;
+
+use genealogicng::make_suretyscheme_a;
+use genealogicng::read_suretyscheme_a;
+use genealogicng::update_suretyscheme_a;
+use genealogicng::delete_suretyscheme_a;
+
+fn main() {
     let _ = make_activity_a();
     let _ = read_activity_a();
     let _ = update_activity_a();
@@ -320,295 +325,34 @@ fn main() -> Result<()> {
     let _ = update_resproj_a();
     let _ = delete_resproj_a();
 
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = Source {
-        sourceid: 1,
-        highersourceid: 1,
-        subjectplaceid: 1,
-        jurisplaceid: 1,
-        researcherid: 1,
-        subjectdate: "20230403".to_string(),
-        comments: "Source Comments One".to_string(),
-    };
-
-    let pp_b = Source {
-        sourceid: 2,
-        highersourceid: 2,
-        subjectplaceid: 2,
-        jurisplaceid: 2,
-        researcherid: 2,
-        subjectdate: "20230403".to_string(),
-        comments: "Source Comments Two".to_string(),
-    };
-
-    let pp_c = Source {
-        sourceid: 3,
-        highersourceid: 3,
-        subjectplaceid: 3,
-        jurisplaceid: 3,
-        researcherid: 3,
-        subjectdate: "20230403".to_string(),
-        comments: "Source Comments Three".to_string(),
-    };
-
-    let pp_d = Source {
-        sourceid: 4,
-        highersourceid: 4,
-        subjectplaceid: 4,
-        jurisplaceid: 4,
-        researcherid: 4,
-        subjectdate: "20230403".to_string(),
-        comments: "Source Comments Four".to_string(),
-    };
-
-    let app = Source::create_source(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = Source::read_source(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = Source::update_source(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = Source::delete_source(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = SourceGroup {
-        sourcegroupid: 1,
-        sourcegroupname: "Source Group Name One".to_string(),
-    };
-
-    let pp_b = SourceGroup {
-        sourcegroupid: 1,
-        sourcegroupname: "Source Group Name One".to_string(),
-    };
-
-    let pp_c = SourceGroup {
-        sourcegroupid: 1,
-        sourcegroupname: "Source Group Name One".to_string(),
-    };
-
-    let pp_d = SourceGroup {
-        sourcegroupid: 1,
-        sourcegroupname: "Source Group Name One".to_string(),
-    };
-
-    let app = SourceGroup::create_sourcegroup(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = SourceGroup::read_sourcegroup(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = SourceGroup::update_sourcegroup(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = SourceGroup::delete_sourcegroup(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = SrcGrpSrc {
-        srcgrpsrcid: 1,
-        sourceid: 1,
-        sourcegroupid: 1,
-    };
-
-    let pp_b = SrcGrpSrc {
-        srcgrpsrcid: 2,
-        sourceid: 2,
-        sourcegroupid: 2,
-    };
-
-    let pp_c = SrcGrpSrc {
-        srcgrpsrcid: 3,
-        sourceid: 3,
-        sourcegroupid: 3,
-    };
-
-    let pp_d = SrcGrpSrc {
-        srcgrpsrcid: 4,
-        sourceid: 4,
-        sourcegroupid: 4,
-    };
-
-    let app = SrcGrpSrc::create_srcgrpsrc(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = SrcGrpSrc::read_srcgrpsrc(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = SrcGrpSrc::update_srcgrpsrc(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = SrcGrpSrc::delete_srcgrpsrc(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = SuretyScheme {
-        suretyschemeid: 1,
-        name: "Surety Scheme One".to_string(),
-        description: "Description of Surety Scheme One".to_string(),
-    };
-
-    let pp_b = SuretyScheme {
-        suretyschemeid: 1,
-        name: "Surety Scheme Two".to_string(),
-        description: "Description of Surety Scheme Two".to_string(),
-    };
-
-    let pp_c = SuretyScheme {
-        suretyschemeid: 1,
-        name: "Surety Scheme Three".to_string(),
-        description: "Description of Surety Scheme Three".to_string(),
-    };
-
-    let pp_d = SuretyScheme {
-        suretyschemeid: 1,
-        name: "Surety Scheme Four".to_string(),
-        description: "Description of Surety Scheme Four".to_string(),
-    };
-
-    let app = SuretyScheme::create_suretyscheme(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = SuretyScheme::read_suretyscheme(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = SuretyScheme::update_suretyscheme(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = SuretyScheme::delete_suretyscheme(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = SuretyPart {
-        suretypartid: 1,
-        schemeid: 1,
-        name: "Surety Part One".to_string(),
-        description: "Surety Part One".to_string(),
-        sequencenumber: 1,
-    };
-
-    let pp_b = SuretyPart {
-        suretypartid: 2,
-        schemeid: 2,
-        name: "Surety Part One".to_string(),
-        description: "Surety Part One".to_string(),
-        sequencenumber: 2,
-    };
-
-    let pp_c = SuretyPart {
-        suretypartid: 3,
-        schemeid: 3,
-        name: "Surety Part One".to_string(),
-        description: "Surety Part One".to_string(),
-        sequencenumber: 3,
-    };
-
-    let pp_d = SuretyPart {
-        suretypartid: 4,
-        schemeid: 4,
-        name: "Surety Part One".to_string(),
-        description: "Surety Part One".to_string(),
-        sequencenumber: 4,
-    };
-
-    let app = SuretyPart::create_suretypart(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = SuretyPart::read_suretypart(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = SuretyPart::update_suretypart(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = SuretyPart::delete_suretypart(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    let pp_a = Search {
-        searchid: 1,
-        activityid: 1,
-        sourceid: 1,
-        repositoryid: 1,
-        searchedfor: "Searched For One".to_string(),
-    };
-
-    let pp_b = Search {
-        searchid: 2,
-        activityid: 2,
-        sourceid: 2,
-        repositoryid: 2,
-        searchedfor: "Searched For Two".to_string(),
-    };
-
-    let pp_c = Search {
-        searchid: 3,
-        activityid: 3,
-        sourceid: 3,
-        repositoryid: 3,
-        searchedfor: "Searched For Three".to_string(),
-    };
-
-    let pp_d = Search {
-        searchid: 4,
-        activityid: 4,
-        sourceid: 4,
-        repositoryid: 4,
-        searchedfor: "Searched For Four".to_string(),
-    };
-
-    let app = Search::create_search(pp_a);
-
-    dbstring(&conn, app);
-
-    let bpp = Search::read_search(pp_b);
-
-    dbstring(&conn, bpp);
-
-    let cpp = Search::update_search(pp_c);
-
-    dbstring(&conn, cpp);
-
-    let dpp = Search::delete_search(pp_d);
-
-    dbstring(&conn, dpp);
-
-    /* ------------------------------------------------------------------------- */
-
-    fn dbstring(conn: &Connection, dbstr: String) {
-        match conn.execute(&dbstr, params![]) {
-            Ok(updated) => println!("{} rows were updated by match", updated),
-            Err(err) => println!("update failed: {}", err),
-        };
-    }
-
-    Ok(())
+    let _ = make_search_a();
+    let _ = read_search_a();
+    let _ = update_search_a();
+    let _ = delete_search_a();
+
+    let _ = make_source_a();
+    let _ = read_source_a();
+    let _ = update_source_a();
+    let _ = delete_source_a();
+
+    let _ = make_sourcegroup_a();
+    let _ = read_sourcegroup_a();
+    let _ = update_sourcegroup_a();
+    let _ = delete_sourcegroup_a();
+
+    let _ = make_srcgrpsrc_a();
+    let _ = read_srcgrpsrc_a();
+    let _ = update_srcgrpsrc_a();
+    let _ = delete_srcgrpsrc_a();
+
+    let _ = make_suretypart_a();
+    let _ = read_suretypart_a();
+    let _ = update_suretypart_a();
+    let _ = delete_suretypart_a();
+
+    let _ = make_suretyscheme_a();
+    let _ = read_suretyscheme_a();
+    let _ = update_suretyscheme_a();
+    let _ = delete_suretyscheme_a();    
 
 }

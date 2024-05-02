@@ -54,12 +54,12 @@ impl Source {
     pub fn read_source(
         Source {
             sourceid,
-            highersourceid,
-            subjectplaceid,
-            jurisplaceid,
-            researcherid,
-            subjectdate,
-            comments,
+            highersourceid: _,
+            subjectplaceid: _,
+            jurisplaceid: _,
+            researcherid: _,
+            subjectdate: _,
+            comments: _,
         }: Source,
     ) -> String {
         let parameters = format!(
@@ -99,12 +99,12 @@ impl Source {
     pub fn delete_source(
         Source {
             sourceid,
-            highersourceid,
-            subjectplaceid,
-            jurisplaceid,
-            researcherid,
-            subjectdate,
-            comments,
+            highersourceid: _,
+            subjectplaceid: _,
+            jurisplaceid: _,
+            researcherid: _,
+            subjectdate: _,
+            comments: _,
         }: Source,
     ) -> String {
         let parameters = format!(

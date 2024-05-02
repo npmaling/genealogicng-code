@@ -42,8 +42,8 @@ impl SrcGrpSrc {
     pub fn read_srcgrpsrc(
         SrcGrpSrc {
             srcgrpsrcid,
-            sourceid,
-            sourcegroupid,
+            sourceid: _,
+            sourcegroupid: _,
         }: SrcGrpSrc,
     ) -> String {
         let parameters = format!(
@@ -75,8 +75,8 @@ impl SrcGrpSrc {
     pub fn delete_srcgrpsrc(
         SrcGrpSrc {
             srcgrpsrcid,
-            sourceid,
-            sourcegroupid,
+            sourceid: _,
+            sourcegroupid: _,
         }: SrcGrpSrc,
     ) -> String {
         let parameters = format!(

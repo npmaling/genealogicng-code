@@ -48,10 +48,10 @@ impl Search {
     pub fn read_search(
         Search {
             searchid,
-            activityid,
-            sourceid,
-            repositoryid,
-            searchedfor,
+            activityid: _,
+            sourceid: _,
+            repositoryid: _,
+            searchedfor: _,
         }: Search,
     ) -> String {
         let parameters = format!(
@@ -87,10 +87,10 @@ impl Search {
     pub fn delete_search(
         Search {
             searchid,
-            activityid,
-            sourceid,
-            repositoryid,
-            searchedfor,
+            activityid: _,
+            sourceid: _,
+            repositoryid: _,
+            searchedfor: _,
         }: Search,
     ) -> String {
         let parameters = format!("DELETE FROM search WHERE searchid={}", searchid.to_string(),);

@@ -39,7 +39,7 @@ impl SourceGroup {
     pub fn read_sourcegroup(
         SourceGroup {
             sourcegroupid,
-            sourcegroupname,
+            sourcegroupname: _,
         }: SourceGroup,
     ) -> String {
         let parameters = format!(
@@ -69,7 +69,7 @@ impl SourceGroup {
     pub fn delete_sourcegroup(
         SourceGroup {
             sourcegroupid,
-            sourcegroupname,
+            sourcegroupname: _,
         }: SourceGroup,
     ) -> String {
         let parameters = format!(

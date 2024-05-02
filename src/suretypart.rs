@@ -48,10 +48,10 @@ impl SuretyPart {
     pub fn read_suretypart(
         SuretyPart {
             suretypartid,
-            schemeid,
-            name,
-            description,
-            sequencenumber,
+            schemeid: _,
+            name: _,
+            description: _,
+            sequencenumber: _,
         }: SuretyPart,
     ) -> String {
         let parameters = format!(
@@ -87,10 +87,10 @@ impl SuretyPart {
     pub fn delete_suretypart(
         SuretyPart {
             suretypartid,
-            schemeid,
-            name,
-            description,
-            sequencenumber,
+            schemeid: _,
+            name: _,
+            description: _,
+            sequencenumber: _,
         }: SuretyPart,
     ) -> String {
         let parameters = format!(

@@ -14,6 +14,32 @@
 -- limitations under the License.
 */
 
+/**
+ * This file contains the implementation of various structs and functions 
+ * related to genealogical activities, assertions, characteristics, and more.
+ * It also includes database operations using the rusqlite library.
+ *
+ * The code is organized into modules, each representing a specific entity or concept in genealogy.
+ * Each module is defined in a separate file and imported into this file using the `mod` keyword.
+ *
+ * The main functionality of this code is to perform CRUD (Create, Read, Update, Delete) operations on genealogical data stored in a SQLite database.
+ * The code defines functions for creating, reading, updating, and deleting activities, assertions, characteristics, and other genealogical entities.
+ * These functions interact with the database using the rusqlite library.
+ *
+ * The code also includes utility functions for executing SQL queries and printing the results.
+ *
+ * To use this code, you need to have the rusqlite library installed and a SQLite database file named "database.db" in the specified path.
+ * The code assumes that the database schema is already set up with the required tables and columns.
+ *
+ * Example usage:
+ * - `make_activity_a()`: Creates a new activity in the database.
+ * - `read_activity_a()`: Reads an activity from the database.
+ * - `update_activity_a()`: Updates an existing activity in the database.
+ * - `delete_activity_a()`: Deletes an activity from the database.
+ *
+ * Note: This code is subject to the Apache License, Version 2.0. Please refer to the license file for more details.
+ */
+
 use crate::activity::Activity;
 mod activity;
 
@@ -97,6 +123,24 @@ mod resobjective;
 
 use crate::resproj::ResProj;
 mod resproj;
+
+use crate::search::Search;
+mod search;
+
+use crate::source::Source;
+mod source;
+
+use crate::sourcegroup::SourceGroup;
+mod sourcegroup;
+
+use crate::srcgrpsrc::SrcGrpSrc;
+mod srcgrpsrc;
+
+use crate::suretypart::SuretyPart;
+mod suretypart;
+
+use crate::suretyscheme::SuretyScheme;
+mod suretyscheme;
 
 use rusqlite::{params, Connection};
 
@@ -2625,4 +2669,532 @@ pub fn delete_resproj_a() -> Result<(), rusqlite::Error> {
 }
 
 /* ------------------------------------------------------------------------- */
+
+pub fn make_search_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let search_a = Search {
+        searchid: 16,
+        activityid: 1,
+        sourceid: 1,
+        repositoryid: 1,
+        searchedfor: "a".to_string(),
+    };
+
+    let asearch = Search::create_search(search_a);
+
+    println!("asearch : {:?}", &asearch);
+    dbstring(&conn, asearch);
+
+    Ok(())
+}
+
+pub fn read_search_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let search_b = Search {
+        searchid: 16,
+        activityid: 1,
+        sourceid: 1,
+        repositoryid: 1,
+        searchedfor: "a".to_string(),
+    };
+
+    let bsearch = Search::read_search(search_b);
+
+    println!("bsearch : {:?}", &bsearch);
+
+    let mut stmt = conn.prepare(&bsearch)?;
+    let search_iter = stmt.query_map([], |row| {
+        Ok(Search {
+            searchid: row.get(0)?,
+            activityid: row.get(1)?,
+            sourceid: row.get(2)?,
+            repositoryid: row.get(3)?,
+            searchedfor: row.get(4)?,
+        })
+    })?;
+
+    for searchitem in search_iter {
+        println!("Found search data {:?}", searchitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_search_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let search_c = Search {
+        searchid: 16,
+        activityid: 1,
+        sourceid: 1,
+        repositoryid: 1,
+        searchedfor: "a".to_string(),
+    };
+
+    let csearch = Search::update_search(search_c);
+
+    println!("csearch : {:?}", &csearch);
+    dbstring(&conn, csearch);
+
+    Ok(())
+}
+
+pub fn delete_search_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let search_d = Search {
+        searchid: 16,
+        activityid: 1,
+        sourceid: 1,
+        repositoryid: 1,
+        searchedfor: "a".to_string(),
+    };
+
+    let dsearch = Search::delete_search(search_d);
+
+    println!("dsearch : {:?}", &dsearch);
+    dbstring(&conn, dsearch);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_source_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let source_a = Source {
+        sourceid: 16,
+        highersourceid: 1,
+        subjectplaceid: 1,
+        jurisplaceid: 1, 
+        researcherid: 1,
+        subjectdate: "a".to_string(),
+        comments: "a".to_string(),
+    };
+
+    let asource = Source::create_source(source_a);
+
+    println!("asource : {:?}", &asource);
+    dbstring(&conn, asource);
+
+    Ok(())
+}
+
+pub fn read_source_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let source_b = Source {
+        sourceid: 16,
+        highersourceid: 1,
+        subjectplaceid: 1,
+        jurisplaceid: 1, 
+        researcherid: 1,
+        subjectdate: "a".to_string(),
+        comments: "a".to_string(),
+    };
+
+    let bsource = Source::read_source(source_b);
+
+    println!("bsource : {:?}", &bsource);
+
+    let mut stmt = conn.prepare(&bsource)?;
+    let source_iter = stmt.query_map([], |row| {
+        Ok(Source {
+            sourceid: row.get(0)?,
+            highersourceid: row.get(1)?,
+            subjectplaceid: row.get(2)?,
+            jurisplaceid: row.get(3)?, 
+            researcherid: row.get(4)?,
+            subjectdate: row.get(5)?,
+            comments: row.get(6)?,
+        })
+    })?;
+
+    for sourceitem in source_iter {
+        println!("Found source data {:?}", sourceitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_source_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let source_c = Source {
+        sourceid: 16,
+        highersourceid: 1,
+        subjectplaceid: 1,
+        jurisplaceid: 1, 
+        researcherid: 1,
+        subjectdate: "a".to_string(),
+        comments: "a".to_string(),
+    };
+
+    let csource = Source::update_source(source_c);
+
+    println!("csource : {:?}", &csource);
+    dbstring(&conn, csource);
+
+    Ok(())
+}
+
+pub fn delete_source_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let source_d = Source {
+        sourceid: 16,
+        highersourceid: 1,
+        subjectplaceid: 1,
+        jurisplaceid: 1, 
+        researcherid: 1,
+        subjectdate: "a".to_string(),
+        comments: "a".to_string(),
+    };
+
+    let dsource = Source::delete_source(source_d);
+
+    println!("dsource : {:?}", &dsource);
+    dbstring(&conn, dsource);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_sourcegroup_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let sourcegroup_a = SourceGroup {
+        sourcegroupid: 16,
+        sourcegroupname: "First SourceGroup".to_string(),
+    };
+
+    let asourcegroup = SourceGroup::create_sourcegroup(sourcegroup_a);
+
+    println!("asourcegroup : {:?}", &asourcegroup);
+    dbstring(&conn, asourcegroup);
+
+    Ok(())
+}
+
+pub fn read_sourcegroup_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let sourcegroup_b = SourceGroup {
+        sourcegroupid: 16,
+        sourcegroupname: "First SourceGroup".to_string(),
+    };
+
+    let bsourcegroup = SourceGroup::read_sourcegroup(sourcegroup_b);
+
+    println!("bsourcegroup : {:?}", &bsourcegroup);
+
+    let mut stmt = conn.prepare(&bsourcegroup)?;
+    let sourcegroup_iter = stmt.query_map([], |row| {
+        Ok(SourceGroup {
+            sourcegroupid: row.get(0)?,
+            sourcegroupname: row.get(1)?,
+        })
+    })?;
+
+    for sourcegroupitem in sourcegroup_iter {
+        println!("Found sourcegroup data {:?}", sourcegroupitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_sourcegroup_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let sourcegroup_c = SourceGroup {
+        sourcegroupid: 16,
+        sourcegroupname: "First SourceGroup".to_string(),
+    };
+
+    let csourcegroup = SourceGroup::update_sourcegroup(sourcegroup_c);
+
+    println!("csourcegroup : {:?}", &csourcegroup);
+    dbstring(&conn, csourcegroup);
+
+    Ok(())
+}
+
+pub fn delete_sourcegroup_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let sourcegroup_d = SourceGroup {
+        sourcegroupid: 16,
+        sourcegroupname: "First SourceGroup".to_string(),
+    };
+
+    let dsourcegroup = SourceGroup::delete_sourcegroup(sourcegroup_d);
+
+    println!("dsourcegroup : {:?}", &dsourcegroup);
+    dbstring(&conn, dsourcegroup);
+
+    Ok(())
+}
+
+pub fn make_srcgrpsrc_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let srcgrpsrc_a = SrcGrpSrc {
+        srcgrpsrcid: 16,
+        sourceid: 1,
+        sourcegroupid: 1,
+    };
+
+    let asrcgrpsrc = SrcGrpSrc::create_srcgrpsrc(srcgrpsrc_a);
+
+    println!("asrcgrpsrc : {:?}", &asrcgrpsrc);
+    dbstring(&conn, asrcgrpsrc);
+
+    Ok(())
+}
+
+pub fn read_srcgrpsrc_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let srcgrpsrc_b = SrcGrpSrc {
+        srcgrpsrcid: 16,
+        sourceid: 1,
+        sourcegroupid: 1,
+    };
+
+    let bsrcgrpsrc = SrcGrpSrc::read_srcgrpsrc(srcgrpsrc_b);
+
+    println!("bsrcgrpsrc : {:?}", &bsrcgrpsrc);
+
+    let mut stmt = conn.prepare(&bsrcgrpsrc)?;
+    let srcgrpsrc_iter = stmt.query_map([], |row| {
+        Ok(SrcGrpSrc {
+            srcgrpsrcid: row.get(0)?,
+            sourcegroupid: row.get(1)?,
+            sourceid: row.get(2)?,
+        })
+    })?;
+
+    for srcgrpsrcitem in srcgrpsrc_iter {
+        println!("Found srcgrpsrc data {:?}", srcgrpsrcitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_srcgrpsrc_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let srcgrpsrc_c = SrcGrpSrc {
+        srcgrpsrcid: 16,
+        sourceid: 1,
+        sourcegroupid: 1,
+    };
+
+    let csrcgrpsrc = SrcGrpSrc::update_srcgrpsrc(srcgrpsrc_c);
+
+    println!("csrcgrpsrc : {:?}", &csrcgrpsrc);
+    dbstring(&conn, csrcgrpsrc);
+
+    Ok(())
+}
+
+pub fn delete_srcgrpsrc_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let srcgrpsrc_d = SrcGrpSrc {
+        srcgrpsrcid: 16,
+        sourceid: 1,
+        sourcegroupid: 1,
+    };
+
+    let dsrcgrpsrc = SrcGrpSrc::delete_srcgrpsrc(srcgrpsrc_d);
+
+    println!("dsrcgrpsrc : {:?}", &dsrcgrpsrc);
+    dbstring(&conn, dsrcgrpsrc);
+
+    Ok(())
+}   
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_suretypart_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let suretypart_a = SuretyPart {
+        suretypartid: 16,
+        schemeid: 1,
+        name: "First SuretyPart".to_string(),
+        description: "a".to_string(),
+        sequencenumber: 1,
+    };
+
+    let asuretypart = SuretyPart::create_suretypart(suretypart_a);
+
+    println!("asuretypart : {:?}", &asuretypart);
+    dbstring(&conn, asuretypart);
+
+    Ok(())
+}
+
+pub fn read_suretypart_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let suretypart_b = SuretyPart {
+        suretypartid: 16,
+        schemeid: 1,
+        name: "First SuretyPart".to_string(),
+        description: "a".to_string(),
+        sequencenumber: 1,
+    };
+
+    let bsuretypart = SuretyPart::read_suretypart(suretypart_b);
+
+    println!("bsuretypart : {:?}", &bsuretypart);
+
+    let mut stmt = conn.prepare(&bsuretypart)?;
+    let suretypart_iter = stmt.query_map([], |row| {
+        Ok(SuretyPart {
+            suretypartid: row.get(0)?,
+            schemeid: row.get(1)?,
+            name: row.get(2)?,
+            description: row.get(3)?,
+            sequencenumber: row.get(4)?,
+        })
+    })?;
+
+    for suretypartitem in suretypart_iter {
+        println!("Found suretypart data {:?}", suretypartitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_suretypart_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let suretypart_c = SuretyPart {
+        suretypartid: 16,
+        schemeid: 1,
+        name: "First SuretyPart".to_string(),
+        description: "a".to_string(),
+        sequencenumber: 1,
+    };
+
+    let csuretypart = SuretyPart::update_suretypart(suretypart_c);
+
+    println!("csuretypart : {:?}", &csuretypart);
+    dbstring(&conn, csuretypart);
+
+    Ok(())
+}
+
+pub fn delete_suretypart_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let suretypart_d = SuretyPart {
+        suretypartid: 16,
+        schemeid: 1,
+        name: "First SuretyPart".to_string(),
+        description: "a".to_string(),
+        sequencenumber: 1,
+    };
+
+    let dsuretypart = SuretyPart::delete_suretypart(suretypart_d);
+
+    println!("dsuretypart : {:?}", &dsuretypart);
+    dbstring(&conn, dsuretypart);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+pub fn make_suretyscheme_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let suretyscheme_a = SuretyScheme {
+        suretyschemeid: 16,
+        name: "First SuretyScheme".to_string(),
+        description: "a".to_string(),
+    };
+
+    let asuretyscheme = SuretyScheme::create_suretyscheme(suretyscheme_a);
+
+    println!("asuretypescheme : {:?}", &asuretyscheme);
+    dbstring(&conn, asuretyscheme);
+
+    Ok(())
+}
+
+pub fn read_suretyscheme_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let suretyscheme_b = SuretyScheme {
+        suretyschemeid: 16,
+        name: "First SuretyScheme".to_string(),
+        description: "a".to_string(),
+    };
+
+    let bsuretyscheme = SuretyScheme::read_suretyscheme(suretyscheme_b);
+
+    println!("bsuretypescheme : {:?}", &bsuretyscheme);
+
+    let mut stmt = conn.prepare(&bsuretyscheme)?;
+    let suretyscheme_iter = stmt.query_map([], |row| {
+        Ok(SuretyScheme {
+            suretyschemeid: row.get(0)?,
+            name: row.get(1)?,
+            description: row.get(2)?,
+        })
+    })?;
+
+    for suretyschemeitem in suretyscheme_iter {
+        println!("Found suretyscheme data {:?}", suretyschemeitem.unwrap());
+    }
+
+    Ok(())
+}
+
+pub fn update_suretyscheme_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let suretyscheme_c = SuretyScheme {
+        suretyschemeid: 16,
+        name: "First SuretyScheme".to_string(),
+        description: "a".to_string(),
+    };
+
+    let csuretyscheme = SuretyScheme::update_suretyscheme(suretyscheme_c);
+
+    println!("csuretypescheme : {:?}", &csuretyscheme);
+    dbstring(&conn, csuretyscheme);
+
+    Ok(())
+}
+
+pub fn delete_suretyscheme_a() -> Result<(), rusqlite::Error> {
+    let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+    let suretyscheme_d = SuretyScheme {
+        suretyschemeid: 16,
+        name: "First SuretyScheme".to_string(),
+        description: "a".to_string(),
+    };
+
+    let dsuretyscheme = SuretyScheme::delete_suretyscheme(suretyscheme_d);
+
+    println!("dsuretypescheme : {:?}", &dsuretyscheme);
+    dbstring(&conn, dsuretyscheme);
+
+    Ok(())
+}
+
+/* ------------------------------------------------------------------------- */
+
+
+
 
