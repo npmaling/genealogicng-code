@@ -1,10 +1,24 @@
-use rusqlite::Connection;
-use rusqlite::params;
+/*
+-- Copyright 2023 N. P. Maling
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+*/
 
 pub(crate) mod db_string {
+    use rusqlite::{params, Connection};
+
     pub fn stringer(dbstr: String) -> Result<(), rusqlite::Error> {
-        let conn: Connection =
-            Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+        let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
 
         match conn.execute(&dbstr, params![]) {
             Ok(updated) => println!("{} rows were updated by match", updated),
@@ -13,5 +27,13 @@ pub(crate) mod db_string {
 
         Ok(())
     }
-}  // mod dbstring
+
+    pub fn dbconn(parameters: &str) -> Result<(), rusqlite::Error> {
+        if let Err(err) = stringer(parameters.to_string()) {
+            return Err(err);
+        }
+        Ok(())
+    }
+    
+}  // mod db_string
 

@@ -14,15 +14,13 @@
 -- limitations under the License.
 */
 
-use rusqlite::Connection;
-
 use crate::activity_test::ActivityTest;
 mod activity_test;
 
 fn main() {
-    let conn = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db").unwrap();
+    let conn: &str = "C:/Users/npmal/projects/genealogicng-code/database.db";
 
-    let td = ActivityTest {
+    let td1 = ActivityTest {
         activityid: 16,
         projectid: 1,
         researcherid: 1,
@@ -35,14 +33,24 @@ fn main() {
         comments: "a".to_string(),
     };
 
-    ActivityTest::make_activity_a();
-
-    if let Err(err) = ActivityTest::read_activity_a(td, conn) {
+    let td2 = td1.clone();
+    let td3: ActivityTest = td1.clone();
+    let td4 = td1.clone();
+    
+    if let Err(err) = ActivityTest::make_activity_a(td1, conn.to_string()) {
         println!("Error: {}", err);
     }
 
-    ActivityTest::update_activity_a();
+    if let Err(err) = ActivityTest::read_activity_a(td2, conn.to_string()) {
+        println!("Error: {}", err);
+    }
 
-    ActivityTest::delete_activity_a();
+    if let Err(err) = ActivityTest::update_activity_a(td3, conn.to_string()) {
+        println!("Error: {}", err);
+    }
+
+    if let Err(err) = ActivityTest::delete_activity_a(td4, conn.to_string()) {
+        println!("Error: {}", err);
+    }
 
 } // main
