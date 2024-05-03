@@ -1,4 +1,5 @@
-use rusqlite::{params, Connection};
+use rusqlite::params;
+use rusqlite::Connection;
 
 #[derive(Debug)]
 pub struct ActivityTest {
@@ -31,12 +32,12 @@ impl ActivityTest {
 
         let aactivity = ActivityTest::create_activity(activity_a);
 
-        if let Err(err) = Self::modname::dbstring(aactivity) {
+        if let Err(err) = Self::db_string(aactivity) {
             println!("Error: {}", err);
         }
     }
 
-    pub fn test_read(datatest: ActivityTest, conn: Connection) -> Result<(), rusqlite::Error> {
+    pub fn read_activity_a(datatest: ActivityTest, conn: Connection) -> Result<(), rusqlite::Error> {
         println!("Found TEST activity data {:?}", &datatest);
 
         let bactivity = Self::read_activity(datatest);
@@ -58,53 +59,11 @@ impl ActivityTest {
         })?;
 
         for activityitem in activity_iter {
-            println!("Found activity data {:?}", activityitem.unwrap());
+            println!("Found activity TEST data {:?}", activityitem.unwrap());
         }
 
         Ok(())
     } // test_read
-
-    pub fn read_activity_a() -> Result<(), rusqlite::Error> {
-        let conn: Connection =
-            Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
-
-        let activity_b = ActivityTest {
-            activityid: 16,
-            projectid: 1,
-            researcherid: 1,
-            scheddate: "20230101".to_string(),
-            completedate: "20230101".to_string(),
-            typecode: "a".to_string(),
-            status: "a".to_string(),
-            description: "First Activity".to_string(),
-            priority: "a".to_string(),
-            comments: "a".to_string(),
-        };
-
-        let bactivity = ActivityTest::read_activity(activity_b);
-
-        let mut stmt = conn.prepare(&bactivity)?;
-        let activity_iter = stmt.query_map([], |row| {
-            Ok(ActivityTest {
-                activityid: row.get(0)?,
-                projectid: row.get(1)?,
-                researcherid: row.get(2)?,
-                scheddate: row.get(3)?,
-                completedate: row.get(4)?,
-                typecode: row.get(5)?,
-                status: row.get(6)?,
-                description: row.get(7)?,
-                priority: row.get(8)?,
-                comments: row.get(9)?,
-            })
-        })?;
-
-        for activityitem in activity_iter {
-            println!("Found activity data {:?}", activityitem.unwrap());
-        }
-
-        Ok(())
-    } // read_activity_a
 
     pub fn update_activity_a() {
         let activity_c = ActivityTest {
@@ -122,8 +81,7 @@ impl ActivityTest {
 
         let cactivity = ActivityTest::update_activity(activity_c);
 
-        // println!("cactivity : {:?}", &cactivity);
-        if let Err(err) = Self::modname::dbstring(cactivity) {
+        if let Err(err) = Self::db_string(cactivity) {
             println!("Error: {}", err);
         }
     }
@@ -145,7 +103,7 @@ impl ActivityTest {
         let dactivity = ActivityTest::delete_activity(activity_d);
 
         // println!("dactivity : {:?}", &dactivity);
-        if let Err(err) = Self::modname::dbstring(dactivity) {
+        if let Err(err) = Self::db_string(dactivity) {
             println!("Error: {}", err);
         }
     }
@@ -253,6 +211,20 @@ impl ActivityTest {
             &activityid.to_string(),
         );
         parameters
+    }
+
+    /* ------------------------------------------------------------------------- */
+
+    pub fn db_string(dbstr: String) -> Result<(), rusqlite::Error> {
+        let conn: Connection =
+            Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
+
+        match conn.execute(&dbstr, params![]) {
+            Ok(updated) => println!("{} rows were updated by match", updated),
+            Err(err) => println!("update failed: {}", err),
+        };
+
+        Ok(())
     }
 
     /* ------------------------------------------------------------------------- */

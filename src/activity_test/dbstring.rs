@@ -1,7 +1,8 @@
-mod dbstring {
-    use rusqlite::Connection;
+use rusqlite::Connection;
+use rusqlite::params;
 
-    pub fn dbstring(dbstr: String) -> Result<(), rusqlite::Error> {
+pub(crate) mod db_string {
+    pub fn stringer(dbstr: String) -> Result<(), rusqlite::Error> {
         let conn: Connection =
             Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
 

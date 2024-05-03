@@ -19,9 +19,6 @@ use rusqlite::Connection;
 use crate::activity_test::ActivityTest;
 mod activity_test;
 
-use crate::dbstring::dbstring;
-mod dbstring;
-
 fn main() {
     let conn = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db").unwrap();
 
@@ -39,42 +36,13 @@ fn main() {
     };
 
     ActivityTest::make_activity_a();
-    let _ = ActivityTest::read_activity_a();
-    ActivityTest::update_activity_a();
-    ActivityTest::delete_activity_a();
 
-    if let Err(err) = ActivityTest::test_read(td, conn) {
+    if let Err(err) = ActivityTest::read_activity_a(td, conn) {
         println!("Error: {}", err);
     }
 
-}
+    ActivityTest::update_activity_a();
 
-/* 
-pub fn test_read(datatest: Activity, conn: Connection) -> Result<(), rusqlite::Error> {
+    ActivityTest::delete_activity_a();
 
-    let bactivity = Activity::read_activity(datatest);
-
-    let mut stmt = conn.prepare(&bactivity)?;
-    let activity_iter = stmt.query_map([], |row| {
-        Ok( Activity {
-            activityid: row.get(0)?,
-            projectid: row.get(1)?,
-            researcherid: row.get(2)?,
-            scheddate: row.get(3)?,
-            completedate: row.get(4)?,
-            typecode: row.get(5)?,
-            status: row.get(6)?,
-            description: row.get(7)?,
-            priority: row.get(8)?,
-            comments: row.get(9)?,
-        })
-    })?;
-
-    for activityitem in activity_iter {
-        println!("Found TEST activity data {:?}", activityitem.unwrap());
-    }
-
-    Ok(())
-} // test_read
-
- */
+} // main
