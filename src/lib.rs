@@ -175,13 +175,43 @@ pub fn make_activity_a() {
 
     let aactivity = Activity::create_activity(activity_a);
 
-    // println!("aactivity : {:?}", &aactivity);
     if let Err(err) = dbstring(aactivity) {
         println!("Error: {}", err);
     }
 }
 
-pub fn read_activity_a() -> Result<(), rusqlite::Error> {
+
+pub fn test_read(datatest: Activity, conn: Connection) -> Result<(), rusqlite::Error> {
+
+    println!("Found TEST activity data {:?}", &datatest);
+
+    let bactivity = Activity::read_activity(datatest);
+
+    let mut stmt = conn.prepare(&bactivity)?;
+    let activity_iter = stmt.query_map([], |row| {
+        Ok( Activity {
+            activityid: row.get(0)?,
+            projectid: row.get(1)?,
+            researcherid: row.get(2)?,
+            scheddate: row.get(3)?,
+            completedate: row.get(4)?,
+            typecode: row.get(5)?,
+            status: row.get(6)?,
+            description: row.get(7)?,
+            priority: row.get(8)?,
+            comments: row.get(9)?,
+        })
+    })?;
+
+    for activityitem in activity_iter {
+        println!("Found activity data {:?}", activityitem.unwrap());
+    }
+
+    Ok(())
+} // test_read
+
+
+ pub fn read_activity_a() -> Result<(), rusqlite::Error> {
     let conn: Connection = Connection::open("C:/Users/npmal/projects/genealogicng-code/database.db")?;
 
     let activity_b = Activity {
@@ -198,8 +228,6 @@ pub fn read_activity_a() -> Result<(), rusqlite::Error> {
     };
 
     let bactivity = Activity::read_activity(activity_b);
-
-    // println!("bactivity : {:?}", &bactivity);
 
     let mut stmt = conn.prepare(&bactivity)?;
     let activity_iter = stmt.query_map([], |row| {
@@ -222,7 +250,7 @@ pub fn read_activity_a() -> Result<(), rusqlite::Error> {
     }
 
     Ok(())
-}
+} // read_activity_a
 
 pub fn update_activity_a() {
     let activity_c = Activity {
