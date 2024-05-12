@@ -14,48 +14,10 @@
 -- limitations under the License.
 */
 
-use crate::activity_test::ActivityTest;
-mod activity_test;
-
 use crate::import::search_file_line_by_line;
 mod import;
 
 fn main() {
-    let conn: &str = "C:/Users/npmal/projects/genealogicng-code/database.db";
-
-    let td1 = ActivityTest {
-        activityid: 16,
-        projectid: 1,
-        researcherid: 1,
-        scheddate: "20230101".to_string(),
-        completedate: "20230101".to_string(),
-        typecode: "a".to_string(),
-        status: "a".to_string(),
-        description: "First Activity".to_string(),
-        priority: "a".to_string(),
-        comments: "a".to_string(),
-    };
-
-    let td2 = td1.clone();
-    let td3: ActivityTest = td1.clone();
-    let td4 = td1.clone();
-    
-    if let Err(err) = ActivityTest::make_activity_a(td1, conn.to_string()) {
-        println!("Error: {}", err);
-    }
-
-    if let Err(err) = ActivityTest::read_activity_a(td2, conn.to_string()) {
-        println!("Error: {}", err);
-    }
-
-    if let Err(err) = ActivityTest::update_activity_a(td3, conn.to_string()) {
-        println!("Error: {}", err);
-    }
-
-    if let Err(err) = ActivityTest::delete_activity_a(td4, conn.to_string()) {
-        println!("Error: {}", err);
-    }
-
     search_file_line_by_line("/Users/npmal/projects/glngimport/ged");
 
 } // main

@@ -39,6 +39,8 @@ pub fn search_file_line_by_line(file_path: &str) {
 
     let mut lines = reader.lines();
 
+    let mut line_count = 0;
+
     let mut output: Vec<String> = Vec::new();
 
     let mut try_import: Persona = Persona {
@@ -49,6 +51,9 @@ pub fn search_file_line_by_line(file_path: &str) {
 
     while let Some(line) = lines.next() {
         let line = line.unwrap();
+        
+        line_count += 1;
+
         let tokens: Vec<&str> = line.split_whitespace().collect();
         let token_one = tokens.get(0).unwrap_or(&""); // 0..n usually 0 or 1
         let token_two = tokens.get(1).unwrap_or(&""); // TOKEN usually NAME, BIRT, DEAT, etc.
@@ -71,7 +76,7 @@ pub fn search_file_line_by_line(file_path: &str) {
                     "NAME" => {
                         if line.contains("/") {
                             let c = line.get(7..).unwrap();
-                            try_import.personaid = token_one.parse().unwrap();
+                            try_import.personaid = line_count;
                             try_import.persona_name = c.to_string();
                             // output.push(&c.to_string());
                         }
