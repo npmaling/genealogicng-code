@@ -18,24 +18,34 @@ use std::fs::File;
 use std::io::BufRead;
 use std::io::BufReader;
 
+use genealogicng::db_string::dbconn;
+
 use persona::Persona;
 mod persona;
 
-pub fn fileopen() {
-    // let file_path = "/Users/npmal/My Drive/GDrive/genea/gedcom/Maling_20230807.ged";
-    // let file_path = "/Users/npmal/projects/glngimport/allged.ged";
-    let file_path = "/Users/npmal/projects/glngimport/ged";
+// use rusqlite::Connection;
 
-    search_file_line_by_line(file_path);
-}
+// pub fn fileopen() {
+//     // let file_path = "/Users/npmal/My Drive/GDrive/genea/gedcom/Maling_20230807.ged";
+//     // let file_path = "/Users/npmal/projects/glngimport/allged.ged";
+//     let file_path = "/Users/npmal/projects/glngimport/ged";
 
-fn search_file_line_by_line(file_path: &str) {
+//     search_file_line_by_line(file_path);
+// }
+
+pub fn search_file_line_by_line(file_path: &str) {
     let file = File::open(file_path).unwrap();
     let reader = BufReader::new(file);
 
     let mut lines = reader.lines();
 
     let mut output: Vec<String> = Vec::new();
+
+    let mut try_import: Persona = Persona {
+        personaid: 0,
+        persona_name: "".to_string(),
+        description_comments: "".to_string(),
+    };
 
     while let Some(line) = lines.next() {
         let line = line.unwrap();
@@ -49,6 +59,8 @@ fn search_file_line_by_line(file_path: &str) {
                 if (*token_one == "0" && *token_three == "INDI") || *token_two == "TRLR" {
                     if output.len() > 0 {
                         println!("{:?}", output);
+                        let dbstr = Persona::create_persona(try_import.clone()); // Clone the try_import variable
+                        let _ = dbconn(&dbstr, "C:/Users/npmal/projects/genealogicng-code/database.db".to_string());
                         output.clear();
                     }
                     output.clear();
@@ -59,13 +71,15 @@ fn search_file_line_by_line(file_path: &str) {
                     "NAME" => {
                         if line.contains("/") {
                             let c = line.get(7..).unwrap();
-                            persona_name = c.to_string();
-                            output.push(c.to_string());
+                            try_import.personaid = token_one.parse().unwrap();
+                            try_import.persona_name = c.to_string();
+                            // output.push(&c.to_string());
                         }
                     }
                     "SEX" => {
                         let c = line.get(6..).unwrap();
-                        output.push(c.to_string());
+                        try_import.description_comments = c.to_string();
+                        // output.push(c.to_string());
                     }
                     "BIRT" => {
                         if let Some(next_line) = lines.next() {

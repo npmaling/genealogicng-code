@@ -17,6 +17,9 @@
 use crate::activity_test::ActivityTest;
 mod activity_test;
 
+use crate::import::search_file_line_by_line;
+mod import;
+
 fn main() {
     let conn: &str = "C:/Users/npmal/projects/genealogicng-code/database.db";
 
@@ -52,5 +55,7 @@ fn main() {
     if let Err(err) = ActivityTest::delete_activity_a(td4, conn.to_string()) {
         println!("Error: {}", err);
     }
+
+    search_file_line_by_line("/Users/npmal/projects/glngimport/ged");
 
 } // main
