@@ -23,15 +23,8 @@ use genealogicng::db_string::dbconn;
 use persona::Persona;
 mod persona;
 
-// use rusqlite::Connection;
-
-// pub fn fileopen() {
-//     // let file_path = "/Users/npmal/My Drive/GDrive/genea/gedcom/Maling_20230807.ged";
-//     // let file_path = "/Users/npmal/projects/glngimport/allged.ged";
-//     let file_path = "/Users/npmal/projects/glngimport/ged";
-
-//     search_file_line_by_line(file_path);
-// }
+use event::Event;
+mod event;
 
 pub fn search_file_line_by_line(file_path: &str) {
     let file = File::open(file_path).unwrap();
@@ -43,12 +36,21 @@ pub fn search_file_line_by_line(file_path: &str) {
 
     let mut output: Vec<String> = Vec::new();
 
-    let mut try_import: Persona = Persona {
+    let mut try_persona: Persona = Persona {
         personaid: 0,
         persona_name: "".to_string(),
         description_comments: "".to_string(),
     };
 
+    let mut try_event: Event = Event {
+        eventid: 0,
+        eventtypeid: 0,
+        placeid: 0,
+        eventdate: "".to_string(),
+        eventname: "".to_string(),
+    };
+
+    // this is the main/major part of the funtion.
     while let Some(line) = lines.next() {
         let line = line.unwrap();
         
@@ -64,8 +66,6 @@ pub fn search_file_line_by_line(file_path: &str) {
                 if (*token_one == "0" && *token_three == "INDI") || *token_two == "TRLR" {
                     if output.len() > 0 {
                         println!("{:?}", output);
-                        let dbstr = Persona::create_persona(try_import.clone()); // Clone the try_import variable
-                        let _ = dbconn(&dbstr, "C:/Users/npmal/projects/genealogicng-code/database.db".to_string());
                         output.clear();
                     }
                     output.clear();
@@ -76,72 +76,96 @@ pub fn search_file_line_by_line(file_path: &str) {
                     "NAME" => {
                         if line.contains("/") {
                             let c = line.get(7..).unwrap();
-                            try_import.personaid = line_count;
-                            try_import.persona_name = c.to_string();
-                            // output.push(&c.to_string());
+                            try_persona.personaid = line_count;
+                            try_persona.persona_name = c.to_string();
                         }
                     }
                     "SEX" => {
                         let c = line.get(6..).unwrap();
-                        try_import.description_comments = c.to_string();
-                        // output.push(c.to_string());
-                    }
+                        try_persona.description_comments = c.to_string();
+                        let dbstr = Persona::create_persona(try_persona.clone());
+                        touch_database(dbstr);
+                        try_persona.personaid = 0;
+                        try_persona.persona_name = "".to_string();
+                        try_persona.description_comments = "".to_string();
+                }
                     "BIRT" => {
                         if let Some(next_line) = lines.next() {
                             let next_line = next_line.unwrap();
                             let d = next_line.get(7..).unwrap();
                             let e: String = "Birth date: ".to_string() + d;
-                            output.push(e.to_string());
+                            try_event.eventdate = e.to_string();
+                            try_event.eventid = line_count;
                             if let Some(next_line) = lines.next() {
                                 let next_line = next_line.unwrap();
                                 if next_line.contains("PLAC") {
                                     let d = next_line.get(7..).unwrap();
                                     let e: String = "Birth place: ".to_string() + d;
-                                    output.push(e.to_string());
+                                    try_event.eventname = e.to_string();
                                 }
                             }
+                            let dbstr = Event::create_event(try_event.clone());
+                            touch_database(dbstr);
+                            try_event.eventid = 0;
+                            try_event.eventdate = "".to_string();
+                            try_event.eventname = "".to_string();
                         }
                     }
                     "CHR" | "BAPM" | "BARM" | "BASM" | "BLES" => {
                         if let Some(next_line) = lines.next() {
                             let next_line = next_line.unwrap();
                             let d = next_line.get(7..).unwrap();
-                            let e: String = "Christening/Baptism date: ".to_string() + d;
-                            output.push(e.to_string());
+                            let e: String = "Chr/Bap date: ".to_string() + d;
+                            try_event.eventdate = e.to_string();
+                            try_event.eventid = line_count;
                             if let Some(next_line) = lines.next() {
                                 let next_line = next_line.unwrap();
                                 if next_line.contains("PLAC") {
                                     let d = next_line.get(7..).unwrap();
-                                    let e: String = "Christening/Baptism place: ".to_string() + d;
-                                    output.push(e.to_string());
+                                    let e: String = "Chr/Bap place: ".to_string() + d;
+                                    try_event.eventname = e.to_string();
                                 }
                             }
+                            let dbstr = Event::create_event(try_event.clone());
+                            touch_database(dbstr);
+                            try_event.eventid = 0;
+                            try_event.eventdate = "".to_string();
+                            try_event.eventname = "".to_string();
                         }
                     }
                     "DEAT" => match *token_three {
+                        // this may cause a problem.... If there *is* a death date, the death date/place will be ignored.
                         "Y" => {
-                            output.push("Death date not known".to_string());
+                            try_event.eventdate = "Death date not known".to_string();
+                            try_event.eventname = "Death place not known".to_string();
                         }
                         _ => {
                             if let Some(next_line) = lines.next() {
                                 let next_line = next_line.unwrap();
                                 let d = next_line.get(7..).unwrap();
                                 let e: String = "Death date: ".to_string() + d;
-                                output.push(e.to_string());
+                                try_event.eventdate = e.to_string();
+                                try_event.eventid = line_count;
                                 if let Some(next_line) = lines.next() {
                                     let next_line = next_line.unwrap();
                                     if next_line.contains("PLAC") {
                                         let d = next_line.get(7..).unwrap();
                                         let e: String = "Death place: ".to_string() + d;
-                                        output.push(e.to_string());
+                                        try_event.eventname = e.to_string();
                                     }
                                 }
+                                let dbstr = Event::create_event(try_event.clone());
+                                touch_database(dbstr);
+                                try_event.eventid = 0;
+                                try_event.eventdate = "".to_string();
+                                try_event.eventname = "".to_string();
                             }
                         }
                     }
                     "BURI" => match *token_three {
                         "Y" => {
-                            output.push("Burial/Cremation date not known".to_string());
+                            try_event.eventdate = "Burial date not known".to_string();
+                            try_event.eventname = "Burial place not known".to_string();
                         }
                         _ => {
                             if let Some(next_line) = lines.next() {
@@ -149,37 +173,50 @@ pub fn search_file_line_by_line(file_path: &str) {
                                 if next_line.contains("DATE") {
                                     let d = next_line.get(7..).unwrap();
                                     let e: String = "Burial date: ".to_string() + d;
-                                    output.push(e.to_string());
+                                    try_event.eventdate = e.to_string();
+                                    try_event.eventid = line_count;
                                 }
                                 if let Some(next_line) = lines.next() {
                                     let next_line = next_line.unwrap();
                                     if next_line.contains("PLAC") {
                                         let d = next_line.get(7..).unwrap();
                                         let e: String = "Burial place: ".to_string() + d;
-                                        output.push(e.to_string());
+                                        try_event.eventname = e.to_string();
                                     }
                                 }
+                                let dbstr = Event::create_event(try_event.clone());
+                                touch_database(dbstr);
+                                try_event.eventid = 0;
+                                try_event.eventdate = "".to_string();
+                                try_event.eventname = "".to_string();
                             }
-                        }
+                            }
                     }
                     "CREM" => match *token_three {
                         "Y" => {
-                            output.push("Cremation date not known".to_string());
+                            try_event.eventdate = "Cremation date not known".to_string();
+                            try_event.eventname = "Cremation place not known".to_string();
                         }
                         _ => {
                             if let Some(next_line) = lines.next() {
                                 let next_line = next_line.unwrap();
                                 let d = next_line.get(7..).unwrap();
                                 let e: String = "Cremation date: ".to_string() + d;
-                                output.push(e.to_string());
+                                try_event.eventdate = e.to_string();
+                                try_event.eventid = line_count;
                                 if let Some(next_line) = lines.next() {
                                     let next_line = next_line.unwrap();
                                     if next_line.contains("PLAC") {
                                         let d = next_line.get(7..).unwrap();
                                         let e: String = "Cremation place: ".to_string() + d;
-                                        output.push(e.to_string());
+                                        try_event.eventname = e.to_string();
                                     }
                                 }
+                                let dbstr = Event::create_event(try_event.clone());
+                                touch_database(dbstr);
+                                try_event.eventid = 0;
+                                try_event.eventdate = "".to_string();
+                                try_event.eventname = "".to_string();
                             }
                         }
                     },
@@ -205,4 +242,8 @@ pub fn search_file_line_by_line(file_path: &str) {
         }
         continue;
     }
+}
+
+fn touch_database(dbstr: String) {
+    let _ = dbconn(&dbstr, "C:/Users/npmal/projects/genealogicng-code/database.db".to_string());
 }
