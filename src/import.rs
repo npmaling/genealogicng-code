@@ -123,6 +123,18 @@ pub fn search_file_line_by_line(file_path: &str) {
                         let event_type: &str = "Cremation";
                         process_event(&mut lines, &mut try_event, &event_type);
                     }
+                    "CENS" => {
+                        let event_type: &str = "Census";
+                        process_event(&mut lines, &mut try_event, &event_type);
+                    }
+                    "WILL" => {
+                        let event_type: &str = "Will";
+                        process_event(&mut lines, &mut try_event, &event_type);
+                    }
+                    "PROB" => {
+                        let event_type: &str = "Probate";
+                        process_event(&mut lines, &mut try_event, &event_type);
+                    }
                     _ => {
                         // ignore the rest
                     }

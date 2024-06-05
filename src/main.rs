@@ -20,6 +20,7 @@ mod import;
 fn main() {
 //    search_file_line_by_line("/Users/npmal/projects/glngimport/ged");
 //    search_file_line_by_line("/Users/npmal/projects/glngimport/FS-20240512.ged");
-    search_file_line_by_line("/Users/npmal/projects/glngimport/FS_FindaGraveIndex.ged");
+//    search_file_line_by_line("/Users/npmal/projects/glngimport/FS_FindaGraveIndex.ged");
+    search_file_line_by_line("/Users/npmal/projects/glngimport/Maling_20230807.ged");
 
 } // main
