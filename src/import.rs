@@ -150,17 +150,33 @@ pub fn search_file_line_by_line(file_path: &str) {
 fn process_event(lines: &mut dyn Iterator<Item = Result<String, std::io::Error>>, try_event: &mut Event, event_type: &str) {
     if let Some(next_line) = lines.next() {
         let next_line = next_line.unwrap();
-        if next_line.contains("DATE") && next_line.len() > 7 {
-            let d = next_line.get(7..).unwrap();
-            let e: String = format!("{} date: {}", &event_type, d);
-            try_event.eventdate = e.to_string();
+
+        let trigger: &str;
+        if next_line.contains("DATE") {
+            trigger = "DATE";
+        } else if next_line.contains("PLAC") {
+            trigger = "PLAC";
+        } else {
+            return; // Add this line to exit the function if neither "DATE" nor "PLAC" is found
         }
-        if let Some(next_line) = lines.next() {
-            let next_line = next_line.unwrap();
-            if next_line.contains("PLAC") && next_line.len() > 7 {
-                let d = next_line.get(7..).unwrap();
-                let e: String = format!("{} place: {}", &event_type, d);
-                try_event.eventname = e.to_string();
+
+        match trigger {
+            "DATE" => {
+                if next_line.len() > 7 {
+                    let d = next_line.get(7..).unwrap();
+                    let e: String = format!("{} date: {}", &event_type, d);
+                    try_event.eventdate = e.to_string();
+                }
+            }
+            "PLAC" => {
+                if next_line.len() > 7 {
+                    let d = next_line.get(7..).unwrap();
+                    let e: String = format!("{} place: {}", &event_type, d);
+                    try_event.eventname = e.to_string();
+                }
+            }
+            _ => {
+                // ignore the rest
             }
         }
         let dbstr = Event::create_event(try_event.clone());
