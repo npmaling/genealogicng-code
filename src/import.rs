@@ -53,7 +53,7 @@ pub fn search_file_line_by_line(file_path: &str) {
     // this is the main/major part of the funtion.
     while let Some(line) = lines.next() {
         let line = line.unwrap();
-        
+
         line_count += 1;
 
         let tokens: Vec<&str> = line.split_whitespace().collect();
@@ -109,12 +109,12 @@ pub fn search_file_line_by_line(file_path: &str) {
                             touch_database(dbstr);
                             try_event.eventdate = "".to_string();
                             try_event.eventname = "".to_string();
-                    }
+                        }
                         _ => {
                             let event_type: &str = "Death";
                             process_event(&mut lines, &mut try_event, &event_type);
                         }
-                    }
+                    },
                     "BURI" => {
                         let event_type: &str = "Burial";
                         process_event(&mut lines, &mut try_event, &event_type);
@@ -122,7 +122,7 @@ pub fn search_file_line_by_line(file_path: &str) {
                     "CREM" => {
                         let event_type: &str = "Cremation";
                         process_event(&mut lines, &mut try_event, &event_type);
-                    },
+                    }
                     _ => {
                         // ignore the rest
                     }
@@ -133,7 +133,7 @@ pub fn search_file_line_by_line(file_path: &str) {
                     "GIVN" | "SURN" => {
                         let c = line.get(7..).unwrap();
                         output.push(c.to_string());
-                    },
+                    }
                     _ => {
                         // ignore the rest
                     }
@@ -147,36 +147,25 @@ pub fn search_file_line_by_line(file_path: &str) {
     }
 }
 
-fn process_event(lines: &mut dyn Iterator<Item = Result<String, std::io::Error>>, try_event: &mut Event, event_type: &str) {
+fn process_event(
+    lines: &mut dyn Iterator<Item = Result<String, std::io::Error>>,
+    try_event: &mut Event,
+    event_type: &str,
+) {
     if let Some(next_line) = lines.next() {
         let next_line = next_line.unwrap();
 
-        let trigger: &str;
-        if next_line.contains("DATE") {
-            trigger = "DATE";
-        } else if next_line.contains("PLAC") {
-            trigger = "PLAC";
-        } else {
-            return; // Add this line to exit the function if neither "DATE" nor "PLAC" is found
+        if next_line.contains("DATE") && next_line.len() > 7 {
+            let d = next_line.get(7..).unwrap();
+            let e: String = format!("{} date: {}", &event_type, d);
+            try_event.eventdate = e.to_string();
         }
-
-        match trigger {
-            "DATE" => {
-                if next_line.len() > 7 {
-                    let d = next_line.get(7..).unwrap();
-                    let e: String = format!("{} date: {}", &event_type, d);
-                    try_event.eventdate = e.to_string();
-                }
-            }
-            "PLAC" => {
-                if next_line.len() > 7 {
-                    let d = next_line.get(7..).unwrap();
-                    let e: String = format!("{} place: {}", &event_type, d);
-                    try_event.eventname = e.to_string();
-                }
-            }
-            _ => {
-                // ignore the rest
+        if let Some(next_line) = lines.next() {
+            let next_line = next_line.unwrap();
+            if next_line.contains("PLAC") && next_line.len() > 7 {
+                let d = next_line.get(7..).unwrap();
+                let e: String = format!("{} place: {}", &event_type, d);
+                try_event.eventname = e.to_string();
             }
         }
         let dbstr = Event::create_event(try_event.clone());
@@ -187,5 +176,8 @@ fn process_event(lines: &mut dyn Iterator<Item = Result<String, std::io::Error>>
 }
 
 fn touch_database(dbstr: String) {
-    let _ = dbconn(&dbstr, "C:/Users/npmal/projects/genealogicng-code/database.db".to_string());
+    let _ = dbconn(
+        &dbstr,
+        "C:/Users/npmal/projects/genealogicng-code/database.db".to_string(),
+    );
 }
