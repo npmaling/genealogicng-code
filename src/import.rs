@@ -78,6 +78,7 @@ pub fn search_file_line_by_line(file_path: &str) {
                             let c = line.get(7..).unwrap();
                             try_persona.personaid = line_count;
                             try_persona.persona_name = c.to_string();
+                            try_event.eventid = line_count;
                         }
                     }
                     "SEX" => {
@@ -88,169 +89,58 @@ pub fn search_file_line_by_line(file_path: &str) {
                         try_persona.personaid = 0;
                         try_persona.persona_name = "".to_string();
                         try_persona.description_comments = "".to_string();
-                }
+                    }
                     "BIRT" => {
                         let event_type: &str = "Birth";
-                        try_event.eventid = line_count;
-                        if let Some(next_line) = lines.next() {
-                            let next_line = next_line.unwrap();
-                            if next_line.contains("DATE") && next_line.len() > 7 {
-                                let d = next_line.get(7..).unwrap();
-                                let e: String = format!("{} date: {}", &event_type, d);
-                                try_event.eventdate = e.to_string();
-                            }
-                            if let Some(next_line) = lines.next() {
-                                let next_line = next_line.unwrap();
-                                if next_line.contains("PLAC") && next_line.len() > 7 {
-                                    let d = next_line.get(7..).unwrap();
-                                    let e: String = format!("{} date: {}", &event_type, d);
-                                    try_event.eventname = e.to_string();
-                                }
-                            }
-                            let dbstr = Event::create_event(try_event.clone());
-                            touch_database(dbstr);
-                            try_event.eventid = 0;
-                            try_event.eventdate = "".to_string();
-                            try_event.eventname = "".to_string();
-                        }
+                        process_event(&mut lines, &mut try_event, &event_type);
                     }
                     "CHR" | "BAPM" | "BARM" | "BASM" | "BLES" => {
                         let event_type: &str = "Chr/Bapt";
-                        try_event.eventid = line_count;
-                        if let Some(next_line) = lines.next() {
-                            let next_line = next_line.unwrap();
-                            if next_line.contains("DATE") && next_line.len() > 7 {
-                                let d = next_line.get(7..).unwrap();
-                                let e: String = format!("{} date: {}", &event_type, d);
-                                try_event.eventdate = e.to_string();
-                            }
-                            if let Some(next_line) = lines.next() {
-                                let next_line = next_line.unwrap();
-                                if next_line.contains("PLAC") && next_line.len() > 7 {
-                                    let d = next_line.get(7..).unwrap();
-                                    let e: String = format!("{} place: {}", &event_type, d);
-                                    try_event.eventname = e.to_string();
-                                }
-                            }
-                            let dbstr = Event::create_event(try_event.clone());
-                            touch_database(dbstr);
-                            try_event.eventid = 0;
-                            try_event.eventdate = "".to_string();
-                            try_event.eventname = "".to_string();
-                        }
+                        process_event(&mut lines, &mut try_event, &event_type);
                     }
                     "DEAT" => match *token_three {
                         // This may cause a problem.... If there *is* a death date, the death date/place will be ignored.
                         // This is because the next line is not checked for the "DATE" or "PLAC" keyword.
                         // Some GEDCOM files contain out-of-order data, so this is a problem.
                         "Y" => {
-                            try_event.eventid = line_count;
                             try_event.eventdate = "Death date not known".to_string();
                             try_event.eventname = "Death place not known".to_string();
                             let dbstr = Event::create_event(try_event.clone());
                             touch_database(dbstr);
-                            try_event.eventid = 0;
                             try_event.eventdate = "".to_string();
                             try_event.eventname = "".to_string();
                     }
                         _ => {
                             let event_type: &str = "Death";
-                            try_event.eventid = line_count;
-                            if let Some(next_line) = lines.next() {
-                                let next_line = next_line.unwrap();
-                                if next_line.contains("DATE") && next_line.len() > 7 {
-                                    let d = next_line.get(7..).unwrap();
-                                    let e: String = format!("{} date: {}", &event_type, d);
-                                    try_event.eventdate = e.to_string();
-                                }
-                                if let Some(next_line) = lines.next() {
-                                    let next_line = next_line.unwrap();
-                                    if next_line.contains("PLAC") && next_line.len() > 7 {
-                                        let d = next_line.get(7..).unwrap();
-                                        let e: String = format!("{} place: {}", &event_type, d);
-                                        try_event.eventname = e.to_string();
-                                    }
-                                }
-                                let dbstr = Event::create_event(try_event.clone());
-                                touch_database(dbstr);
-                                try_event.eventid = 0;
-                                try_event.eventdate = "".to_string();
-                                try_event.eventname = "".to_string();
-                            }
+                            process_event(&mut lines, &mut try_event, &event_type);
                         }
                     }
                     "BURI" => match *token_three {
                         "Y" => {
-                            try_event.eventid = line_count;
                             try_event.eventdate = "Burial date not known".to_string();
                             try_event.eventname = "Burial place not known".to_string();
                             let dbstr = Event::create_event(try_event.clone());
                             touch_database(dbstr);
-                            try_event.eventid = 0;
                             try_event.eventdate = "".to_string();
                             try_event.eventname = "".to_string();
                     }
                         _ => {
                             let event_type: &str = "Burial";
-                            try_event.eventid = line_count;
-                            if let Some(next_line) = lines.next() {
-                                let next_line = next_line.unwrap();
-                                if next_line.contains("DATE") && next_line.len() > 7 {
-                                    let d = next_line.get(7..).unwrap();
-                                    let e: String = format!("{} date: {}", &event_type, d);
-                                    try_event.eventdate = e.to_string();
-                                }
-                                if let Some(next_line) = lines.next() {
-                                    let next_line = next_line.unwrap();
-                                    if next_line.contains("PLAC") && next_line.len() > 7 {
-                                        let d = next_line.get(7..).unwrap();
-                                        let e: String = format!("{} place: {}", &event_type, d);
-                                        try_event.eventname = e.to_string();
-                                    }
-                                }
-                                let dbstr = Event::create_event(try_event.clone());
-                                touch_database(dbstr);
-                                try_event.eventid = 0;
-                                try_event.eventdate = "".to_string();
-                                try_event.eventname = "".to_string();
-                            }
-                            }
+                            process_event(&mut lines, &mut try_event, &event_type);
+                        }
                     }
                     "CREM" => match *token_three {
                         "Y" => {
-                            try_event.eventid = line_count;
                             try_event.eventdate = "Cremation date not known".to_string();
                             try_event.eventname = "Cremation place not known".to_string();
                             let dbstr = Event::create_event(try_event.clone());
                             touch_database(dbstr);
-                            try_event.eventid = 0;
                             try_event.eventdate = "".to_string();
                             try_event.eventname = "".to_string();
                     }
                         _ => {
                             let event_type: &str = "Cremation";
-                            try_event.eventid = line_count;
-                            if let Some(next_line) = lines.next() {
-                                let next_line = next_line.unwrap();
-                                if next_line.contains("DATE") && next_line.len() > 7 {
-                                    let d = next_line.get(7..).unwrap();
-                                    let e: String = format!("{} date: {}", &event_type, d);
-                                    try_event.eventdate = e.to_string();
-                                }
-                                if let Some(next_line) = lines.next() {
-                                    let next_line = next_line.unwrap();
-                                    if next_line.contains("PLAC") && next_line.len() > 7 {
-                                        let d = next_line.get(7..).unwrap();
-                                        let e: String = format!("{} place: {}", &event_type, d);
-                                        try_event.eventname = e.to_string();
-                                    }
-                                }
-                                let dbstr = Event::create_event(try_event.clone());
-                                touch_database(dbstr);
-                                try_event.eventid = 0;
-                                try_event.eventdate = "".to_string();
-                                try_event.eventname = "".to_string();
-                            }
+                            process_event(&mut lines, &mut try_event, &event_type);
                         }
                     },
                     _ => {
@@ -274,6 +164,29 @@ pub fn search_file_line_by_line(file_path: &str) {
             }
         }
         continue;
+    }
+}
+
+fn process_event(lines: &mut dyn Iterator<Item = Result<String, std::io::Error>>, try_event: &mut Event, event_type: &str) {
+    if let Some(next_line) = lines.next() {
+        let next_line = next_line.unwrap();
+        if next_line.contains("DATE") && next_line.len() > 7 {
+            let d = next_line.get(7..).unwrap();
+            let e: String = format!("{} date: {}", &event_type, d);
+            try_event.eventdate = e.to_string();
+        }
+        if let Some(next_line) = lines.next() {
+            let next_line = next_line.unwrap();
+            if next_line.contains("PLAC") && next_line.len() > 7 {
+                let d = next_line.get(7..).unwrap();
+                let e: String = format!("{} place: {}", &event_type, d);
+                try_event.eventname = e.to_string();
+            }
+        }
+        let dbstr = Event::create_event(try_event.clone());
+        touch_database(dbstr);
+        try_event.eventdate = "".to_string();
+        try_event.eventname = "".to_string();
     }
 }
 
