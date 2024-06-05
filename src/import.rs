@@ -115,33 +115,13 @@ pub fn search_file_line_by_line(file_path: &str) {
                             process_event(&mut lines, &mut try_event, &event_type);
                         }
                     }
-                    "BURI" => match *token_three {
-                        "Y" => {
-                            try_event.eventdate = "Burial date not known".to_string();
-                            try_event.eventname = "Burial place not known".to_string();
-                            let dbstr = Event::create_event(try_event.clone());
-                            touch_database(dbstr);
-                            try_event.eventdate = "".to_string();
-                            try_event.eventname = "".to_string();
+                    "BURI" => {
+                        let event_type: &str = "Burial";
+                        process_event(&mut lines, &mut try_event, &event_type);
                     }
-                        _ => {
-                            let event_type: &str = "Burial";
-                            process_event(&mut lines, &mut try_event, &event_type);
-                        }
-                    }
-                    "CREM" => match *token_three {
-                        "Y" => {
-                            try_event.eventdate = "Cremation date not known".to_string();
-                            try_event.eventname = "Cremation place not known".to_string();
-                            let dbstr = Event::create_event(try_event.clone());
-                            touch_database(dbstr);
-                            try_event.eventdate = "".to_string();
-                            try_event.eventname = "".to_string();
-                    }
-                        _ => {
-                            let event_type: &str = "Cremation";
-                            process_event(&mut lines, &mut try_event, &event_type);
-                        }
+                    "CREM" => {
+                        let event_type: &str = "Cremation";
+                        process_event(&mut lines, &mut try_event, &event_type);
                     },
                     _ => {
                         // ignore the rest
