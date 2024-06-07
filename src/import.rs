@@ -135,6 +135,24 @@ pub fn search_file_line_by_line(file_path: &str) {
                         let event_type: &str = "Probate";
                         process_event(&mut lines, &mut try_event, &event_type);
                     }
+                    "EVEN" => {
+                        let event_type: &str = "Event";
+                        // process_event(&mut lines, &mut try_event, &event_type);
+                        if let Some(next_line) = lines.next() {
+                            let next_line = next_line.unwrap();
+                            if next_line.contains("TYPE") && next_line.len() > 7 {
+                                let d = next_line.get(7..).unwrap();
+                                let e: String = format!("{} type: {}", &event_type, d);
+                                try_event.eventname = e.to_string();
+                            }
+                            let dbstr = Event::create_event(try_event.clone());
+                            touch_database(dbstr);
+                            println!("{:?}", try_event);
+                            try_event.eventid = 0;
+                            try_event.eventdate = "".to_string();
+                            try_event.eventname = "".to_string();
+                        }  
+                    }
                     _ => {
                         // ignore the rest
                     }
