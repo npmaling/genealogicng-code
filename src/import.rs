@@ -50,7 +50,7 @@ pub fn search_file_line_by_line(file_path: &str) {
         eventname: "".to_string(),
     };
 
-    // this is the main/major part of the funtion.
+    // this is the main/major part of the function.
     while let Some(line) = lines.next() {
         let line = line.unwrap();
 
@@ -91,12 +91,10 @@ pub fn search_file_line_by_line(file_path: &str) {
                         try_persona.description_comments = "".to_string();
                     }
                     "BIRT" => {
-                        let event_type: &str = "Birth";
-                        process_event(&mut lines, &mut try_event, &event_type);
+                        process_event(&mut lines, &mut try_event, "Birth");
                     }
                     "CHR" | "BAPM" | "BARM" | "BASM" | "BLES" => {
-                        let event_type: &str = "Chr/Bapt";
-                        process_event(&mut lines, &mut try_event, &event_type);
+                        process_event(&mut lines, &mut try_event, "Chr/Bapt");
                     }
                     "DEAT" => match *token_three {
                         // This may cause a problem.... If there *is* a death date, the death date/place will be ignored.
@@ -111,48 +109,87 @@ pub fn search_file_line_by_line(file_path: &str) {
                             try_event.eventname = "".to_string();
                         }
                         _ => {
-                            let event_type: &str = "Death";
-                            process_event(&mut lines, &mut try_event, &event_type);
+                            process_event(&mut lines, &mut try_event, "Death");
                         }
-                    },
+                    }
                     "BURI" => {
-                        let event_type: &str = "Burial";
-                        process_event(&mut lines, &mut try_event, &event_type);
+                        process_event(&mut lines, &mut try_event, "Burial");
                     }
                     "CREM" => {
-                        let event_type: &str = "Cremation";
-                        process_event(&mut lines, &mut try_event, &event_type);
+                        process_event(&mut lines, &mut try_event, "Cremation");
                     }
                     "CENS" => {
-                        let event_type: &str = "Census";
-                        process_event(&mut lines, &mut try_event, &event_type);
+                        process_event(&mut lines, &mut try_event, "Census");
                     }
                     "WILL" => {
-                        let event_type: &str = "Will";
-                        process_event(&mut lines, &mut try_event, &event_type);
+                        process_event(&mut lines, &mut try_event, "Will");
                     }
                     "PROB" => {
-                        let event_type: &str = "Probate";
-                        process_event(&mut lines, &mut try_event, &event_type);
+                        process_event(&mut lines, &mut try_event, "Probate");
+                    }
+                    "EDUC" => {
+                        process_event(&mut lines, &mut try_event, "Education");
+                    }
+                    "GRAD" => {
+                        process_event(&mut lines, &mut try_event, "Graduation");
+                    }
+                    "EMIG" => {
+                        process_event(&mut lines, &mut try_event, "Emigration");
+                    }
+                    "IMMI" => {
+                        process_event(&mut lines, &mut try_event, "Immigration");
+                    }
+                    "NATU" => {
+                        process_event(&mut lines, &mut try_event, "Naturalization");
+                    }
+                    "OCCU" => {
+                        process_event(&mut lines, &mut try_event, "Occupation");
+                    }
+                    "ORDN" => {
+                        process_event(&mut lines, &mut try_event, "Ordination");
+                    }
+                    "RELI" => {
+                        process_event(&mut lines, &mut try_event, "Religion");
+                    }
+                    "RESI" => {
+                        process_event(&mut lines, &mut try_event, "Residence");
+                    }
+                    "RETI" => {
+                        process_event(&mut lines, &mut try_event, "Retirement");
                     }
                     "EVEN" => {
                         let event_type: &str = "Event";
-                        // process_event(&mut lines, &mut try_event, &event_type);
                         if let Some(next_line) = lines.next() {
-                            let next_line = next_line.unwrap();
+                            let next_line = next_line.unwrap_or_default();
                             if next_line.contains("TYPE") && next_line.len() > 7 {
-                                let d = next_line.get(7..).unwrap();
+                                let d = next_line.get(7..).unwrap_or_default();
                                 let e: String = format!("{} type: {}", &event_type, d);
                                 try_event.eventname = e.to_string();
                             }
-                            let dbstr = Event::create_event(try_event.clone());
-                            touch_database(dbstr);
-                            println!("{:?}", try_event);
-                            try_event.eventid = 0;
-                            try_event.eventdate = "".to_string();
-                            try_event.eventname = "".to_string();
-                        }  
-                    }
+                        }
+                        if let Some(next_line) = lines.next() {
+                            let next_line = next_line.unwrap_or_default();
+                            if next_line.contains("DATE") && next_line.len() > 7 {
+                                let d = next_line.get(7..).unwrap_or_default();
+                                let e: String = format!("{} date: {}", &event_type, d);
+                                try_event.eventdate = e.to_string();
+                            }
+                        }
+                        if let Some(next_line) = lines.next() {
+                            let next_line = next_line.unwrap_or_default();
+                            if next_line.contains("PLAC") && next_line.len() > 7 {
+                                let d = next_line.get(7..).unwrap_or_default();
+                                let e: String = format!("{} place: {}", &event_type, d);
+                                try_event.eventname = e.to_string();
+                            }
+                        }
+                        let dbstr = Event::create_event(try_event.clone());
+                        touch_database(dbstr);
+                        println!("{:?}", try_event);
+                        try_event.eventid = 0;
+                        try_event.eventdate = "".to_string();
+                        try_event.eventname = "".to_string();
+                        }
                     _ => {
                         // ignore the rest
                     }
@@ -161,7 +198,7 @@ pub fn search_file_line_by_line(file_path: &str) {
             "2" => {
                 match *token_two {
                     "GIVN" | "SURN" => {
-                        let c = line.get(7..).unwrap();
+                        let c = line.get(7..).unwrap_or_default();
                         output.push(c.to_string());
                     }
                     _ => {
@@ -183,17 +220,16 @@ fn process_event(
     event_type: &str,
 ) {
     if let Some(next_line) = lines.next() {
-        let next_line = next_line.unwrap();
-
+        let next_line = next_line.unwrap_or_default();
         if next_line.contains("DATE") && next_line.len() > 7 {
-            let d = next_line.get(7..).unwrap();
+            let d = next_line.get(7..).unwrap_or_default();
             let e: String = format!("{} date: {}", &event_type, d);
             try_event.eventdate = e.to_string();
         }
         if let Some(next_line) = lines.next() {
-            let next_line = next_line.unwrap();
+            let next_line = next_line.unwrap_or_default();
             if next_line.contains("PLAC") && next_line.len() > 7 {
-                let d = next_line.get(7..).unwrap();
+                let d = next_line.get(7..).unwrap_or_default();
                 let e: String = format!("{} place: {}", &event_type, d);
                 try_event.eventname = e.to_string();
             }
