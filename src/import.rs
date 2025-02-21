@@ -208,6 +208,6 @@ fn process_event(
 fn touch_database(dbstr: String) {
     let _ = dbconn(
         &dbstr,
-        "C:/Users/npmal/projects/genealogicng-code/database.db".to_string(),
+        "C:/Users/npmal/projects/genealogicng-code/glNG.db".to_string(),
     );
 }
