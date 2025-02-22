@@ -14,6 +14,7 @@
 -- limitations under the License.
 */
 
+use std::f32::consts::E;
 use std::fs::File;
 use std::io::BufRead;
 use std::io::BufReader;
@@ -158,38 +159,29 @@ pub fn search_file_line_by_line(file_path: &str) {
                         process_event(&mut lines, &mut try_event, "Retirement");
                     }
                     "EVEN" => {
-                        let event_type: &str = "Event";
-                        if let Some(next_line) = lines.next() {
+                        let mut e_type = String::new();
+                        let mut e_place = String::new();
+                        while let Some(next_line) = lines.next() {
                             let next_line = next_line.unwrap_or_default();
-                            if next_line.contains("TYPE") && next_line.len() > 7 {
-                                let d = next_line.get(7..).unwrap_or_default();
-                                let e: String = format!("{} type: {}", &event_type, d);
-                                try_event.eventname = e.to_string();
+                            if next_line.contains("TYPE") {
+                                e_type = next_line.get(7..).unwrap_or_default().to_string();
                             }
-                        }
-                        if let Some(next_line) = lines.next() {
-                            let next_line = next_line.unwrap_or_default();
-                            if next_line.contains("DATE") && next_line.len() > 7 {
-                                let d = next_line.get(7..).unwrap_or_default();
-                                let e: String = format!("{} date: {}", &event_type, d);
+                            if next_line.contains("DATE") {
+                                let e_date = next_line.get(7..).unwrap_or_default();
+                                let e: String = format!("Event Date: {}", &e_date);
                                 try_event.eventdate = e.to_string();
                             }
-                        }
-                        if let Some(next_line) = lines.next() {
-                            let next_line = next_line.unwrap_or_default();
-                            if next_line.contains("PLAC") && next_line.len() > 7 {
-                                let d = next_line.get(7..).unwrap_or_default();
-                                let e: String = format!("{} place: {}", &event_type, d);
-                                try_event.eventname = e.to_string();
+                            if next_line.contains("PLAC") {
+                                e_place = next_line.get(7..).unwrap_or_default().to_string();
                             }
                         }
+                        let e: String = format!("Type: {}; Place: {}", &e_type, &e_place);
+                        try_event.eventname = e.to_string();
                         let dbstr = Event::create_event(try_event.clone());
                         touch_database(dbstr);
-                        println!("{:?}", try_event);
-                        try_event.eventid = 0;
                         try_event.eventdate = "".to_string();
                         try_event.eventname = "".to_string();
-                        }
+                                    }
                     _ => {
                         // ignore the rest
                     }
