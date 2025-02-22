@@ -18,7 +18,7 @@ use crate::import::search_file_line_by_line;
 mod import;
 
 fn main() {
-    search_file_line_by_line("/Users/npmal/projects/glngimport/Ancestry-data.ged");
-//    search_file_line_by_line("/Users/npmal/projects/glngimport/complete.ged");
-
+//    search_file_line_by_line("/Users/npmal/projects/glngimport/Ancestry-data.ged");
+    search_file_line_by_line("/Users/npmal/projects/glngimport/complete.ged");
+//    search_file_line_by_line("/Users/npmal/projects/glngimport/FS-20240604_Legacy.ged");
 } // main

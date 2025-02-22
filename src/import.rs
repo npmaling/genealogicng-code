@@ -14,7 +14,6 @@
 -- limitations under the License.
 */
 
-use std::f32::consts::E;
 use std::fs::File;
 use std::io::BufRead;
 use std::io::BufReader;
@@ -158,21 +157,27 @@ pub fn search_file_line_by_line(file_path: &str) {
                     "RETI" => {
                         process_event(&mut lines, &mut try_event, "Retirement");
                     }
+
                     "EVEN" => {
                         let mut e_type = String::new();
                         let mut e_place = String::new();
-                        while let Some(next_line) = lines.next() {
-                            let next_line = next_line.unwrap_or_default();
-                            if next_line.contains("TYPE") {
-                                e_type = next_line.get(7..).unwrap_or_default().to_string();
-                            }
-                            if next_line.contains("DATE") {
-                                let e_date = next_line.get(7..).unwrap_or_default();
-                                let e: String = format!("Event Date: {}", &e_date);
-                                try_event.eventdate = e.to_string();
-                            }
-                            if next_line.contains("PLAC") {
-                                e_place = next_line.get(7..).unwrap_or_default().to_string();
+
+                        let v = vec!["type", "date", "place"];
+
+                        for _ in &v {
+                            if let Some(next_line) = lines.next() {
+                                let next_line = next_line.unwrap_or_default();
+                                if next_line.contains("TYPE") {
+                                    e_type = next_line.get(7..).unwrap_or_default().to_string();
+                                }
+                                if next_line.contains("DATE") {
+                                    let e_date = next_line.get(7..).unwrap_or_default();
+                                    let e: String = format!("Event Date: {}", &e_date);
+                                    try_event.eventdate = e.to_string();
+                                }
+                                if next_line.contains("PLAC") {
+                                    e_place = next_line.get(7..).unwrap_or_default().to_string();
+                                }
                             }
                         }
                         let e: String = format!("Type: {}; Place: {}", &e_type, &e_place);
@@ -181,7 +186,8 @@ pub fn search_file_line_by_line(file_path: &str) {
                         touch_database(dbstr);
                         try_event.eventdate = "".to_string();
                         try_event.eventname = "".to_string();
-                                    }
+                    }
+
                     _ => {
                         // ignore the rest
                     }
