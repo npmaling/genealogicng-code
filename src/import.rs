@@ -74,12 +74,11 @@ pub fn search_file_line_by_line(file_path: &str) {
             "1" => {
                 match *token_two {
                     "ADOP"=> {
-                        process_event(&mut lines, &mut try_event, "Chr/Bapt");
+                        process_event(&mut lines, &mut try_event, "Adoption");
                     }
                     "BAPM" | "BARM" | "BASM" | "BLES" => {
                         process_event(&mut lines, &mut try_event, "Baptism/Bar Mitzvah/Bat Mitzvah/Blessing");
                     }
-                    // Can have a "Y" tag, like "DEAT", so we need to check for that.
                     "BIRT" => match *token_three {
                         // This may cause a problem.... If there *is* a BIRT date, the birth date/place will be ignored.
                         // This is because the next line is not checked for the "DATE" or "PLAC" keyword.
@@ -105,7 +104,6 @@ pub fn search_file_line_by_line(file_path: &str) {
                     "CENS" => {
                         process_event(&mut lines, &mut try_event, "Census");
                     }
-                    // Can have a "Y" tag, like "DEAT", so we need to check for that.
                     "CHR" => match *token_three  {
                         // This may cause a problem.... If there *is* a CHR date, the Christening date/place 
                         // will be ignored. This is because the next line is not checked for the "DATE" or 
@@ -119,7 +117,7 @@ pub fn search_file_line_by_line(file_path: &str) {
                             try_event.eventname = "".to_string();
                         }
                         _ => {
-                            process_event(&mut lines, &mut try_event, "Death");
+                            process_event(&mut lines, &mut try_event, "Christening");
                         }
                     }
                     "CHRA" | "CONF" | "FCOM" | "ORDN" => {
@@ -219,6 +217,7 @@ pub fn search_file_line_by_line(file_path: &str) {
                     "SSN" => {
                         process_event(&mut lines, &mut try_event, "Social Security Number");
                     }
+                    // Royalty, nobility, etc.; not of a book, etc. So need to place limit on this.
                     "TITL" => {
                         process_event(&mut lines, &mut try_event, "Title");
                     }
